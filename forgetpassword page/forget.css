@@ -1,0 +1,125 @@
+/* 
+
+/* General Styles */
+body {
+    color: #eee;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; /* Prevents scrollbars */
+    background: linear-gradient(-45deg, #080707, #31113a, #062136, #0b0017);
+    background-size: 400% 400%;
+}
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    text-align: center;
+    /* padding: 60px 20px; */
+ 
+}
+.hero-title {
+    font-size: 3rem;
+    font-family: 'Orbitron', sans-serif;
+    color: #00eaff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeIn 1s ease-in-out;
+}
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-top: 10px;
+    animation: slideUp 1s ease-in-out;
+}
+
+/* Form Label */
+form label {
+    display: inline-block;
+    width: 100%;
+    padding: 1px;
+    
+}
+form input{
+    background-color: rgb(32, 33, 34);
+    width: 100%;
+    background: linear-gradient(to left, rgba(9, 148, 255, 0.15), rgba(255, 0, 255, 0.15));
+    color:white;
+}
+form button{
+    width:100%;
+    /* background-color:#00eaff;*/
+    background: linear-gradient(to left, rgb(9, 148, 255), rgb(255, 0, 255));
+    color:rgb(0, 0, 0);
+    border:none;
+}
+form a{
+    color:#00eaff;
+}
+
+/* Centered Paragraphs */
+p {
+    text-align: center;
+}
+
+/* Animated Gradient Border for Login Box */
+.box {
+    position: relative;
+    background: rgba(248, 15, 15, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    width: 300px;
+    padding: 30px;
+    border-radius: 30px;
+    margin-top: 5px;
+    margin-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.6);
+    text-align:center;
+
+}
+
+/* Gradient Border with Animation */
+
+
+
+
+/* Icon Gradient Effect */
+.icon{
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.icon i {
+    font-size: 4rem;
+    background: linear-gradient(to right, rgb(9, 148, 255), rgb(255, 0, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect for Icons */
+.icon i:hover {
+    transform: scale(2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
