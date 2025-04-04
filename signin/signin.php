@@ -48,7 +48,7 @@
     <label>Driving Licence PICTURE:</label>
     <input type="file" name="dlFile"><br><br>
 
-    <button type="submit">SUBMIT</button>
+    <button type="submit" >SUBMIT</button>
   </form>
 </body>
 </html>

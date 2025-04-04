@@ -46,7 +46,9 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssssssssssssss", $firstName, $lastName, $phoneNo, $email, $state, $city, $address1, $address2, $dob, $aadharNumber, $aadharPath, $carNumber, $dlNumber, $dlPath);
 
 if ($stmt->execute()) {
-  echo "✅ Form submitted successfully!";
+  $last_id = $stmt->insert_id; // get the inserted user ID
+  header("Location: ..\signin\profile.php?id=$last_id");
+  exit();
 } else {
   echo "❌ Error: " . $stmt->error;
 }
