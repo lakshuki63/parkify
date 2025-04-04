@@ -27,7 +27,7 @@
         <label for="email">PASSWORD:</label>
         <input type="password" name="password" id="password">
         
-            <p><a href="../forgetpassword page/fg.html"> Forget Password ?</a></p>
+            <p><a href="forgetpassword page\forget.php"> Forget Password ?</a></p>
         <button id="submit"><b>SUBMIT</b> </button>
         </div>
 
