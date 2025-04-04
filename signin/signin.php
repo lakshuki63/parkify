@@ -2,31 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard with Sliding Panel</title>
-  <link rel="stylesheet" href="signin.css">
+  <title>Registration Form</title>
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="menu-item" onclick="openPanel('personal')">👤</div>
-      <div class="menu-item" onclick="openPanel('history')">📜</div>
-      <div class="menu-item" onclick="openPanel('settings')">⚙️</div>
-    </div>
+  <form action="save_form.php" method="POST" enctype="multipart/form-data">
+    <label>FIRST NAME :</label>
+    <input type="text" name="firstName"><br><br>
 
-    <!-- Overlay Panel -->
-    <div class="overlay" id="overlay" onclick="closePanel()"></div>
+    <label>LAST NAME :</label>
+    <input type="text" name="lastName"><br><br>
 
-    <!-- Sliding Panel -->
-    <div class="slide-panel" id="slidePanel">
-      <span class="close-btn" onclick="closePanel()">×</span>
-      <div id="panelContent">
-        <h2>Welcome!</h2>
-        <p>Select an option from the sidebar.</p>
-      </div>
-    </div>
-  </div>
+    <label>PHONE NUMBER :</label>
+    <input type="text" name="phoneNo"><br><br>
 
-  <script src="signin.js"></script>
+    <label>EMAIL:</label>
+    <input type="text" name="email"><br><br>
+
+    <label>STATE:</label>
+    <input type="text" name="state"><br><br>
+
+    <label>CITY:</label>
+    <input type="text" name="city"><br><br>
+
+    <label>ADDRESS 1:</label>
+    <input type="text" name="address1"><br><br>
+
+    <label>ADDRESS 2:</label>
+    <input type="text" name="address2"><br><br>
+
+    <label>Date of Birth:</label>
+    <input type="text" name="dob"><br><br>
+
+    <label>Aadhar Number :</label>
+    <input type="text" name="aadharNumber"><br><br>
+
+    <label>INSERT AADHAR CARD :</label>
+    <input type="file" name="aadharFile"><br><br>
+
+    <label>CAR NUMBER:</label>
+    <input type="text" name="carNumber"><br><br>
+
+    <label>Driving Licence Number:</label>
+    <input type="text" name="dlNumber"><br><br>
+
+    <label>Driving Licence PICTURE:</label>
+    <input type="file" name="dlFile"><br><br>
+
+    <button type="submit">SUBMIT</button>
+  </form>
 </body>
 </html>
