@@ -38,8 +38,8 @@
 
         </div>
 
-
+    <script src="fg.js"></script>
         </form>
-    <script src ="forget.js"></script>
+    
 </body>
 </html>
