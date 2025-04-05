@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #080707, #31113a, #062136, #0b0017);
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+label{
+    font-family: 'Times New Roman', Times, serif;
+}
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    width: 100%;
+    background: linear-gradient(-45deg, #080707, #31113a, #062136, #0b0017);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+select, input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #333;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+button {
+    background: #ff9800;
+    cursor: pointer;
+}
+button:hover {
+    background: #e68900;
+}
