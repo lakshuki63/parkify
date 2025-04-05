@@ -30,12 +30,18 @@ if ($result->num_rows === 1) {
         // You can start a session here if needed
         // session_start();
         // $_SESSION['username'] = $username;
-        // header("Location: dashboard.php");
+        header("Location: ../userboard/ub.php");
     } else {
-        echo "❌ Incorrect password.";
+        echo "<script>
+        alert('Incorrect password ❌');
+        window.location.href = '../registeration/register.php'; // Change to your login page
+        </script>";
     }
 } else {
-    echo "❌ User not found.";
+    echo "<script>
+        alert('Incorrect password ❌');
+        window.location.href = '../registeration/register.php'; // Change to your login page
+        </script>";
 }
 
 $stmt->close();

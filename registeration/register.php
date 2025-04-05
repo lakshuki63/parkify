@@ -37,6 +37,6 @@
         <i class="fa-brands fa-apple" id="apple"></i>
         </div>
     </form>
-    <script src ="reg.js"></script>
+
 </body>
 </html>
