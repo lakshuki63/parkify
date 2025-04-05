@@ -43,7 +43,7 @@ function generateCaptcha() {
           document.getElementById("message").innerHTML = "<span style='color:green;'>Captcha Verified and email sent successfully!</span>";
           
           setTimeout(() => {
-            window.location.href = "../load/load.html"; // Ensure the path is correct
+            window.location.href = "../load/loading.php";
         }, 1000);      
   
       }else{

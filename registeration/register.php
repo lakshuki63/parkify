@@ -27,12 +27,12 @@
         <label for="email">PASSWORD:</label>
         <input type="password" name="password" id="password">
         
-            <p><a href="../forgetpassword page/fg.html"> Forget Password ?</a></p>
+            <p><a href="..\forgetpassword page\fg.php"> Forget Password ?</a></p>
         <button id="submit"><b>SUBMIT</b> </button>
         </div>
 
                   
-        <p class="signup">New User?<a href="https://5501-idx-ap-1742046932859.cluster-mwrgkbggpvbq6tvtviraw2knqg.cloudworkstations.dev/index2/index2.html">Sign Up Here</a> Or login using</p>
+        <p class="signup">New User?<a href="..\signin\signin.php">Sign Up Here</a> Or login using</p>
         
         <div class="icon">
         <i class="fa-brands fa-google" id="google"></i>

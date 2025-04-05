@@ -2,8 +2,9 @@
 <html>
     <head>
         <title>Loading</title>
-        <link rel="stylesheet" href="load.css">
-        <meta http-equiv="refresh" content="7;../registeration/reg.html"> 
+        <link rel="stylesheet" href="load.css"> 
+        <!-- one must copy relative path of css file -->
+        <meta http-equiv="refresh" content="3;../registeration/register.php"> 
     </head>
     <body>
         <div class="container-load">
