@@ -19,7 +19,7 @@ $result = $conn->query($sql);
   <title>All User Passwords</title>
   <style>
     table {
-      width: 70%;
+      width: 80%;
       margin: 30px auto;
       border-collapse: collapse;
     }
@@ -40,6 +40,7 @@ $result = $conn->query($sql);
     <tr>
       <th>ID</th>
       <th>User ID</th>
+      <th>Username</th>
       <th>Password (Hashed)</th>
       <th>Created At</th>
     </tr>
@@ -48,6 +49,7 @@ $result = $conn->query($sql);
       <tr>
         <td><?= $row['id'] ?></td>
         <td><?= $row['user_id'] ?></td>
+        <td><?= $row['username'] ?></td>
         <td><?= $row['password'] ?></td>
         <td><?= $row['created_at'] ?></td>
       </tr>

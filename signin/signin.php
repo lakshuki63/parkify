@@ -6,9 +6,12 @@
 </head>
 <body>
   <form action="save_form.php" method="POST" enctype="multipart/form-data">
+  <label>CRETATE A USER NAME</label>
+  <input type="text" name="Username"><br><br>
+
     <label>FIRST NAME :</label>
     <input type="text" name="firstName"><br><br>
-
+    
     <label>LAST NAME :</label>
     <input type="text" name="lastName"><br><br>
 
