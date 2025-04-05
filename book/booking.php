@@ -49,15 +49,22 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database connection
-$conn = new mysqli("localhost", "root", "", "park");
+// Step 1: Connect to MySQL
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "park";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check for connection error
 if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);
+    die("❌ Connection failed: " . $conn->connect_error);
 }
 
+// Step 2: Handle Form Submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data safely
     $location = $_POST['location'] ?? '';
     $slot = $_POST['slot'] ?? '';
     $time = $_POST['time'] ?? '';
@@ -66,34 +73,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate input
     if (empty($location) || empty($slot) || empty($time) || empty($vehicle) || empty($payment)) {
-        echo "⚠️ Please fill in all required fields.";
+        echo "⚠️ Please fill all the required fields.";
         exit;
     }
 
-    // Prepare SQL statement
-    $sql = "INSERT INTO bookings (location, slot, time, vehicle, payment_method) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-
+    // Step 3: Insert into database
+    $stmt = $conn->prepare("INSERT INTO bookings (location, slot, time, vehicle, payment_method) VALUES (?, ?, ?, ?, ?)");
     if (!$stmt) {
-        die("SQL Error: " . $conn->error);
+        die("❌ SQL Error: " . $conn->error);
     }
 
     $stmt->bind_param("sssss", $location, $slot, $time, $vehicle, $payment);
-
-    // Execute statement and check if successful
+    
+    // Step 4: Execute and show confirmation
     if ($stmt->execute()) {
-        echo "✅ Booking successful!<br>";
-        echo "📍 Location: $location<br>";
-        echo "🅿️ Slot: $slot<br>";
-        echo "⏰ Time: $time<br>";
-        echo "🚗 Vehicle: $vehicle<br>";
-        echo "💳 Payment: $payment<br>";
-        echo '<br><a href="book.html">🔙 Back to Booking Page</a>';
+        echo '<link rel="stylesheet" href="book.css">';
+        echo '<div class="container">';
+        echo "<h2>✅ Booking Confirmed!</h2>";
+        echo "<p>📍 <strong>$location</strong> — 🅿️ Slot <strong>$slot</strong></p>";
+        echo "<p>⏰ <strong>$time</strong></p>";
+        echo "<p>🚗 Vehicle: <strong>$vehicle</strong></p>";
+        echo "<p>💳 Payment: <strong>$payment</strong></p>";
+        echo '<br><a href="book.html"><button>🔙 Book Another Slot</button></a>';
+        echo '</div>';
     } else {
-        echo "❌ Error: " . $stmt->error;
+        echo "❌ Booking failed: " . $stmt->error;
     }
 
-    // Close connections
     $stmt->close();
     $conn->close();
 }
