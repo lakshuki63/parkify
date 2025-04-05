@@ -14,15 +14,12 @@
         <p class="hero-subtitle">Smart ,Effortless & Secure Parking, Anytime</p>
       </header>
     </div>
-    <form >
+    <form action="ifok.php" method="POST">
         <div class="box">
         <label for="userName">USER-NAME:</label>
         <input type="text" name="userName" id="userName">
         <br><br><br>
 
-        <label for="email">EMAIL:</label>
-        <input type="text" name="email" id="email">
-        <br><br><br>
 
         <label for="email">PASSWORD:</label>
         <input type="password" name="password" id="password">
