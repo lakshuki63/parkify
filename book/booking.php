@@ -53,7 +53,7 @@ ini_set('display_errors', 1);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "park";
+$dbname = "smart_parking";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("❌ SQL Error: " . $conn->error);
     }
 
-    $stmt->bind_param("sssss", $location, $slot, $time, $vehicle, $payment);
+  
     
     // Step 4: Execute and show confirmation
     if ($stmt->execute()) {
