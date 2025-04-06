@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Free Parking Finder</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <style>
+    body { margin: 0; font-family: Arial; }
+    #map { height: 70vh; }
+    #search-container {
+      padding: 10px;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    #results { padding: 10px; }
+    input[type="text"] {
+      width: 60%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="search-container">
+  <input type="text" id="locationInput" placeholder="Enter city or area..." />
+  <button onclick="searchLocation()">Search</button>
+</div>
+
+<div id="map"></div>
+<div id="results"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+<script>
+  let map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+
+  // Add OSM Tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Function to search location using Nominatim
+  function searchLocation() {
+    const query = document.getElementById("locationInput").value;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length === 0) {
+          alert("Location not found");
+          return;
+        }
+
+        const lat = parseFloat(data[0].lat);
+        const lon = parseFloat(data[0].lon);
+
+        map.setView([lat, lon], 16);
+
+        // Call Overpass to find parking nearby
+        fetchParkingNearby(lat, lon);
+      });
+  }
+
+  // Function to fetch nearby parking using Overpass API
+  function fetchParkingNearby(lat, lon) {
+    const query = `
+      [out:json];
+      (
+        node["amenity"="parking"](around:1000,${lat},${lon});
+        way["amenity"="parking"](around:1000,${lat},${lon});
+        relation["amenity"="parking"](around:1000,${lat},${lon});
+      );
+      out center;
+    `;
+
+    fetch("https://overpass-api.de/api/interpreter", {
+      method: "POST",
+      body: query
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("results").innerHTML = `<h3>Parking Spots Found: ${data.elements.length}</h3>`;
+      data.elements.forEach(el => {
+        const lat = el.lat || el.center?.lat;
+        const lon = el.lon || el.center?.lon;
+        const name = el.tags?.name || "Unnamed Parking";
+
+        L.marker([lat, lon])
+          .addTo(map)
+          .bindPopup(`<b>${name}</b>`)
+          .openPopup();
+
+        // Also list below the map
+        const div = document.createElement("div");
+        div.textContent = name;
+        document.getElementById("results").appendChild(div);
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
