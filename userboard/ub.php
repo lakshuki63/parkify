@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="ub.css">
 </head>
 <body>
+
+<a href="userDashboardMap.php">
+  <button>Go map and search for nearby parking areas</button>
+</a>
   <div class="container">
     <!-- Sidebar -->
     <div class="sidebar">
