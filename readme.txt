@@ -36,8 +36,8 @@ Parkify is a smart and user-friendly parking slot booking system that helps user
 
 
 OUR TREAM :
-Lakshuki Hatwar
-Siddhi Dhoke
-Nakul Bhadade
-Ness Dubey
+Lakshuki Hatwar-lakshuki63
+Siddhi Dhoke -sidii1
+Nakul Bhadade-drachmacollector
+Ness Dubey-n3ssdub3y
 Pranjal Bhagel
