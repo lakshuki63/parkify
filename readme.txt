@@ -32,6 +32,8 @@ Parkify is a smart and user-friendly parking slot booking system that helps user
    ```bash
    git clone https://github.com/your-username/parkify.git
 
+2. Run the load/loading.php file 
+
 
 OUR TREAM :
 Lakshuki Hatwar
