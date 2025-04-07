@@ -36,7 +36,7 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    fetch("https://api.npoint.io/07b0da5498305e48d161")
+    fetch("https://api.npoint.io/07b0da5498305e48d161")//from brave
       .then(response => response.json())
       .then(data => {
         for (const state in data) {
