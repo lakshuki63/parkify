@@ -1,125 +1,102 @@
-<!-- <?php
-// Capture query parameters
-$parkingName = $_GET['name'] ?? 'Unknown';
-$city = $_GET['city'] ?? 'Not Provided';
-$area = $_GET['area'] ?? 'Not Provided';
-$state = $_GET['state'] ?? 'Not Provided';
-$available = $_GET['available'] ?? 'N/A';
-$total = $_GET['total'] ?? 'N/A';
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Book Parking - <?php echo htmlspecialchars($parkingName); ?></title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h2 { color: #333; }
-    .info { background: #f2f2f2; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-    form { background: #e9ffe9; padding: 20px; border-radius: 8px; }
-    label { display: block; margin: 10px 0 5px; }
-    input, select { width: 100%; padding: 8px; }
-    button { margin-top: 15px; padding: 10px 15px; background: green; color: white; border: none; border-radius: 5px; }
-  </style>
-</head>
-<body>
-
-<h2>Book Your Slot at <?php echo htmlspecialchars($parkingName); ?></h2>
-
-<div class="info">
-  <p><strong>State:</strong> <?php echo htmlspecialchars($state); ?></p>
-  <p><strong>City:</strong> <?php echo htmlspecialchars($city); ?></p>
-  <p><strong>Area:</strong> <?php echo htmlspecialchars($area); ?></p>
-  <p><strong>Available Slots:</strong> <?php echo htmlspecialchars($available); ?> / <?php echo htmlspecialchars($total); ?></p>
-</div>
-
-<form action="confirm_booking.php" method="post">
-  <input type="hidden" name="parkingName" value="<?php echo htmlspecialchars($parkingName); ?>">
-  <input type="hidden" name="city" value="<?php echo htmlspecialchars($city); ?>">
-  <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
-  <input type="hidden" name="state" value="<?php echo htmlspecialchars($state); ?>">
-
-  <label for="userName">Your Name:</label>
-  <input type="text" id="userName" name="userName" required>
-
-  <label for="phone">Phone Number:</label>
-  <input type="tel" id="phone" name="phone" required>
-
-  <label for="vehicle">Vehicle Type:</label>
-  <select id="vehicle" name="vehicle">
-    <option value="Car">Car</option>
-    <option value="Bike">Bike</option>
-    <option value="Scooter">Scooter</option>
-  </select>
-
-  <label for="slotTime">Select Date & Time:</label>
-  <input type="datetime-local" id="slotTime" name="slotTime" required>
-
-  <button type="submit">Confirm Booking</button>
-</form>
-
-</body>
-</html> -->
-
-
 <?php
-$parkingName = $_GET['name'] ?? 'Unknown';
-$city = $_GET['city'] ?? 'Not Provided';
-$area = $_GET['area'] ?? 'Not Provided';
-$state = $_GET['state'] ?? 'Not Provided';
-$available = $_GET['available'] ?? 'N/A';
-$total = $_GET['total'] ?? 'N/A';
+session_start();
+
+
+if (!isset($_SESSION['username'])) {
+    header("Location: ../registeration/register.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+echo "Session username: " . $_SESSION['username'] . "<br>";
+
+// Connect to database
+$conn = new mysqli("localhost", "root", "", "user_info");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch user details
+$sql = "SELECT firstName, lastName, phoneNo, email, carNumber FROM user_form WHERE username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+    $firstName = $user['firstName'];
+    $lastName = $user['lastName'];
+    $fullName = $firstName . " " . $lastName;
+    $phone = $user['phoneNo'];
+    $email = $user['email'];
+    $carNumber = $user['carNumber'];
+} else {
+    echo "User details not found.";
+    exit();
+}
+
+$stmt->close();
+
+// Get parking details from URL
+$parkingName = $_GET['name'] ?? '';
+$state = $_GET['state'] ?? '';
+$city = $_GET['city'] ?? '';
+$area = $_GET['area'] ?? '';
+$available = $_GET['available'] ?? '';
+$total = $_GET['total'] ?? '';
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Book Parking - <?php echo htmlspecialchars($parkingName); ?></title>
+  <title>Booking Page - Parkify</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h2 { color: #333; }
-    .info { background: #f2f2f2; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-    form { background: #e9ffe9; padding: 20px; border-radius: 8px; }
-    label { display: block; margin: 10px 0 5px; }
-    input, select { width: 100%; padding: 8px; }
-    button { margin-top: 15px; padding: 10px 15px; background: green; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    label { display: block; margin-top: 10px; }
+    input[readonly] { background-color: #f1f1f1; }
   </style>
 </head>
 <body>
+  <h2>Book Your Parking Slot</h2>
 
-<h2>Book Your Slot at <?php echo htmlspecialchars($parkingName); ?></h2>
+  <form method="POST" action="submit_booking.php">
+    <!-- User Info -->
+    <label>Username:</label>
+    <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>" readonly>
 
-<div class="info">
-  <p><strong>State:</strong> <?php echo htmlspecialchars($state); ?></p>
-  <p><strong>City:</strong> <?php echo htmlspecialchars($city); ?></p>
-  <p><strong>Area:</strong> <?php echo htmlspecialchars($area); ?></p>
-  <p><strong>Available Slots:</strong> <?php echo htmlspecialchars($available); ?> / <?php echo htmlspecialchars($total); ?></p>
-</div>
+    <label>Full Name:</label>
+    <input type="text" name="fullname" value="<?php echo htmlspecialchars($fullName); ?>" readonly>
 
-<form action="confirm_booking.php" method="post">
-  <input type="hidden" name="parkingName" value="<?php echo htmlspecialchars($parkingName); ?>">
-  <input type="hidden" name="city" value="<?php echo htmlspecialchars($city); ?>">
-  <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
-  <input type="hidden" name="state" value="<?php echo htmlspecialchars($state); ?>">
+    <label>Email:</label>
+    <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
 
-  <label for="userName">Your Name:</label>
-  <input type="text" id="userName" name="userName" required>
+    <label>Phone:</label>
+    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone); ?>" readonly>
 
-  <label for="phone">Phone Number:</label>
-  <input type="tel" id="phone" name="phone" required>
+    <label>Car Number:</label>
+    <input type="text" name="car_number" value="<?php echo htmlspecialchars($carNumber); ?>" readonly>
 
-  <label for="vehicle">Vehicle Type:</label>
-  <select id="vehicle" name="vehicle" required>
-    <option value="Car">Car</option>
-    <option value="Bike">Bike</option>
-    <option value="Scooter">Scooter</option>
-  </select>
+    <!-- Parking Info -->
+    <label>Parking Spot:</label>
+    <input type="text" name="parking_name" value="<?php echo htmlspecialchars($parkingName); ?>" readonly>
 
-  <label for="slotTime">Select Date & Time:</label>
-  <input type="datetime-local" id="slotTime" name="slotTime" required>
+    <label>State:</label>
+    <input type="text" name="state" value="<?php echo htmlspecialchars($state); ?>" readonly>
 
-  <button type="submit">Confirm Booking</button>
-</form>
+    <label>City:</label>
+    <input type="text" name="city" value="<?php echo htmlspecialchars($city); ?>" readonly>
 
+    <label>Area:</label>
+    <input type="text" name="area" value="<?php echo htmlspecialchars($area); ?>" readonly>
+
+    <label>Available Slots:</label>
+    <input type="text" name="available" value="<?php echo htmlspecialchars($available); ?>" readonly>
+
+    <label>Total Slots:</label>
+    <input type="text" name="total" value="<?php echo htmlspecialchars($total); ?>" readonly>
+
+    <br><br>
+    <button type="submit">Confirm Booking</button>
+  </form>
 </body>
 </html>
