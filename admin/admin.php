@@ -14,7 +14,7 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #020024, #090979, #007cf0);
+      background: linear-gradient(-45deg, #080707, #1a0a2d, #001f3f, #0b0017);
       background-attachment: fixed;
       color: #fff;
       display: flex;
