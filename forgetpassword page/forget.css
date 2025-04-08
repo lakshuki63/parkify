@@ -1,6 +1,4 @@
-/* 
-
-/* General Styles */
+/* General Page Styling */
 body {
     color: #eee;
     font-family: 'Poppins', sans-serif;
@@ -9,117 +7,139 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden; /* Prevents scrollbars */
     background: linear-gradient(-45deg, #080707, #31113a, #062136, #0b0017);
     background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
 }
 
-/* Hero Section */
+/* Gradient animation */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hero Title Section */
 .hero {
     width: 100%;
     text-align: center;
-    /* padding: 60px 20px; */
- 
+    padding-top: 30px;
 }
+
 .hero-title {
     font-size: 3rem;
     font-family: 'Orbitron', sans-serif;
-    color: #00eaff;
+    color: #00b3ff;
     text-transform: uppercase;
     letter-spacing: 2px;
     animation: fadeIn 1s ease-in-out;
 }
+
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #aaa;
-    margin-top: 10px;
+    margin-top: 5px;
     animation: slideUp 1s ease-in-out;
 }
 
-/* Form Label */
-form label {
-    display: inline-block;
-    width: 100%;
-    padding: 1px;
-    
-}
-form input{
-    background-color: rgb(32, 33, 34);
-    width: 100%;
-    background: linear-gradient(to left, rgba(9, 148, 255, 0.15), rgba(255, 0, 255, 0.15));
-    color:white;
-}
-form button{
-    width:100%;
-    /* background-color:#00eaff;*/
-    background: linear-gradient(to left, rgb(9, 148, 255), rgb(255, 0, 255));
-    color:rgb(0, 0, 0);
-    border:none;
-}
-form a{
-    color:#00eaff;
-}
-
-/* Centered Paragraphs */
-p {
-    text-align: center;
-}
-
-/* Animated Gradient Border for Login Box */
+/* Main Box */
 .box {
     position: relative;
-    background: rgba(248, 15, 15, 0.05);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    border-radius: 10px;
-    width: 300px;
+    border-radius: 20px;
+    width: 320px;
     padding: 30px;
-    border-radius: 30px;
-    margin-top: 5px;
-    margin-bottom: 4px;
+    margin: 30px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
-    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.6);
-    text-align:center;
-
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.4);
 }
 
-/* Gradient Border with Animation */
+/* Labels & Inputs */
+label {
+    width: 100%;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
 
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to left, rgba(9, 148, 255, 0.15), rgba(255, 0, 255, 0.15));
+    color: #fff;
+    outline: none;
+}
 
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to left, rgb(9, 148, 255), rgb(255, 0, 255));
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
 
+button:hover {
+    transform: scale(1.03);
+}
 
-/* Icon Gradient Effect */
-.icon{
+/* Captcha Box */
+.captcha-box {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: #222;
+    color: #00eaff;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 1.2rem;
+}
+
+/* Icon */
+.icon {
+    margin: 10px 0;
     display: flex;
     justify-content: center;
-    gap: 3rem;
 }
 
 .icon i {
-    font-size: 4rem;
+    font-size: 2.5rem;
     background: linear-gradient(to right, rgb(9, 148, 255), rgb(255, 0, 255));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: inline-block;
     transition: transform 0.3s ease-in-out;
 }
 
-/* Hover Effect for Icons */
 .icon i:hover {
-    transform: scale(2);
+    transform: rotate(180deg) scale(1.2);
+}
+
+/* Message */
+#message {
+    margin-top: 15px;
+    color: #ff5555;
 }
 
 /* Animations */
 @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(-20px); }
-    100% { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
-
