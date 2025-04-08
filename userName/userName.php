@@ -1,57 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Registration Form</title>
+  <meta charset="UTF-8" />
+  <title>Parkify | User Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="userName.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <form action="save_form.php" method="POST" enctype="multipart/form-data">
-  <label>CRETATE A USER NAME</label>
-  <input type="text" name="Username"><br><br>
+  <div class="container">
+    <h1>User Registration</h1>
+    <form action="save_form.php" method="POST" enctype="multipart/form-data">
+      
+      <div class="form-group">
+        <label>Create a Username</label>
+        <input type="text" name="Username">
+      </div>
 
-    <label>FIRST NAME :</label>
-    <input type="text" name="firstName"><br><br>
-    
-    <label>LAST NAME :</label>
-    <input type="text" name="lastName"><br><br>
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="firstName">
+      </div>
 
-    <label>PHONE NUMBER :</label>
-    <input type="text" name="phoneNo"><br><br>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" name="lastName">
+      </div>
 
-    <label>EMAIL:</label>
-    <input type="text" name="email"><br><br>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" name="phoneNo">
+      </div>
 
-    <label>STATE:</label>
-    <input type="text" name="state"><br><br>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" name="email">
+      </div>
 
-    <label>CITY:</label>
-    <input type="text" name="city"><br><br>
+      <div class="form-group">
+        <label>State</label>
+        <input type="text" name="state">
+      </div>
 
-    <label>ADDRESS 1:</label>
-    <input type="text" name="address1"><br><br>
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" name="city">
+      </div>
 
-    <label>ADDRESS 2:</label>
-    <input type="text" name="address2"><br><br>
+      <div class="form-group">
+        <label>Address 1</label>
+        <input type="text" name="address1">
+      </div>
 
-    <label>Date of Birth:</label>
-    <input type="text" name="dob"><br><br>
+      <div class="form-group">
+        <label>Address 2</label>
+        <input type="text" name="address2">
+      </div>
 
-    <label>Aadhar Number :</label>
-    <input type="text" name="aadharNumber"><br><br>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="text" name="dob">
+      </div>
 
-    <label>INSERT AADHAR CARD :</label>
-    <input type="file" name="aadharFile"><br><br>
+      <div class="form-group">
+        <label>Aadhar Number</label>
+        <input type="text" name="aadharNumber">
+      </div>
 
-    <label>CAR NUMBER:</label>
-    <input type="text" name="carNumber"><br><br>
+      <div class="form-group">
+        <label>Insert Aadhar Card</label>
+        <input type="file" name="aadharFile">
+      </div>
 
-    <label>Driving Licence Number:</label>
-    <input type="text" name="dlNumber"><br><br>
+      <div class="form-group">
+        <label>Car Number</label>
+        <input type="text" name="carNumber">
+      </div>
 
-    <label>Driving Licence PICTURE:</label>
-    <input type="file" name="dlFile"><br><br>
+      <div class="form-group">
+        <label>Driving Licence Number</label>
+        <input type="text" name="dlNumber">
+      </div>
 
-    <button type="submit" >SUBMIT</button>
-  </form>
+      <div class="form-group">
+        <label>Driving Licence Picture</label>
+        <input type="file" name="dlFile">
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </body>
 </html>

@@ -1,0 +1,87 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(120deg, #020202, #0a0015, #01050c);
+    color: #eee;
+    padding: 2rem;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+  }
+  
+  /* Header */
+  .container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Orbitron', sans-serif;
+    color: #00eaff;
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+  
+  /* Form styling */
+  form .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+    font-weight: 600;
+  }
+  
+  form input[type="text"],
+  form input[type="file"] {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.07);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  form input:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+  }
+  
+  /* Submit button */
+  form button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #09f, #f0f);
+    color: black;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+  }
+  
+  form button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  }
+  
