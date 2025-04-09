@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2025 at 12:38 PM
+-- Generation Time: Apr 09, 2025 at 04:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,10 +43,17 @@ CREATE TABLE `parkingspots` (
 --
 
 INSERT INTO `parkingspots` (`id`, `name`, `lat`, `lon`, `total_slots`, `available_slots`, `city`, `area`) VALUES
-(1, 'Airport Parking', 21.0909, 79.0547, 20, 20, 'nagpur', 'Airport'),
-(2, 'Rajiv Gandhi Snake Park', 18.4531, 73.8613, 20, 20, 'pune', 'katraj'),
-(3, 'shambaji nagar airport ', 19.8622, 75.4023, 20, 20, 'sambhaji nagar', 'airport'),
-(4, 'ramdaspeth', 21.137, 79.0763, 20, 20, 'nagpur', 'ramdaspeth');
+(1, 'Airport Parking', 21.0909, 79.0547, 10, 10, 'Nagpur', 'Airport'),
+(2, 'VR mall parking', 21.1293, 79.1059, 10, 10, 'Nagpur', 'Rambhag'),
+(3, 'Eternity mall parking', 21.1517, 79.078, 10, 10, 'Nagpur', 'Sitaburdi'),
+(4, 'Nagpur railway station parking', 21.1512, 79.0884, 10, 10, 'Nagpur', 'Railway station'),
+(5, 'IIITN parking', 20.9447, 79.0266, 10, 10, 'Nagpur', 'butibori'),
+(6, 'VNIT parking', 21.1265, 79.0503, 10, 10, 'Nagpur', 'ambazari'),
+(7, 'IIIM parkings', 21.0344, 79.0203, 10, 10, 'Nagpur', 'jamtha'),
+(8, 'AIIMS parking', 21.0332, 79.0385, 10, 10, 'Nagpur', 'jamtha'),
+(9, 'Khapri metro station parking', 21.062, 79.0292, 10, 10, 'Nagpur', 'khapri'),
+(10, 'Itwari parking', 21.1586, 79.1127, 10, 10, 'Nagpur', 'itwari'),
+(11, 'Kasturchand Park parking', 21.1625, 79.0846, 10, 10, 'Nagpur', 'dhantoli');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +73,7 @@ ALTER TABLE `parkingspots`
 -- AUTO_INCREMENT for table `parkingspots`
 --
 ALTER TABLE `parkingspots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
