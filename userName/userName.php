@@ -17,15 +17,18 @@
         <input type="text" name="Username">
       </div>
 
-      <div class="form-group">
-        <label>First Name</label>
-        <input type="text" name="firstName">
-      </div>
+      <div class="form-row">
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" name="firstName">
+  </div>
 
-      <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" name="lastName">
-      </div>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" name="lastName">
+  </div>
+</div>
+
 
       <div class="form-group">
         <label>Phone Number</label>
@@ -59,7 +62,7 @@
 
       <div class="form-group">
         <label>Date of Birth</label>
-        <input type="text" name="dob">
+        <input type="text" name="dob" placeholder="dd/mm/yy">
       </div>
 
       <div class="form-group">

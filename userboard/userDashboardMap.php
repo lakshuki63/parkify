@@ -1,27 +1,113 @@
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Filtered Parking Map - Parkify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    #map { height: 500px; margin-top: 10px; }
-    select { padding: 8px; margin: 10px 10px 0 0; }
+    /* === BACKGROUND & BODY === */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #000000, #1f0033, #000814, #220044);
+      background-size: 400% 400%;
+      animation: bgMove 15s ease infinite;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* === HEADER === */
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 2rem;
+      color: #00eaff;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0, 234, 255, 0.5);
+    }
+
+    /* === SELECT DROPDOWNS === */
+    select {
+      padding: 10px 16px;
+      margin: 10px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid #00eaff;
+      border-radius: 8px;
+      outline: none;
+      backdrop-filter: blur(5px);
+      font-weight: 500;
+      box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    select:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 16px rgba(0, 234, 255, 0.5);
+    }
+
+    /* === MAP CONTAINER === */
+    #map {
+      width: 90%;
+      max-width: 1000px;
+      height: 500px;
+      margin: 30px 0 60px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid #00eaff;
+      box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+    }
+
+    /* === LEAFLET DEFAULTS OVERRIDE === */
+    .leaflet-popup-content-wrapper {
+      background: rgba(0, 0, 0, 0.8);
+      color: #00eaff;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .leaflet-popup-tip {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    a {
+      color: #00d4ff;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #ff00ff;
+    }
   </style>
 </head>
 <body>
   <h2>Find Parking by State, City, and Area</h2>
 
-  <select id="stateSelect">
-    <option value="">-- Select State --</option>
-  </select>
+  <div>
+    <select id="stateSelect">
+      <option value="">-- Select State --</option>
+    </select>
 
-  <select id="citySelect">
-    <option value="">-- Select City --</option>
-  </select>
+    <select id="citySelect">
+      <option value="">-- Select City --</option>
+    </select>
 
-  <select id="areaSelect">
-    <option value="">-- Select Area --</option>
-  </select>
+    <select id="areaSelect">
+      <option value="">-- Select Area --</option>
+    </select>
+  </div>
 
   <div id="map"></div>
 
@@ -36,7 +122,7 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    fetch("https://api.npoint.io/07b0da5498305e48d161")//from brave
+    fetch("https://api.npoint.io/07b0da5498305e48d161")
       .then(response => response.json())
       .then(data => {
         for (const state in data) {
@@ -117,13 +203,12 @@
               <b>${p.name}</b><br>
               ${p.area}, ${p.city}<br>
               Available: ${p.available_slots}/${p.total_slots}<br>
-              <a href="../booking/booking.php?name=${encodeURIComponent(p.name)}&city=${encodeURIComponent(p.city)}&area=${encodeURIComponent(p.area)}&state=${encodeURIComponent(state)}&available=${p.available_slots}&total=${p.total_slots}" style="color:blue;">Book Now</a>
+              <a href="../booking/booking.php?name=${encodeURIComponent(p.name)}&city=${encodeURIComponent(p.city)}&area=${encodeURIComponent(p.area)}&state=${encodeURIComponent(state)}&available=${p.available_slots}&total=${p.total_slots}">Book Now</a>
             `;
             marker.bindPopup(popupContent);
           });
         });
     }
-    
 
     window.onload = () => {
       loadMarkers();
