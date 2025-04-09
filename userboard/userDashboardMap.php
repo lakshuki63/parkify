@@ -38,18 +38,21 @@
 
     /* === SELECT DROPDOWNS === */
     select {
-      padding: 10px 16px;
-      margin: 10px 8px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      border: 1px solid #00eaff;
-      border-radius: 8px;
-      outline: none;
-      backdrop-filter: blur(5px);
-      font-weight: 500;
-      box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
-      transition: all 0.3s ease;
-    }
+  padding: 10px 16px;
+  margin: 10px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid #00eaff;
+  border-radius: 8px;
+  outline: none;
+  backdrop-filter: blur(5px);
+  font-weight: 500;
+  box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+  transition: all 0.3s ease;
+  /** ADD THIS LINE **/
+  background-color: #111; /* dark bg so text stays visible */
+}
+
 
     select:hover {
       transform: scale(1.03);
