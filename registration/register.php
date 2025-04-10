@@ -51,9 +51,9 @@
       <span class="new">New User?</span>
       <a href="..\userName\userName.php" class="signup-link">Sign Up Here</a>
       <br />
-      <span class="or">Or login using</span>
-    </p>
 
+    </p>
+    <span class="or">Or login using</span>
     <div class="icon">
       <i class="fa-brands fa-google" id="google"></i>
       <i class="fa-brands fa-facebook" id="facebook"></i>
