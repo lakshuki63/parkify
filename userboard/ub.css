@@ -1,10 +1,16 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(to right, #1f1c2c, #928dab);
+  background: 
+  linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)),
+  url('image.png') no-repeat center center fixed;
+background-size: cover;
+
+  background-size: cover;
   color: #eee;
   overflow-x: hidden;
 }
+
 
 a {
   text-decoration: none;
@@ -37,7 +43,7 @@ a {
   position: relative;
 }
 
-/* Sidebar */
+
 .sidebar {
   width: 80px;
   background: #13131f;
@@ -64,7 +70,7 @@ a {
   color: #fff;
 }
 
-/* Slide Panel */
+
 .slide-panel {
   position: fixed;
   top: 0;
@@ -100,7 +106,7 @@ a {
   padding-left: 20px;
 }
 
-/* Close Button */
+
 .close-btn {
   position: absolute;
   top: 18px;
@@ -115,7 +121,7 @@ a {
   color: #000;
 }
 
-/* Overlay */
+
 .overlay {
   position: fixed;
   top: 0;
