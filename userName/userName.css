@@ -6,11 +6,17 @@
   }
   
   html, body {
+    background: linear-gradient(90deg, #d4d4d4, #140214d9, #041018d4, #d4d4d4), 
+    url('username.jpg') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    animation: gradientShift 10s ease infinite;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     font-family: 'Rajdhani', sans-serif;
-    background: linear-gradient(120deg, #020202, #0a0015, #01050c);
+    /* background: linear-gradient(120deg, #020202, #0a0015, #01050c); */
     color: #eee;
     padding: 2rem;
   }
@@ -22,7 +28,7 @@
     background: rgba(255, 255, 255, 0.05);
     padding: 2rem;
     border-radius: 15px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
   }
   

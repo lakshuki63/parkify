@@ -34,15 +34,15 @@
 
   <form action="ifok.php" method="POST">
     <div class="box">
-      <label for="userName">USER-NAME:</label>
-      <input type="text" name="userName" id="userName" />
+      <label for="userName">USERNAME:</label>
+      <input type="text" name="userName" id="userName" placeholder="Enter Username" />
 
       <br /><br /><br />
 
       <label for="password">PASSWORD:</label>
-      <input type="password" name="password" id="password" />
+      <input type="password" name="password" id="password" placeholder="Enter Password"/>
 
-      <p><a href="..\forgetpassword page\fg.php">Forget Password?</a></p>
+      <p><a href="..\forgetpassword page\fg.php">Forgot Password?</a></p>
 
       <button id="submit">SUBMIT</button>
     </div>
