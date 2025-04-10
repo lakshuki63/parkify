@@ -1,33 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Free Parking Finder</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    body { margin: 0; font-family: Arial; }
-    #map { height: 70vh; }
-    #search-container {
-      padding: 10px;
-      text-align: center;
-      background: #f4f4f4;
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(90deg, #0d1b2a, #1b263b, #0d1b2a);
+      color: #eee;
+      animation: shiftBG 15s infinite alternate;
     }
-    #results { padding: 10px; }
+
+    @keyframes shiftBG {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    #search-container {
+  padding: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); /* darker glass */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+  transition: all 0.4s ease-in-out;
+  border-radius: 0 0 15px 15px;
+}
+
+
     input[type="text"] {
       width: 60%;
-      padding: 10px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px;
-      font-size: 16px;
-      background: #4CAF50;
-      color: white;
+      padding: 12px;
+      font-size: 1rem;
       border: none;
-      cursor: pointer;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #0ff;
+      outline: none;
     }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      background: linear-gradient(to right, #00eaff, #ff00ff);
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #map {
+      height: 70vh;
+      margin: 20px auto;
+      width: 90%;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    #results {
+  padding: 20px;
+  text-align: center;
+}
+
+#results h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+#results h3 span {
+  color: red;
+  font-size: 2rem;
+  text-shadow: 0 0 10px red;
+}
+
+#results .spots-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+#results .spot {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  color: #0ff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0 0 5px rgba(0,255,255,0.3);
+  white-space: nowrap;
+}
+
+#results .spot:hover {
+  background: rgba(0, 255, 255, 0.1);
+  color: #fff;
+  text-shadow: 0 0 5px #0ff;
+  transform: translateY(-2px) scale(1.02);
+}
+
   </style>
 </head>
 <body>
@@ -93,25 +183,38 @@
     })
     .then(res => res.json())
     .then(data => {
-      document.getElementById("results").innerHTML = `<h3>Parking Spots Found: ${data.elements.length}</h3>`;
+      // Clear and set results header
+      document.getElementById("results").innerHTML = `
+        <h3>Parking Spots Found: <span>${data.elements.length}</span></h3>
+      `;
+
+      // Create the spot container div
+      const container = document.createElement("div");
+      container.className = "spots-container";
+      document.getElementById("results").appendChild(container);
+
+      // Add markers and buttons for each spot
       data.elements.forEach(el => {
         const lat = el.lat || el.center?.lat;
         const lon = el.lon || el.center?.lon;
         const name = el.tags?.name || "Unnamed Parking";
 
+        // Map marker
         L.marker([lat, lon])
           .addTo(map)
-          .bindPopup(`<b>${name}</b>`)
-          .openPopup();
+          .bindPopup(`<b>${name}</b>`);
 
-        // Also list below the map
-        const div = document.createElement("div");
+        // Button below map
+        const div = document.createElement("a");
         div.textContent = name;
-        document.getElementById("results").appendChild(div);
+        div.href = "#";
+        div.className = "spot";
+        container.appendChild(div);
       });
     });
   }
 </script>
+
 
 </body>
 </html>
