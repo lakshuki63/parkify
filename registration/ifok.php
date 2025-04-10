@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         echo "<script>
             alert('User not found ❌');
-            window.location.href = '../registeration/register.php';
+            window.location.href = '../registration/register.php';
             </script>";
     }
 
