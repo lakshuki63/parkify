@@ -18,19 +18,61 @@ $result = $conn->query($sql);
 <head>
   <title>All User Passwords</title>
   <style>
-    table {
-      width: 70%;
-      margin: 30px auto;
-      border-collapse: collapse;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(90deg, #d4d4d400, #140214d9, #041018d4, #d4d4d400), 
+                  url(bg.jpg) no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
     }
-    th, td {
-      padding: 10px;
-      border: 1px solid #aaa;
-      text-align: center;
-    }
+
     h2 {
       text-align: center;
       margin-top: 40px;
+      font-size: 2.5rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    table {
+      width: 85%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: #e0f7fa;
+    }
+
+    th {
+      background-color: rgba(0, 76, 255, 0.1);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 768px) {
+      table {
+        width: 95%;
+        font-size: 0.85rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
