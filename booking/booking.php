@@ -3,7 +3,7 @@ session_start();
 
 
 if (!isset($_SESSION['username'])) {
-    header("Location: ../registeration/register.php");
+    header("Location: ../registration/register.php");
     exit();
 }
 
@@ -11,7 +11,7 @@ $username = $_SESSION['username'];
 echo "Session username: " . $_SESSION['username'] . "<br>";
 
 // Connect to database
-$conn = new mysqli("localhost", "root", "", "user_info");
+$conn = new mysqli("localhost", "root", "", "user_form");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

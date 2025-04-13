@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "user_info";
+$db = "parkify";
 
 // Connect to DB
 $conn = new mysqli($host, $user, $pass, $db);
