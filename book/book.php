@@ -65,21 +65,108 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['card_number'])) {
     $stmt->bind_param("ssssss", $city, $location, $slot, $time, $vehicle, $payment);
 
     if ($stmt->execute()) {
-        echo '<div class="container">';
-        echo '<h2>✅ Booking Successful!</h2>';
-        echo '<div class="success-box">';
-        echo "<p><strong>City:</strong> $city</p>";
-        echo "<p><strong>Location:</strong> $location</p>";
-        echo "<p><strong>Slot:</strong> $slot</p>";
-        echo "<p><strong>Time:</strong> $timing</p>";
-        echo "<p><strong>Vehicle:</strong> $vehicle</p>";
-        echo "<p><strong>Payment Method:</strong> $payment</p>";
-        echo '<a href="booking.php">Book Another Slot</a>';
-        echo '</div>';
-        echo '</div>';
-        
-        session_destroy();
-    } else {
+      session_destroy();
+      ?>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Booking Successful</title>
+        <link rel="stylesheet" href="book.css">
+        <style>
+          canvas#confetti-canvas {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+              z-index: 999;
+          }
+        </style>
+      </head>
+      <body>
+        <canvas id="confetti-canvas"></canvas>
+        <div class="container">
+          <h2>✅ Booking Successful!</h2>
+          <div class="success-box">
+            <p><strong>City:</strong> <?= htmlspecialchars($city) ?></p>
+            <p><strong>Location:</strong> <?= htmlspecialchars($location) ?></p>
+            <p><strong>Slot:</strong> <?= htmlspecialchars($slot) ?></p>
+            <p><strong>Time:</strong> <?= htmlspecialchars($time) ?></p>
+            <p><strong>Vehicle:</strong> <?= htmlspecialchars($vehicle) ?></p>
+            <p><strong>Payment Method:</strong> <?= htmlspecialchars($payment) ?></p>
+            <a href="booking.php">Book Another Slot</a>
+          </div>
+        </div>
+  
+        <script>
+          // Confetti generator
+          const canvas = document.getElementById("confetti-canvas");
+          const ctx = canvas.getContext("2d");
+          let particles = [];
+  
+          function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+          }
+  
+          window.addEventListener("resize", resizeCanvas);
+          resizeCanvas();
+  
+          function createParticle() {
+            return {
+              x: Math.random() * canvas.width,
+              y: Math.random() * -canvas.height,
+              speed: Math.random() * 3 + 2,
+              radius: Math.random() * 6 + 4,
+              color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+              tilt: Math.random() * 10 - 5,
+              tiltAngle: 0,
+              tiltSpeed: Math.random() * 0.1 + 0.05
+            };
+          }
+  
+          function drawParticle(p) {
+            ctx.beginPath();
+            ctx.lineWidth = p.radius / 2;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt, p.y);
+            ctx.lineTo(p.x + p.tilt + p.radius / 2, p.y + p.radius);
+            ctx.stroke();
+          }
+  
+          function updateParticle(p) {
+            p.y += p.speed;
+            p.tiltAngle += p.tiltSpeed;
+            p.tilt = Math.sin(p.tiltAngle) * 15;
+  
+            if (p.y > canvas.height) {
+              Object.assign(p, createParticle());
+              p.y = -10;
+            }
+          }
+  
+          function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+              updateParticle(p);
+              drawParticle(p);
+            });
+            requestAnimationFrame(loop);
+          }
+  
+          for (let i = 0; i < 150; i++) {
+            particles.push(createParticle());
+          }
+  
+          loop();
+        </script>
+      </body>
+      </html>
+      <?php
+  }
+  
+else {
         echo "❌ Error: " . $stmt->error;
     }
 
