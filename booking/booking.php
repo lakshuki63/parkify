@@ -48,55 +48,59 @@ $total = $_GET['total'] ?? '';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Booking Page - Parkify</title>
-  <style>
-    label { display: block; margin-top: 10px; }
-    input[readonly] { background-color: #f1f1f1; }
-  </style>
+  <link rel="stylesheet" href="booking.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bahnschrift&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h2>Book Your Parking Slot</h2>
+  <div class="container">
+    <div class="session-info">
+      🚘 Logged in as: <strong><?php echo htmlspecialchars($username); ?></strong>
+    </div>
 
-  <form method="POST" action="submit_booking.php">
-    <!-- User Info -->
-    <label>Username:</label>
-    <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>" readonly>
+    <div class="glass-card">
+      <h2>Book Your Parking Slot</h2>
 
-    <label>Full Name:</label>
-    <input type="text" name="fullname" value="<?php echo htmlspecialchars($fullName); ?>" readonly>
+      <form method="POST" action="submit_booking.php">
+        <label>Username:</label>
+        <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>" readonly>
 
-    <label>Email:</label>
-    <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" value="<?php echo htmlspecialchars($fullName); ?>" readonly>
 
-    <label>Phone:</label>
-    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone); ?>" readonly>
+        <label>Email:</label>
+        <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
 
-    <label>Car Number:</label>
-    <input type="text" name="car_number" value="<?php echo htmlspecialchars($carNumber); ?>" readonly>
+        <label>Phone:</label>
+        <input type="text" name="phone" value="<?php echo htmlspecialchars($phone); ?>" readonly>
 
-    <!-- Parking Info -->
-    <label>Parking Spot:</label>
-    <input type="text" name="parking_name" value="<?php echo htmlspecialchars($parkingName); ?>" readonly>
+        <label>Car Number:</label>
+        <input type="text" name="car_number" value="<?php echo htmlspecialchars($carNumber); ?>" readonly>
 
-    <label>State:</label>
-    <input type="text" name="state" value="<?php echo htmlspecialchars($state); ?>" readonly>
+        <label>Parking Spot:</label>
+        <input type="text" name="parking_name" value="<?php echo htmlspecialchars($parkingName); ?>" readonly>
 
-    <label>City:</label>
-    <input type="text" name="city" value="<?php echo htmlspecialchars($city); ?>" readonly>
+        <label>State:</label>
+        <input type="text" name="state" value="<?php echo htmlspecialchars($state); ?>" readonly>
 
-    <label>Area:</label>
-    <input type="text" name="area" value="<?php echo htmlspecialchars($area); ?>" readonly>
+        <label>City:</label>
+        <input type="text" name="city" value="<?php echo htmlspecialchars($city); ?>" readonly>
 
-    <label>Available Slots:</label>
-    <input type="text" name="available" value="<?php echo htmlspecialchars($available); ?>" readonly>
+        <label>Area:</label>
+        <input type="text" name="area" value="<?php echo htmlspecialchars($area); ?>" readonly>
 
-    <label>Total Slots:</label>
-    <input type="text" name="total" value="<?php echo htmlspecialchars($total); ?>" readonly>
+        <label>Available Slots:</label>
+        <input type="text" name="available" value="<?php echo htmlspecialchars($available); ?>" readonly>
 
-    <br><br>
-    <button type="submit">Confirm Booking</button>
-  </form>
+        <label>Total Slots:</label>
+        <input type="text" name="total" value="<?php echo htmlspecialchars($total); ?>" readonly>
+
+        <button type="submit">✅ Confirm Booking</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($password, $row['password'])) {
             // ✅ Password is correct
             $_SESSION['username'] = $username;
-            header("Location: ../userboard/ub.php"); // redirect to dashboard
+            header("Location: ../userboard/ub1.php"); // redirect to dashboard
             exit();
         } else {
             echo "<script>
