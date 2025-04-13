@@ -3,7 +3,7 @@ body {
   font-family: 'Bahnschrift', 'Inter', sans-serif;
   background:
     linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)),
-    url('image.png') no-repeat center bottom fixed;
+    url('image2.png') no-repeat center bottom fixed;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
