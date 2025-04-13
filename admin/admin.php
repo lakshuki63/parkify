@@ -14,7 +14,7 @@
   <h2>Click on the map to add a parking spot</h2>
   <div id="map"></div>
 
-  <form id="parkingForm">
+  <form id="parkingForm" action="add_parking.php" method="post">
     <input type="text" name="name" placeholder="Parking Name" required />
     <input type="text" name="city" placeholder="City" required />
     <input type="text" name="area" placeholder="Area" required />

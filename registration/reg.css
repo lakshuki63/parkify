@@ -1,9 +1,9 @@
     /* === BASE SETUP === */
     body {
-        background: linear-gradient(90deg, #d4d4d4, #140214d9, #041018d4, #d4d4d4), 
-                    url('garage1.jpg') center center no-repeat;
-        
-    /* linear-gradient(90deg, #d4d4d4, #140214d9, #041018d4, #d4d4d4), url(garage1.jpg) center center no-repeat */
+        background: linear-gradient(90deg, #d4d4d4, #140214d9, #041018d4, #d4d4d4),
+            url('garage1.jpg') center center no-repeat;
+
+        /* linear-gradient(90deg, #d4d4d4, #140214d9, #041018d4, #d4d4d4), url(garage1.jpg) center center no-repeat */
 
         /* background-image: url('garage1.jpg'); */
         background-size: cover;
@@ -17,10 +17,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow:auto
+        overflow: auto
     }
-    
-    
+
+
 
     /* === HEADER / BRANDING === */
     .hero {
@@ -28,7 +28,7 @@
         text-align: center;
         margin-top: 2rem;
     }
-    
+
     .brand {
         display: flex;
         justify-content: center;
@@ -43,7 +43,7 @@
         width: fit-content;
         margin: 0 auto;
     }
-    
+
     .hero-title {
         font-family: 'Michroma', sans-serif;
         font-size: 4rem;
@@ -51,20 +51,20 @@
         letter-spacing: 5px;
         margin: 0;
     }
-    
+
     .car-icon {
         font-size: 2.5rem;
         color: #ff00ff;
         animation: glow 2s ease-in-out infinite alternate;
     }
-    
+
     .hero-subtitle {
         font-size: 1.1rem;
         color: #ffffff;
         margin-top: 15px;
         animation: slideUp 1s ease-in-out;
     }
-    
+
     /* === GLASS CARD === */
     .box {
         background: rgba(255, 255, 255, 0);
@@ -78,14 +78,16 @@
         flex-direction: column;
         text-align: center;
     }
-    
+
     /* === FORM STYLES === */
     form label {
+        font-family: 'bahnschrift semibold', Times, serif;
         display: block;
         margin: 10px 0 5px;
         font-weight: 600;
+        letter-spacing: 0.1em;
     }
-    
+
     form input {
         width: 100%;
         padding: 10px;
@@ -95,7 +97,7 @@
         border-radius: 8px;
         font-size: 1rem;
     }
-    
+
     form button {
         margin-top: 20px;
         width: 100%;
@@ -108,18 +110,18 @@
         transition: transform 0.3s;
         box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
     }
-    
+
     form button:hover {
         transform: scale(1.05);
     }
-    
+
     /* === LINKS & SIGNUP SECTION === */
     form a {
         color: #00eaff;
         font-weight: 500;
         text-decoration: none;
     }
-    
+
     .signup {
         text-align: center;
         margin-top: 30px;
@@ -135,39 +137,42 @@
         margin-right: auto;
         animation: glowNewUser 2s ease-in-out infinite alternate;
     }
-    
+
     .new {
         font-weight: 700;
         font-size: 1.2rem;
         color: #ff00ff;
         text-shadow: 0 0 5px #ff00ff;
     }
-    
+
     .signup-link {
         margin-left: 10px;
         color: #00eaff;
         font-weight: 600;
         text-decoration: underline;
         font-family: 'Michroma', sans-serif;
-        letter-spacing: 1px; /* More breathing room */
-        font-size: 1.05rem;   /* Slightly bigger */
-        word-spacing: 1.5px;  /* Helps it stretch naturally */
+        letter-spacing: 1px;
+        /* More breathing room */
+        font-size: 1.05rem;
+        /* Slightly bigger */
+        word-spacing: 1.5px;
+        /* Helps it stretch naturally */
     }
-    
-    
+
+
     .signup-link:hover {
         transform: scale(1.1);
         color: #ffffff;
     }
-    
-    
+
+
     .or {
         text-align: center;
         display: block;
         margin-top: 10px;
         color: #ffffff;
     }
-    
+
     /* === ICONS === */
     .icon {
         display: flex;
@@ -176,7 +181,7 @@
         margin-top: 15px;
         backdrop-filter: blur(3px);
     }
-    
+
     .icon i {
         font-size: 2rem;
         background: linear-gradient(to right, rgb(9, 148, 255), rgb(255, 0, 255));
@@ -184,37 +189,54 @@
         -webkit-text-fill-color: transparent;
         transition: transform 0.3s ease-in-out;
     }
-    
+
     .icon i:hover {
         transform: scale(1.8);
     }
-    
+
     /* === ANIMATIONS === */
     @keyframes glow {
         from {
-        text-shadow: 0 0 5px #ff00ff, 0 0 15px #00eaff;
+            text-shadow: 0 0 5px #ff00ff, 0 0 15px #00eaff;
         }
+
         to {
-        text-shadow: 0 0 20px #00eaff, 0 0 40px #ff00ff;
+            text-shadow: 0 0 20px #00eaff, 0 0 40px #ff00ff;
         }
     }
-    
+
     @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
-    
+
     @keyframes slideUp {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes glowNewUser {
         from {
             box-shadow: 0 0 10px rgba(255, 0, 255, 0.2), 0 0 5px rgba(0, 234, 255, 0.2);
         }
+
         to {
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.4), 0 0 15px rgba(0, 234, 255, 0.4);
         }
     }
-    
