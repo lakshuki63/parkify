@@ -8,31 +8,31 @@
 </head>
 <body>
 
-<a href="userDashboardMap.php" class="map-button">
-  🚗 Search Nearby Parking
-</a>
+  <!-- Map Button floating above everything -->
+  <a href="userDashboardMap.php" class="map-button">🚗 Search Nearby Parking</a>
 
-<div class="dashboard-wrapper">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="menu-item" onclick="openPanel('personal')" title="Profile">👤</div>
-    <div class="menu-item" onclick="openPanel('history')" title="History">📜</div>
-    <div class="menu-item" onclick="openPanel('settings')" title="Settings">⚙️</div>
-  </div>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="menu-item" onclick="openPanel('personal')" title="Profile">👤</div>
+      <div class="menu-item" onclick="openPanel('history')" title="History">📜</div>
+      <div class="menu-item" onclick="openPanel('settings')" title="Settings">⚙️</div>
+    </div>
 
-  <!-- Overlay -->
-  <div class="overlay" id="overlay" onclick="closePanel()"></div>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closePanel()"></div>
 
-  <!-- Sliding Panel -->
-  <div class="slide-panel" id="slidePanel">
-    <span class="close-btn" onclick="closePanel()">×</span>
-    <div id="panelContent">
-      <h2>Welcome!</h2>
-      <p>Select an option from the sidebar.</p>
+    <!-- Sliding Panel -->
+    <div class="slide-panel" id="slidePanel">
+      <span class="close-btn" onclick="closePanel()">×</span>
+      <div id="panelContent">
+        <h2>Welcome!</h2>
+        <p>Select an option from the sidebar.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="ub.js"></script>
+  <script src="ub.js"></script>
 </body>
+
 </html>

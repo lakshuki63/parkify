@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$conn = new mysqli("localhost", "root", "", "parkingspots");
+$conn = new mysqli("localhost", "root", "", "parkify");
 
 // Check connection
 if ($conn->connect_error) {
@@ -13,10 +13,10 @@ $area = $_GET['area'] ?? '';
 
 // Prepare SQL with filtering
 if ($city && $area && $area !== 'all') {
-  $stmt = $conn->prepare("SELECT * FROM ParkingSpots WHERE city = ? AND area = ?");
+  $stmt = $conn->prepare("SELECT * FROM parkingspots WHERE city = ? AND area = ?");
   $stmt->bind_param("ss", $city, $area);
 } else {
-  $stmt = $conn->prepare("SELECT * FROM ParkingSpots WHERE city = ?");
+  $stmt = $conn->prepare("SELECT * FROM parkingspots WHERE city = ?");
   $stmt->bind_param("s", $city);
 }
 

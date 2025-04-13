@@ -1,14 +1,15 @@
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: 
-  linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)),
-  url('image.png') no-repeat center center fixed;
-background-size: cover;
-
+  font-family: 'Bahnschrift', 'Inter', sans-serif;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)),
+    url('image.png') no-repeat center bottom fixed;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #eee;
   overflow-x: hidden;
+  position: relative;
 }
 
 
@@ -16,9 +17,19 @@ a {
   text-decoration: none;
 }
 
+.dashboard-wrapper {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  position: relative;
+}
+
+/* 🚗 Floating map button */
 .map-button {
-  display: block;
-  margin: 24px auto;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   padding: 14px 28px;
   background: #4caf50;
   color: white;
@@ -29,63 +40,59 @@ a {
   box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
   transition: transform 0.2s ease, background 0.3s ease;
   text-align: center;
-  width: fit-content;
 }
 
 .map-button:hover {
   background: #45a049;
-  transform: scale(1.05);
+  transform: translateX(-50%) scale(1.05);
 }
-
-.dashboard-wrapper {
-  display: flex;
-  height: calc(100vh - 100px);
-  position: relative;
-}
-
 
 .sidebar {
   width: 80px;
-  background: #13131f;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 30px;
-  gap: 30px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+  padding-top: 10%;
+  gap: 40px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .menu-item {
   font-size: 26px;
-  color: #bbb;
+  color: #ddd;
   cursor: pointer;
   padding: 10px;
-  border-radius: 10px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  border-radius: 12px;
+  transition: background 0.3s ease, transform 0.2s ease, color 0.3s;
 }
 
 .menu-item:hover {
-  background: #ffffff10;
+  background: rgba(255, 255, 255, 0.1);
   transform: scale(1.2);
   color: #fff;
 }
 
-
+/* 🧊 Glass Slide Panel */
 .slide-panel {
   position: fixed;
   top: 0;
   right: -420px;
   width: 380px;
   height: 100%;
-  background: #fdfdfd;
-  color: #333;
-  border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  backdrop-filter: blur(18px);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.5);
   padding: 30px 25px;
   transition: right 0.4s ease;
   z-index: 3;
   overflow-y: auto;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .slide-panel.open {
@@ -94,33 +101,32 @@ a {
 
 .slide-panel h2 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .slide-panel p, .slide-panel ul {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .slide-panel ul {
   padding-left: 20px;
 }
 
-
 .close-btn {
   position: absolute;
   top: 18px;
   right: 22px;
   font-size: 28px;
-  color: #666;
+  color: #ccc;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .close-btn:hover {
-  color: #000;
+  color: #fff;
 }
-
 
 .overlay {
   position: fixed;

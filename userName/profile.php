@@ -1,6 +1,6 @@
 <?php
 // DB connect
-$conn = new mysqli("localhost", "root", "", "user_info");
+$conn = new mysqli("localhost", "root", "", "parkify");
 
 $id = $_GET['id'];
 $result = $conn->query("SELECT * FROM user_form WHERE id = $id");

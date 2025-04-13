@@ -11,7 +11,7 @@ $username = $_SESSION['username'];
 echo "Session username: " . $_SESSION['username'] . "<br>";
 
 // Connect to database
-$conn = new mysqli("localhost", "root", "", "user_form");
+$conn = new mysqli("localhost", "root", "", "parkify");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

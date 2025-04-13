@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "user_info";
+$db = "parkify";
 
 // Connect to DB
 $conn = new mysqli($host, $user, $pass, $db);
@@ -34,11 +34,13 @@ move_uploaded_file($_FILES['dlFile']['tmp_name'], "uploads/" . $dlFile);
 
 // Insert into DB
 $sql = "INSERT INTO user_form 
-    (username, firstName, lastName, phoneNo, email, state, city, address1, address2, dob, aadharNumber, aadharFile, carNumber, dlNumber, dlFile)
+    (username, firstName, lastName, phoneNo, email, state, city, address1, address2, dob, 
+    aadharNumber, aadharFile, carNumber, dlNumber, dlFile)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssssssssssssss", $username, $firstName, $lastName, $phoneNo, $email, $state, $city, $address1, $address2, $dob, $aadharNumber, $aadharFile, $carNumber, $dlNumber, $dlFile);
+$stmt->bind_param("sssssssssssssss", $username, $firstName, $lastName, $phoneNo, 
+$email, $state, $city, $address1, $address2, $dob, $aadharNumber, $aadharFile, $carNumber, $dlNumber, $dlFile);
 
 // if ($stmt->execute()) {
 //     echo "✅ Data saved successfully!";

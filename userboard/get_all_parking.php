@@ -1,7 +1,7 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "parkingspots");
+$conn = new mysqli("localhost", "root", "", "parkify");
 
-$sql = "SELECT * FROM ParkingSpots";
+$sql = "SELECT * FROM parkingspots";
 $result = $conn->query($sql);
 
 $data = [];

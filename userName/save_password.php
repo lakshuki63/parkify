@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "user_info");
+$conn = new mysqli("localhost", "root", "", "parkify");
 
 $user_id = $_POST['user_id'];
 $password = $_POST['password'];
