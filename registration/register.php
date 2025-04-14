@@ -55,9 +55,9 @@
     </p>
     <span class="or">Or login using</span>
     <div class="icon">
-      <i class="fa-brands fa-google" id="google"></i>
-      <i class="fa-brands fa-facebook" id="facebook"></i>
-      <i class="fa-brands fa-apple" id="apple"></i>
+      <a href="https://google.com/" target="_blank"><i class="fa-brands fa-google" id="google"></i></a>
+      <a href="https://facebook.com/" target="_blank"><i class="fa-brands fa-facebook" id="facebook"></i></a>
+      <a href="https://apple.com/" target="_blank"><i class="fa-brands fa-apple" id="apple"></i></a>
     </div>
   </form>
 </body>

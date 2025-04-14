@@ -177,8 +177,9 @@
     .icon {
         display: flex;
         justify-content: center;
-        gap: 2rem;
+        gap: 2.5rem;
         margin-top: 15px;
+        margin-bottom: 15px;
         backdrop-filter: blur(3px);
     }
 

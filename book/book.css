@@ -14,7 +14,7 @@ body {
 
 /* Glassmorphism container */
 .container {
-    background: rgba(0, 0, 0, 0.6); /* darker and more opaque */
+    background: rgba(0, 0, 0, 0.5); /* darker and more opaque */
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.15);
