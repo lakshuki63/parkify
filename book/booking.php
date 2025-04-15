@@ -7,47 +7,14 @@
   <link rel="stylesheet" href="book.css">
 </head>
 <body>
+   <?php include 'userboard.html'; ?>
   <div class="container">
+      
     <h2>Book Your Parking Slot</h2>
     <form action="book.php" method="POST">
-      <label>City:</label>
-      <input type="text" name="city" placeholder="Enter city" required>
 
-      <?php
-// Connect to the database
-$conn = new mysqli("localhost", "root", "", "parkify");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT DISTINCT location FROM parkingspots WHERE location IS NOT NULL";
-$result = $conn->query($sql);
-
-?>
-
-<label for="location">Select Parking Location:</label>
-<select name="location" id="location" required>
-    <option value="">-- Select Location --</option>
-    <?php
-    $sql = "SELECT DISTINCT location FROM parkingspots WHERE location IS NOT NULL";
-    $result = $conn->query($sql);
-
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $loc = htmlspecialchars($row['location']);
-            echo "<option value='$loc'>$loc</option>";
-        }
-    } else {
-        echo "<option disabled>No locations found</option>";
-    }
-
-    $conn->close();
-    ?>
-</select>
-
-
-
+       <label>Date:</label>
+      <input type="date" name="date" required>
       <label>Slot:</label>
       <select name="slot" required>
         <option value="">Select</option>
@@ -67,8 +34,7 @@ $result = $conn->query($sql);
        
       </select>
 
-      <label>Date:</label>
-      <input type="date" name="date" required>
+     
 
       <label>Vehicle Number:</label>
       <input type="text" name="vehicle" placeholder="XY00WZ0000" required>
@@ -81,6 +47,7 @@ $result = $conn->query($sql);
         <option value="upi">UPI</option>
         <option value="netbanking">Net Banking</option>
       </select>
+
 
       <button type="submit">Proceed to Payment</button>
     </form>
