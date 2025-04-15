@@ -14,10 +14,31 @@
       <input type="text" name="city" placeholder="Enter city" required>
 
       <label>Location:</label>
-      <select name="location" required>
-        <option value="">Select</option>
-        
-      </select>
+      <select name="location" id="location">
+    <?php
+    // Database connection
+    $conn = new mysqli("localhost", "root", "", "smartparking");
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch unique locations from parkingspots
+    $sql = "SELECT DISTINCT location FROM parkingspots WHERE location IS NOT NULL";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<option value='" . htmlspecialchars($row['location']) . "'>" . htmlspecialchars($row['location']) . "</option>";
+        }
+    } else {
+        echo "<option value=''>No locations found</option>";
+    }
+
+    $conn->close();
+    ?>
+</select>
+
 
       <label>Slot:</label>
       <select name="slot" required>
