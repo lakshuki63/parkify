@@ -87,7 +87,7 @@
   <div class="hero fade-in">
     <h1>PARKIFY</h1>
     <p>Smart, Effortless & Secure Parking, Anytime</p>
-    <a href="userboard.html" class="map-button">Find a Parking Slot</a>
+    <a href="userDashboard.html" class="map-button">Find a Parking Slot</a>
   </div>
 
 </body>
