@@ -13,31 +13,39 @@
       <label>City:</label>
       <input type="text" name="city" placeholder="Enter city" required>
 
-      <label>Location:</label>
-      <select name="location" id="location">
+      <?php
+// Connect to the database
+$conn = new mysqli("localhost", "root", "", "parkify");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT DISTINCT location FROM parkingspots WHERE location IS NOT NULL";
+$result = $conn->query($sql);
+
+?>
+
+<label for="location">Select Parking Location:</label>
+<select name="location" id="location" required>
+    <option value="">-- Select Location --</option>
     <?php
-    // Database connection
-    $conn = new mysqli("localhost", "root", "", "smartparking");
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Fetch unique locations from parkingspots
     $sql = "SELECT DISTINCT location FROM parkingspots WHERE location IS NOT NULL";
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            echo "<option value='" . htmlspecialchars($row['location']) . "'>" . htmlspecialchars($row['location']) . "</option>";
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $loc = htmlspecialchars($row['location']);
+            echo "<option value='$loc'>$loc</option>";
         }
     } else {
-        echo "<option value=''>No locations found</option>";
+        echo "<option disabled>No locations found</option>";
     }
 
     $conn->close();
     ?>
 </select>
+
 
 
       <label>Slot:</label>
@@ -59,7 +67,7 @@
        
       </select>
 
-      <label>Date & Time:</label>
+      <label>Date:</label>
       <input type="date" name="date" required>
 
       <label>Vehicle Number:</label>
@@ -79,3 +87,12 @@
   </div>
 </body>
 </html>
+
+<?php
+// Database connection
+$conn = new mysqli("localhost", "root", "", "parkify");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
