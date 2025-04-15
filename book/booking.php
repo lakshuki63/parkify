@@ -16,21 +16,30 @@
       <label>Location:</label>
       <select name="location" required>
         <option value="">Select</option>
-        <option value="Sitabuldi">Sitabuldi</option>
-        <option value="Dharampeth">Dharampeth</option>
-        <!-- add more -->
+        
       </select>
 
       <label>Slot:</label>
       <select name="slot" required>
         <option value="">Select</option>
-        <option value="1">Slot 1</option>
-        <option value="2">Slot 2</option>
-        <!-- add more -->
+        <option value="1">Slot 1{07:00am-08:00am}</option>
+        <option value="2">Slot 2{08:00am-09:00am}</option>
+        <option value="3">Slot 3{09:00am-10:00am}</option>
+        <option value="4">Slot 4{10:00am-11:00am}</option>
+        <option value="5">Slot 5{11:00am-12:00pm}</option>
+        <option value="6">Slot 6{12:00pm-01:00pm}</option>
+        <option value="7">Slot 7{01:00pm-02:00pm}</option>
+        <option value="8">Slot 8{02:00pm-03:00pm}</option>
+        <option value="9">Slot 9{03:00pm-04:00pm}</option>
+        <option value="10">Slot 10{04:00pm-05:00pm}</option>
+        <option value="11">Slot 11{05:00pm-06:00pm}</option>
+        <option value="12">Slot 12{06:00pm-07:00pm}</option>
+
+       
       </select>
 
       <label>Date & Time:</label>
-      <input type="datetime-local" name="time" required>
+      <input type="date" name="date" required>
 
       <label>Vehicle Number:</label>
       <input type="text" name="vehicle" placeholder="XY00WZ0000" required>
@@ -41,7 +50,7 @@
         <option value="credit">Credit Card</option>
         <option value="debit">Debit Card</option>
         <option value="upi">UPI</option>
-        <option value="paypal">PayPal</option>
+        <option value="netbanking">Net Banking</option>
       </select>
 
       <button type="submit">Proceed to Payment</button>
