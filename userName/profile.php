@@ -122,6 +122,7 @@ $user = $result->fetch_assoc();
         <button type="submit">Save Password</button>
       </form>
     </div>
+    
   </div>
 </body>
 </html>
