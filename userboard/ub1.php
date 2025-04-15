@@ -110,6 +110,20 @@
     <span class="close-btn" onclick="closePanel()">&times;</span>
     <div id="panelContent"></div>
   </div>
-  <div id="overlay" class="overlay" onclick="closePanel()"></div>
+
+  
+  <div class="sidebar">
+    <div class="menu-item" onclick="openPanel('personal')">👤</div>
+    <div class="menu-item" onclick="openPanel('history')">📜</div>
+    <div class="menu-item" onclick="openPanel('settings')">⚙️</div>
+  </div>
+
+  
+  <div class="hero fade-in">
+    <h1>PARKIFY</h1>
+    <p>Smart, Effortless & Secure Parking, Anytime</p>
+    <a href="userDashboard.html" class="map-button">Find a Parking Slot</a>
+  </div>
+
 </body>
 </html>
