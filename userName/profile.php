@@ -122,6 +122,7 @@ $user = $result->fetch_assoc();
 </form>
 
     </div>
+    
   </div>
 </body>
 </html>
