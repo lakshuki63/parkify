@@ -8,6 +8,7 @@
 </head>
 <body>
    <?php include 'userboard.html'; ?>
+   
   <div class="container">
       
     <h2>Book Your Parking Slot</h2>
@@ -15,25 +16,25 @@
 
        <label>Date:</label>
       <input type="date" name="date" required>
-      <label>Slot:</label>
-      <select name="slot" required>
-        <option value="">Select</option>
-        <option value="1">Slot 1{07:00am-08:00am}</option>
-        <option value="2">Slot 2{08:00am-09:00am}</option>
-        <option value="3">Slot 3{09:00am-10:00am}</option>
-        <option value="4">Slot 4{10:00am-11:00am}</option>
-        <option value="5">Slot 5{11:00am-12:00pm}</option>
-        <option value="6">Slot 6{12:00pm-01:00pm}</option>
-        <option value="7">Slot 7{01:00pm-02:00pm}</option>
-        <option value="8">Slot 8{02:00pm-03:00pm}</option>
-        <option value="9">Slot 9{03:00pm-04:00pm}</option>
-        <option value="10">Slot 10{04:00pm-05:00pm}</option>
-        <option value="11">Slot 11{05:00pm-06:00pm}</option>
-        <option value="12">Slot 12{06:00pm-07:00pm}</option>
+      <label>Timings:</label>
 
-       
-      </select>
-
+      <label for="time">Select Time</label>
+                    <select id="time" name="time">
+                        <option value=""> Choose a time </option>
+                        <option value="08:00am-09:00am">8:00am-9:00am</option>
+                        <option value="09:00am-10:00am">09:00am-10:00am</option>
+                        <option value="10:00am-11:00am">10:00am-11:00am</option>
+                        <option value="11:00am-12:00pm">11:00am-12:00pm</option>
+                        <option value="12:00pm-01:00pm">12:00pm-01:00pm</option>
+                        <option value="01:00pm-02:00pm">01:00pm-02:00pm</option>
+                        <option value="02:00pm-03:00pm">02:00pm-03:00pm</option>
+                        <option value="03:00pm-04:00pm">03:00pm-04:00pm</option>
+                        <option value="04:00pm-05:00pm">04:00pm-05:00pm</option>
+                        <option value="05:00pm-06:00pm">05:00pm-06:00pm</option>
+                        <option value="06:00pm-07:00pm">06:00pm-07:00pm</option>
+                        
+                    </select>
+     
      
 
       <label>Vehicle Number:</label>
@@ -52,6 +53,11 @@
       <button type="submit">Proceed to Payment</button>
     </form>
   </div>
+  <script>
+        function setTime(value) {
+            document.getElementById('time').value = value;
+        }
+    </script>
 </body>
 </html>
 
