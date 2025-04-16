@@ -1,25 +1,19 @@
 <?php
 $conn = new mysqli("localhost", "root", "", "parkify");
-
 if ($conn->connect_error) {
     die(json_encode(["error" => $conn->connect_error]));
 }
 
-$sql = "SELECT id, name, lat, lon, total_slots, available_slots, city, area FROM parkingspots";
+// Join parkingspots with daily_slot_availability
+$sql = "SELECT p.*, d.slot1, d.slot2, d.slot3, d.slot4, d.slot5, d.slot6, d.slot7, d.slot8, d.slot9, d.slot10, d.slot11 
+        FROM parkingspots p
+        LEFT JOIN daily_slot_availability d ON p.id = d.area_id";
+
 $result = $conn->query($sql);
 
 $spots = [];
 while ($row = $result->fetch_assoc()) {
-    $spots[] = [
-        "id" => $row['id'],
-        "name" => $row['name'],
-        "lat" => $row['lat'],
-        "lon" => $row['lon'],
-        "total_slots" => $row['total_slots'],
-        "available_slots" => $row['available_slots'],
-        "city" => $row['city'],
-        "area" => $row['area']
-    ];
+    $spots[] = $row;
 }
 
 header('Content-Type: application/json');
