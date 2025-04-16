@@ -21,7 +21,7 @@
       <label for="time">Select Time</label>
                     <select id="time" name="time">
                         <option value=""> Choose a time </option>
-                        <option value="08:00am-09:00am">8:00am-9:00am</option>
+                        <option value="08:00am-09:00am">08:00am-09:00am</option>
                         <option value="09:00am-10:00am">09:00am-10:00am</option>
                         <option value="10:00am-11:00am">10:00am-11:00am</option>
                         <option value="11:00am-12:00pm">11:00am-12:00pm</option>

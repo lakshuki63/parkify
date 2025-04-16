@@ -115,12 +115,12 @@ $user = $result->fetch_assoc();
     </div>
 
     <div class="password-box" id="passwordBox">
-      <form action="save_password.php" method="POST">
-        <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
-        <label>Enter Password: </label>
-        <input type="password" name="password" required>
-        <button type="submit">Save Password</button>
-      </form>
+    <form action="save_password.php" method="POST">
+  <input type="hidden" name="id" value="<?= $user['id'] ?>">
+  <input type="password" name="password" placeholder="Enter Password" required>
+  <button type="submit">Save Password</button>
+</form>
+
     </div>
     
   </div>
