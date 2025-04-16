@@ -1,18 +1,34 @@
-/* book.css */
-
-body {
+/* Reset and base setup */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('car.jpg') no-repeat center center fixed;
-    background-size: cover;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+body {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('car.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: auto;
 }
 
-/* Glassmorphism container */
+/* Container styling */
 .container {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 2vw;
@@ -22,46 +38,19 @@ body {
     -webkit-backdrop-filter: blur(1vw);
     padding: 5vh 5vw;
     width: 90%;
-    max-width: 90vw;
+    max-width: 60rem;
     color: #fff;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
 }
 
-.success-box {
-    margin-top: 3vh;
-    padding: 3vh 3vw;
-    border-radius: 2vw;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(0.8vw);
-    -webkit-backdrop-filter: blur(0.8vw);
-    box-shadow: 0 0 2vw rgba(0, 255, 255, 0.3);
-    text-align: left;
-    color: #e0f7fa;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.success-box p {
-    margin: 0.5vh 0;
-}
-
-.success-box strong {
-    color: #00e5ff;
-}
-
+/* Typography */
 h2 {
-    margin-bottom: 3vh;
+    margin-bottom: 2rem;
     font-size: 2rem;
     font-family: 'Castellar', serif;
     color: #ffffff;
     text-shadow: 0 0 0.5vw cyan;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
 }
 
 label {
@@ -71,19 +60,26 @@ label {
     font-size: 1rem;
 }
 
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 input[type="text"],
 input[type="datetime-local"],
 input[type="number"],
 input[type="password"],
 select {
-    padding: 1vh 1vw;
-    border-radius: 1vw;
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
     border: none;
     background: rgba(255, 255, 255, 0.15);
     color: white;
     font-size: 1rem;
     outline: none;
-    box-shadow: inset 0 0 0.5vw rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 0.5vw rgba(0, 0, 0, 0.3);
     width: 100%;
 }
 
@@ -91,10 +87,11 @@ select option {
     background: #222;
 }
 
+/* Button */
 button {
-    padding: 1.5vh;
+    padding: 1rem;
     border: none;
-    border-radius: 1.2vw;
+    border-radius: 1rem;
     background: linear-gradient(135deg, #00e5ff, #00c853);
     color: white;
     font-size: 1rem;
@@ -109,10 +106,34 @@ button:hover {
     background: linear-gradient(135deg, #00bcd4, #00e676);
 }
 
+/* Success message */
+.success-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 1rem rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+    text-align: left;
+    color: #e0f7fa;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.success-box p {
+    margin: 0.5rem 0;
+}
+
+.success-box strong {
+    color: #00e5ff;
+}
+
+/* Links */
 a {
     color: #00e5ff;
     text-decoration: none;
-    margin-top: 1vh;
+    margin-top: 1rem;
     display: inline-block;
     transition: color 0.3s;
     text-align: center;
@@ -124,6 +145,7 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;

@@ -1,6 +1,29 @@
 <?php
-// ub1.php - Updated with animated GTA-themed UI and repositioned heading over car image
+session_start();
+$conn = new mysqli("localhost", "root", "", "parkify");
+
+$user_data = [
+  'username' => 'JohnDoe',
+  'name' => 'John Doe',
+  'email' => 'johndoe@email.com'
+];
+
+if (isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
+    $sql = "SELECT username, firstName, lastName, email FROM user_form WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->bind_result($username, $firstName, $lastName, $email);
+    if ($stmt->fetch()) {
+        $user_data['username'] = $username;
+        $user_data['name'] = $firstName . ' ' . $lastName;
+        $user_data['email'] = $email;
+    }
+    $stmt->close();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,8 +145,42 @@
   <div class="hero fade-in">
     <h1>PARKIFY</h1>
     <p>Smart, Effortless & Secure Parking, Anytime</p>
-    <a href="userDashboard.html" class="map-button">Find a Parking Slot</a>
+    <a href="../book/booking.php" class="map-button">Find a Parking Spot</a>
   </div>
+
+  <script>
+  // JS object created from PHP session data
+  const userData = {
+    username: "<?php echo $user_data['username']; ?>",
+    name: "<?php echo $user_data['name']; ?>",
+    email: "<?php echo $user_data['email']; ?>"
+  };
+
+  function openPanel(type) {
+    const panel = document.getElementById('slidePanel');
+    const content = document.getElementById('panelContent');
+    
+    if (type === 'personal') {
+      content.innerHTML = `
+        <h2 style="color: #fff;">👤 User Info</h2>
+        <p style="color: #ccc;"><strong>Name:</strong> ${userData.name}</p>
+        <p style="color: #ccc;"><strong>Email:</strong> ${userData.email}</p>
+        <p style="color: #ccc;"><strong>Username:</strong> ${userData.username}</p>
+      `;
+    } else if (type === 'history') {
+      content.innerHTML = `<h2 style="color: #fff;">📜 Booking History</h2><p style="color: #ccc;">(Coming soon...)</p>`;
+    } else if (type === 'settings') {
+      content.innerHTML = `<h2 style="color: #fff;">⚙️ Settings</h2><p style="color: #ccc;">(Customize your experience...)</p>`;
+    }
+
+    panel.style.right = '0';
+  }
+
+  function closePanel() {
+    document.getElementById('slidePanel').style.right = '-400px';
+  }
+</script>
+
 
 </body>
 </html>
