@@ -131,77 +131,118 @@
 
 <div id="map"></div>
 <div id="results"></div>
+<div id="slot-panel" style="display:none; background:#111; padding:20px; color:white; position:fixed; bottom:0; width:100%; max-height:40%; overflow-y:auto;">
+    <h3 id="panel-title">Slot Availability</h3>
+    <label for="panel-date">Select Date:</label>
+    <input type="date" id="panel-date" />
+    <button onclick="fetchSlots()">Check Availability</button>
+    <div id="slot-table"></div>
+  </div>
+  
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
 <script>
-  let map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
-
-  // Add OpenStreetMap Tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  // Load parking data from MySQL via PHP
-  function loadParkingSpotsFromDB() {
-    fetch('get_parking_data.php')
-      .then(response => response.json())
-      .then(spots => {
-        if (spots.length === 0) {
-          alert("No parking spots found.");
-          return;
-        }
-
-        spots.forEach(spot => {
-          const lat = parseFloat(spot.lat);
-          const lon = parseFloat(spot.lon);
-          const name = spot.name;
-          const available = spot.available_slots;
-          const total = spot.total_slots;
-          const city = spot.city;
-          const area = spot.area;
-
-          const popupContent = `
-            <b>${name}</b><br>
-            ${area}, ${city}<br>
-            Slots: ${available} / ${total}
-          `;
-
-          L.marker([lat, lon])
-            .addTo(map)
-            .bindPopup(popupContent);
+    let map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+    let selectedAreaId = null; // Store clicked area ID
+  
+    // Add OpenStreetMap Tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+  
+    // Load parking data and add markers
+    function loadParkingSpotsFromDB() {
+      fetch('get_parking_data.php')
+        .then(response => response.json())
+        .then(spots => {
+          if (spots.length === 0) {
+            alert("No parking spots found.");
+            return;
+          }
+  
+          spots.forEach(spot => {
+            const marker = L.marker([spot.lat, spot.lon]).addTo(map);
+            const popupContent = `
+              <b>${spot.name}</b><br>
+              ${spot.area}, ${spot.city}<br>
+              Slots: ${spot.available_slots} / ${spot.total_slots}
+            `;
+            marker.bindPopup(popupContent);
+  
+            marker.on("click", () => {
+              selectedAreaId = spot.id;
+              document.getElementById("slot-panel").style.display = "block";
+              document.getElementById("panel-title").textContent = `Slot Availability - ${spot.name}`;
+            });
+          });
+        })
+        .catch(err => {
+          console.error("Error loading parking data:", err);
         });
-      })
-      .catch(err => {
-        console.error("Error loading parking data:", err);
-      });
-  }
-
-  // Search and zoom to location
-  function searchLocation() {
-    const query = document.getElementById("locationInput").value;
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
-
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data.length === 0) {
-          alert("Location not found");
-          return;
-        }
-
-        const lat = parseFloat(data[0].lat);
-        const lon = parseFloat(data[0].lon);
-
-        map.setView([lat, lon], 16);
-      });
-  }
-
-  // Load spots on map load
-  loadParkingSpotsFromDB();
-</script>
-
+    }
+  
+    // Search and zoom to location
+    function searchLocation() {
+      const query = document.getElementById("locationInput").value;
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+  
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length === 0) {
+            alert("Location not found");
+            return;
+          }
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
+          map.setView([lat, lon], 16);
+        });
+    }
+  
+    // Fetch slot availability for selected area and date
+    function fetchSlots() {
+      const date = document.getElementById("panel-date").value;
+      if (!selectedAreaId || !date) {
+        alert("Please select a date and a parking area.");
+        return;
+      }
+  
+      fetch(`get_slots.php?area_id=${selectedAreaId}&date=${date}`)
+        .then(response => response.json())
+        .then(data => {
+          const slotTable = document.getElementById("slot-table");
+          slotTable.innerHTML = "";
+  
+          if (data.error) {
+            slotTable.innerHTML = `<p>${data.error}</p>`;
+            return;
+          }
+  
+          const table = document.createElement("table");
+          table.style.borderCollapse = "collapse";
+          table.style.width = "100%";
+  
+          const header = table.insertRow();
+          header.innerHTML = "<th style='border:1px solid #ccc;padding:8px;'>Time Slot</th><th style='border:1px solid #ccc;padding:8px;'>Available</th>";
+  
+          data.forEach(slot => {
+            const row = table.insertRow();
+            row.innerHTML = `<td style='border:1px solid #ccc;padding:8px;'>${slot.time_slot}</td><td style='border:1px solid #ccc;padding:8px;'>${slot.is_available ? '✅ Yes' : '❌ No'}</td>`;
+          });
+  
+          slotTable.appendChild(table);
+        })
+        .catch(err => {
+          console.error("Error fetching slot data:", err);
+        });
+    }
+  
+    // Load spots on map load
+    loadParkingSpotsFromDB();
+  </script>
+  
 </body>
 </html>
