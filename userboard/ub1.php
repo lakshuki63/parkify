@@ -125,7 +125,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="center-wrapper">
       <h1 class="brand-title">Parkify</h1>
       <p class="brand-subtext">Smart, Effortless & Secure Parking, Anytime</p>
-      <a href="../book/booking.php" class="map-button">Find a Parking Spot</a>
+      <a href="../experiment_with_user/userboard.html" class="map-button">Find a Parking Spot</a>
     </div>
   </div>
 
