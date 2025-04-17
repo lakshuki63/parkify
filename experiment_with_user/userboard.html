@@ -100,7 +100,7 @@ function showSlotPanel(slotData, spot) {
 // Book a slot
 function bookSlot(spot, slotKey, remaining) {
   const date = document.getElementById("datePicker").value;
-  const username = prompt("Enter your username to book:");
+  const username= prompt("Enter your username to book:");
   if (!username) return;
   
   fetch("book_slot.php", {
