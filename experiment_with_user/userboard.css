@@ -1,0 +1,172 @@
+/* Updated userboard.css */
+
+/* Base Setup */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('car.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 90vw;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  /* Search + Date Sections */
+  #search-container {
+    text-align: center;
+    width: 80%;             
+    max-width: 600px;       
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.245); 
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+  #date-container {
+    text-align: center;
+    width: 80%;              /* NEW: Make it narrower */
+    max-width: 400px;        /* Optional: limit max width */
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.245); /* Lighter than 0.6 */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: 20px;
+  }
+  
+  
+  /* Inputs and Buttons */
+  input, button {
+    padding: 12px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px #0ff;
+    transition: 0.3s ease-in-out;
+  }
+  
+  input:focus, button:hover {
+    outline: none;
+    box-shadow: 0 0 15px #0ff, 0 0 40px #0ff ;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Mixed Button Colors */
+  button.primary {
+    background: linear-gradient(135deg, #00e5ff, #00c853);
+    box-shadow: 0 0 15px #00c853;
+    color: white;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  button.secondary {
+    background: linear-gradient(135deg, #ff6f00, #f44336);
+    box-shadow: 0 0 15px #f44336;
+    color: white;
+  }
+  
+  button.tertiary {
+    background: linear-gradient(135deg, #3f51b5, #9c27b0);
+    box-shadow: 0 0 15px #9c27b0;
+    color: white;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* MAP Styling */
+  #map {
+    height: 70vh;
+    width: 95%;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    z-index: 1;
+    position: relative;
+  }
+  
+  /* SLOT PANEL Styling */
+  #slot-panel {
+    position: fixed;
+    bottom: 0; /* CHANGE: It should start at 0 */
+    left: 0;
+    /* width: 100%; */
+    max-height: 35vh;
+    overflow-y: auto;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -5px 20px rgba(0, 255, 255, 0.4);
+    border-top: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 75px 75px 0 0;
+    padding: 20px;
+    text-align: center;
+    z-index: 10;
+  
+    transform: translateY(100%);   /* Start hidden */
+    transition: transform 0.6s ease-out;
+  }
+  
+  /* Slide Up class */
+  #slot-panel.slide-up {
+    transform: translateY(0);  /* Slide in */
+  }
+  
+  
+  #slot-panel strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 23px;
+    color: rgb(255, 0, 0);
+  }
+  
+  .slot {
+    display: inline-block;
+    margin: 8px;
+    padding: 12px 20px;
+    background: rgba(0, 255, 255, 0.15);
+    color: #0ff;
+    border: 1px solid #0ff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, background 0.3s ease;
+    box-shadow: 0 0 10px #0ff;
+  }
+  
+  .slot:hover {
+    transform: scale(1.05);
+    background: rgba(0, 255, 255, 0.35);
+    box-shadow: 0 0 20px #0ff;
+  }
+  
+  /* Animation for slot panel */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  #slot-panel.slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  
