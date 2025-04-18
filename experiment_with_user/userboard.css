@@ -59,7 +59,7 @@ body {
   input:focus, button:hover {
     outline: none;
     box-shadow: 0 0 15px #0ff, 0 0 40px #0ff ;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(59, 59, 59, 0.4);
   }
   
   /* Mixed Button Colors */
@@ -152,6 +152,49 @@ body {
     background: rgba(0, 255, 255, 0.35);
     box-shadow: 0 0 20px #0ff;
   }
+
+  /* Floating Car Container */
+.floating-cars {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Car Icons */
+.car {
+  position: absolute;
+  width: 60px;
+  opacity: 0.6;
+  animation: floatCar 5s linear infinite;
+}
+
+.car1 { left: 10%; animation-delay: 0s; }
+.car2 { left: 50%; animation-delay: 2s; }
+.car3 { left: 80%; animation-delay: 4s; }
+
+@keyframes floatCar {
+  0% {
+    transform: translateY(100px) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-50px) scale(1.2);
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-150px) scale(1);
+    opacity: 0;
+  }
+}
+
   
   /* Animation for slot panel */
   @keyframes slideUp {
