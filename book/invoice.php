@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Get user info
+
 $user_sql = "SELECT firstName, lastName, email, phoneNo FROM user_form WHERE id = ?";
 $user_stmt = $conn->prepare($user_sql);
 $user_stmt->bind_param("i", $user_id);
@@ -24,7 +24,7 @@ $user_stmt->close();
 
 $fullName = $firstName . ' ' . $lastName;
 
-// Get latest booking
+
 $sql = "SELECT bh.booking_date, bh.booking_time, bh.slot_number, ps.name AS parking_name, ps.area AS parking_area
         FROM booking_history bh
         JOIN parkingspots ps ON bh.area_id = ps.id
