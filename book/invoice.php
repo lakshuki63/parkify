@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 $conn = new mysqli("localhost", "root", "", "parkify");
@@ -6,13 +5,11 @@ $conn = new mysqli("localhost", "root", "", "parkify");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 if (!isset($_SESSION['user_id'])) {
     die("User not logged in.");
 }
 
 $user_id = $_SESSION['user_id'];
-
 
 $user_sql = "SELECT firstName, lastName, email, phoneNo FROM user_form WHERE id = ?";
 $user_stmt = $conn->prepare($user_sql);
@@ -24,13 +21,11 @@ $user_stmt->close();
 
 $fullName = $firstName . ' ' . $lastName;
 
-
 $sql = "SELECT bh.booking_date, bh.booking_time, bh.slot_number, ps.name AS parking_name, ps.area AS parking_area
         FROM booking_history bh
         JOIN parkingspots ps ON bh.area_id = ps.id
         WHERE bh.user_id = ?
         ORDER BY bh.id DESC LIMIT 1";
-
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -51,24 +46,26 @@ if ($row = $result->fetch_assoc()) {
 <html>
 <head>
     <title>Booking Invoice</title>
-    <link rel="stylesheet" href="in.css">
+    <link rel="stylesheet" href="invoice.css">
 </head>
 <body>
-<h1>🧾 Booking Invoice</h1>
 <div class="invoice-box">
-   
-    <div class="details">
-        <p><span class="label">Full Name:</span> <?php echo htmlspecialchars($fullName); ?></p>
-        <p><span class="label">Email:</span> <?php echo htmlspecialchars($email); ?></p>
-        <p><span class="label">Phone:</span> <?php echo htmlspecialchars($phoneNo); ?></p>
-        <p><span class="label">Parking Area:</span> <?php echo htmlspecialchars($parking_name); ?></p>
-        <p><span class="label">Location:</span> <?php echo htmlspecialchars($parking_area); ?></p>
-        <p><span class="label">Slot Number:</span> <?php echo htmlspecialchars($slot_number); ?></p>
-        <p><span class="label">Date:</span> <?php echo htmlspecialchars($booking_date); ?></p>
-        <p><span class="label">Time:</span> <?php echo htmlspecialchars($booking_time); ?></p>
-    </div>
-    <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
-</div>
+    <img src="logo.png" alt="Parkify Logo" class="logo">
+    <h1>Parking Ticket</h1>
 
+    <div class="details">
+        <p><span class="label">Full Name</span> <?php echo htmlspecialchars($fullName); ?></p>
+        <p><span class="label">Email</span> <?php echo htmlspecialchars($email); ?></p>
+        <p><span class="label">Phone</span> <?php echo htmlspecialchars($phoneNo); ?></p>
+        <p><span class="label">Parking Area</span> <?php echo htmlspecialchars($parking_name); ?></p>
+        <p><span class="label">Location</span> <?php echo htmlspecialchars($parking_area); ?></p>
+        <p><span class="label">Slot Number</span> <?php echo htmlspecialchars($slot_number); ?></p>
+        <p><span class="label">Date</span> <?php echo htmlspecialchars($booking_date); ?></p>
+        <p><span class="label">Time</span> <?php echo htmlspecialchars($booking_time); ?></p>
+    </div>
+
+    <img src="qr_placeholder.png" alt="QR Code" class="qr-code"><br>
+    <button class="print-btn" onclick="window.print()">🖨️ Print Ticket</button>
+</div>
 </body>
 </html>
