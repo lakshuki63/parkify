@@ -9,15 +9,20 @@
 </head>
 <body>
   <div class="container">
-    <div id="search-container">
-      <input type="text" id="locationInput" placeholder="Enter city or area..." />
+    <div id="search-date-container">
+      <div class="input-row">
+        <div class="input-group">
+          <label for="locationInput">Enter city or area:</label>
+          <input type="text" id="locationInput" placeholder="E.g. Nagpur, Mumbai..." />
+        </div>
+        <div class="input-group">
+          <label for="datePicker">Enter date:</label>
+          <input type="date" id="datePicker" />
+        </div>
+      </div>
       <button class="primary" onclick="searchLocation()">Search</button>
     </div>
-
-    <div id="date-container">
-      <label>Select Date: </label>
-      <input type="date" id="datePicker" />
-    </div>
+    
 
     <div id="map"></div>
   </div>
