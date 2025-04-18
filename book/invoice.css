@@ -28,11 +28,12 @@ body {
 }
 
 h1 {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
+    font-family: Centaur;
+    font-size: 40px;
     color: #f4ecff;
     margin-bottom: 18px;
     text-shadow: 0 0 6px #a020f0;
+    letter-spacing: 0.75px;
 }
 
 .details p {
@@ -75,4 +76,26 @@ h1 {
 .print-btn:hover {
     background: linear-gradient(135deg, #a649f3, #5e2dff);
     transform: scale(1.05);
+}
+.details {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #d7f2ff;
+    margin: 10px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.detail-row .label {
+    font-weight: 600;
+    color: #cc99ff;
+    font-size: 18px;
+    width: 140px;
+    flex-shrink: 0;
 }

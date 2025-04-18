@@ -54,15 +54,15 @@ if ($row = $result->fetch_assoc()) {
     <h1>Parking Invoice</h1>
 
     <div class="details">
-        <p><span class="label">Full Name</span> <?php echo htmlspecialchars($fullName); ?></p>
-        <p><span class="label">Email</span> <?php echo htmlspecialchars($email); ?></p>
-        <p><span class="label">Phone</span> <?php echo htmlspecialchars($phoneNo); ?></p>
-        <p><span class="label">Parking Area</span> <?php echo htmlspecialchars($parking_name); ?></p>
-        <p><span class="label">Location</span> <?php echo htmlspecialchars($parking_area); ?></p>
-        <p><span class="label">Slot Number</span> <?php echo htmlspecialchars($slot_number); ?></p>
-        <p><span class="label">Date</span> <?php echo htmlspecialchars($booking_date); ?></p>
-        <p><span class="label">Time</span> <?php echo htmlspecialchars($booking_time); ?></p>
-    </div>
+    <div class="detail-row"><span class="label">Full Name:</span> <span><?php echo htmlspecialchars($fullName); ?></span></div>
+    <div class="detail-row"><span class="label">Email:</span> <span><?php echo htmlspecialchars($email); ?></span></div>
+    <div class="detail-row"><span class="label">Phone:</span> <span><?php echo htmlspecialchars($phoneNo); ?></span></div>
+    <div class="detail-row"><span class="label">Parking Area:</span> <span><?php echo htmlspecialchars($parking_name); ?></span></div>
+    <div class="detail-row"><span class="label">Location:</span> <span><?php echo htmlspecialchars($parking_area); ?></span></div>
+    <div class="detail-row"><span class="label">Slot Number:</span> <span><?php echo htmlspecialchars($slot_number); ?></span></div>
+    <div class="detail-row"><span class="label">Date:</span> <span><?php echo htmlspecialchars($booking_date); ?></span></div>
+    <div class="detail-row"><span class="label">Time:</span> <span><?php echo htmlspecialchars($booking_time); ?></span></div>
+</div>
 
     <img src="qr_placeholder.png" alt="QR Code" class="qr-code"><br>
     <button class="print-btn" onclick="window.print()">🖨️ Print Ticket</button>
