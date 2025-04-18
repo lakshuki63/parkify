@@ -11,17 +11,22 @@ $user_data = [
 
 if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
-    $sql = "SELECT username, firstName, lastName, email, phoneNo FROM user_form WHERE id = ?";
+    $sql = "SELECT username, firstName, lastName, email, phoneNo, state, city, address1, carNumber FROM user_form WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $stmt->bind_result($username, $firstName, $lastName, $email ,$phoneNO);
+    $stmt->bind_result($username, $firstName, $lastName, $email, $phoneNO, $state, $city, $address1, $carNumber);
     if ($stmt->fetch()) {
         $user_data['username'] = $username;
         $user_data['name'] = $firstName . ' ' . $lastName;
         $user_data['email'] = $email;
         $user_data['phoneNo'] = $phoneNO;
+        $user_data['state'] = $state;
+        $user_data['city'] = $city;
+        $user_data['address1'] = $address1;
+        $user_data['carNumber'] = $carNumber;
     }
+    
     $stmt->close();
 
     // FETCH BOOKING HISTORY
@@ -178,8 +183,13 @@ if (isset($_SESSION['user_id'])) {
   <p style="color: #ccc;"><strong>Name:</strong> <?php echo $user_data['name']; ?></p>
   <p style="color: #ccc;"><strong>Email:</strong> <?php echo $user_data['email']; ?></p>
   <p style="color: #ccc;"><strong>Username:</strong> <?php echo $user_data['username']; ?></p>
-  <p style="color: #ccc;"><strong>Phone No :</strong> <?php echo $user_data['phoneNo']; ?></p>
+  <p style="color: #ccc;"><strong>Phone No:</strong> <?php echo $user_data['phoneNo']; ?></p>
+  <p style="color: #ccc;"><strong>State:</strong> <?php echo $user_data['state']; ?></p>
+  <p style="color: #ccc;"><strong>City:</strong> <?php echo $user_data['city']; ?></p>
+  <p style="color: #ccc;"><strong>Address:</strong> <?php echo $user_data['address1']; ?></p>
+  <p style="color: #ccc;"><strong>Car Number:</strong> <?php echo $user_data['carNumber']; ?></p>
 </div>
+
 
 <div id="panelContentHistory" class="panelTab" style="display: none;">
   <h2 style="color: #fff;">📜 Booking History</h2>
