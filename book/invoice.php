@@ -51,7 +51,7 @@ if ($row = $result->fetch_assoc()) {
 <body>
 <div class="invoice-box">
     <img src="logo.png" alt="Parkify Logo" class="logo">
-    <h1>Parking Ticket</h1>
+    <h1>Parking Invoice</h1>
 
     <div class="details">
         <p><span class="label">Full Name</span> <?php echo htmlspecialchars($fullName); ?></p>

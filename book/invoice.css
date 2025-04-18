@@ -22,21 +22,21 @@ body {
 }
 
 .logo {
-    max-width: 230px;
+    max-width: 250px;
     margin-bottom: -25px;
     margin-left: 12px;
 }
 
 h1 {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 28px;
+    font-size: 36px;
     color: #f4ecff;
     margin-bottom: 18px;
     text-shadow: 0 0 6px #a020f0;
 }
 
 .details p {
-    font-size: 16px;
+    font-size: 19px;
     color: #d7f2ff;
     line-height: 1.4;
     margin: 4px 0;
@@ -48,7 +48,7 @@ h1 {
     font-weight: 600;
     color: #cc99ff;
     display: block;
-    font-size: large;
+    font-size: 22px;
 }
 
 .qr-code {
