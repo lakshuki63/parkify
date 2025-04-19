@@ -40,7 +40,7 @@
         .then(spots => {
           spots.forEach(spot => {
             const marker = L.marker([spot.lat, spot.lon]).addTo(map)
-              .bindPopup(`<b>${spot.name}</b><br>${spot.city}, ${spot.area}<br>Slots: ${spot.available_slots}/${spot.total_slots}`)
+              .bindPopup(`<b>${spot.name}</b><br>${spot.city}, ${spot.area}`)
               .on('click', () => {
                 const date = document.getElementById("datePicker").value;
                 if (!date) return alert("Please select a date first");
@@ -98,31 +98,39 @@
 
     // Book a slot
     function bookSlot(spot, slotKey, remaining) {
-      const date = document.getElementById("datePicker").value;
-      const username = prompt("Enter your username to book:");
-      if (!username) return;
+  const date = document.getElementById("datePicker").value;
+  const username = prompt("Enter your username to book:");
+  if (!username) return;
 
-      fetch("book_slot.php", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username,
-          date,
-          area_id: spot.id,
-          area_name: spot.name,
-          slot_key: slotKey
-        })
-      })
-      .then(res => res.json())
-      .then(res => {
-        if (res.success) {
-          alert("Slot booked successfully!");
-          document.getElementById("slot-panel").style.display = "none";
-        } else {
-          alert("Booking failed: " + res.message);
-        }
-      });
+  const bookingData = {
+    username,
+    date,
+    area_id: spot.id,
+    area_name: spot.name,
+    slot_key: slotKey
+  };
+
+  fetch("book_slot.php", {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(bookingData)
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.success) {
+      alert("Slot booked successfully!");
+      document.getElementById("slot-panel").style.display = "none";
+
+      // ✅ Define params here
+      const params = new URLSearchParams(bookingData).toString();
+      window.location.href = `invoice.php?${params}`;
+
+    } else {
+      alert("Booking failed: " + res.message);
     }
+  });
+}
+
 
     // Search city/area
     function searchLocation() {
