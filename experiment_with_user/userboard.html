@@ -40,7 +40,7 @@
         .then(spots => {
           spots.forEach(spot => {
             const marker = L.marker([spot.lat, spot.lon]).addTo(map)
-              .bindPopup(`<b>${spot.name}</b><br>${spot.city}, ${spot.area}<br>Slots: ${spot.available_slots}/${spot.total_slots}`)
+              .bindPopup(`<b>${spot.name}</b><br>${spot.city}, ${spot.area}`)
               .on('click', () => {
                 const date = document.getElementById("datePicker").value;
                 if (!date) return alert("Please select a date first");
