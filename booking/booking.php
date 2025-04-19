@@ -1,6 +1,8 @@
 <?php
-session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+session_start();
 
 if (!isset($_SESSION['username'])) {
     header("Location: ../registration/register.php");
@@ -8,7 +10,6 @@ if (!isset($_SESSION['username'])) {
 }
 
 $username = $_SESSION['username'];
-echo "Session username: " . $_SESSION['username'] . "<br>";
 
 // Connect to database
 $conn = new mysqli("localhost", "root", "", "parkify");
@@ -16,35 +17,55 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch user details
-$sql = "SELECT firstName, lastName, phoneNo, email, carNumber FROM user_form WHERE username = ?";
+// Fetch user and booking details
+$sql = "
+SELECT 
+    u.firstName, 
+    u.lastName, 
+    u.phoneNo, 
+    u.email, 
+    u.carNumber, 
+    bh.booking_date, 
+    bh.booking_time, 
+    bh.slot_number, 
+    ps.name AS parking_name, 
+    ps.area AS parking_area, 
+    ps.city 
+FROM user_form u
+LEFT JOIN booking_history bh ON bh.username = u.username
+LEFT JOIN parkingspots ps ON bh.area_name = ps.name
+WHERE u.username = ?
+ORDER BY bh.booking_date DESC LIMIT 1";
+
+
 $stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("SQL error: " . $conn->error);
+}
+
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
-    $firstName = $user['firstName'];
-    $lastName = $user['lastName'];
-    $fullName = $firstName . " " . $lastName;
-    $phone = $user['phoneNo'];
-    $email = $user['email'];
-    $carNumber = $user['carNumber'];
+    $row = $result->fetch_assoc();
+    $fullName = $row['firstName'] . " " . $row['lastName'];
+    $phone = $row['phoneNo'];
+    $email = $row['email'];
+    $carNumber = $row['carNumber'];
+    $bookingDate = $row['booking_date'];
+    $bookingTime = $row['booking_time'];
+    $slotNumber = $row['slot_number'];
+    $parkingName = $row['parking_name'];
+    $area = $row['parking_area'];
+    $city = $row['city'];
 } else {
-    echo "User details not found.";
+    echo "User or booking details not found.";
     exit();
 }
 
 $stmt->close();
-
-// Get parking details from URL
-$parkingName = $_GET['name'] ?? '';
-$state = $_GET['state'] ?? '';
-$city = $_GET['city'] ?? '';
-$area = $_GET['area'] ?? '';
-$available = $_GET['available'] ?? '';
-$total = $_GET['total'] ?? '';
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -66,37 +87,37 @@ $total = $_GET['total'] ?? '';
 
       <form method="POST" action="submit_booking.php">
         <label>Username:</label>
-        <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>" readonly>
+        <input type="text" name="username" value="<?= htmlspecialchars($username) ?>" readonly>
 
         <label>Full Name:</label>
-        <input type="text" name="fullname" value="<?php echo htmlspecialchars($fullName); ?>" readonly>
+        <input type="text" name="fullname" value="<?= htmlspecialchars($fullName) ?>" readonly>
 
         <label>Email:</label>
-        <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+        <input type="text" name="email" value="<?= htmlspecialchars($email) ?>" readonly>
 
         <label>Phone:</label>
-        <input type="text" name="phone" value="<?php echo htmlspecialchars($phone); ?>" readonly>
+        <input type="text" name="phone" value="<?= htmlspecialchars($phone) ?>" readonly>
 
         <label>Car Number:</label>
-        <input type="text" name="car_number" value="<?php echo htmlspecialchars($carNumber); ?>" readonly>
+        <input type="text" name="car_number" value="<?= htmlspecialchars($carNumber) ?>" readonly>
 
         <label>Parking Spot:</label>
-        <input type="text" name="parking_name" value="<?php echo htmlspecialchars($parkingName); ?>" readonly>
-
-        <label>State:</label>
-        <input type="text" name="state" value="<?php echo htmlspecialchars($state); ?>" readonly>
-
-        <label>City:</label>
-        <input type="text" name="city" value="<?php echo htmlspecialchars($city); ?>" readonly>
+        <input type="text" name="parking_name" value="<?= htmlspecialchars($parkingName) ?>" readonly>
 
         <label>Area:</label>
-        <input type="text" name="area" value="<?php echo htmlspecialchars($area); ?>" readonly>
+        <input type="text" name="area" value="<?= htmlspecialchars($area) ?>" readonly>
 
-        <label>Available Slots:</label>
-        <input type="text" name="available" value="<?php echo htmlspecialchars($available); ?>" readonly>
+        <label>City:</label>
+        <input type="text" name="city" value="<?= htmlspecialchars($city) ?>" readonly>
 
-        <label>Total Slots:</label>
-        <input type="text" name="total" value="<?php echo htmlspecialchars($total); ?>" readonly>
+        <label>Slot Number:</label>
+        <input type="text" name="slot" value="<?= htmlspecialchars($slotNumber) ?>" readonly>
+
+        <label>Booking Date:</label>
+        <input type="text" name="date" value="<?= htmlspecialchars($bookingDate) ?>" readonly>
+
+        <label>Booking Time:</label>
+        <input type="text" name="time" value="<?= htmlspecialchars($bookingTime) ?>" readonly>
 
         <button type="submit">✅ Confirm Booking</button>
       </form>
