@@ -130,6 +130,10 @@
         text-decoration: none;
     }
 
+    #submit {
+        cursor: pointer;
+    }
+
     .signup {
         text-align: center;
         margin-top: 30px;
