@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 session_start();
 
 if (!isset($_SESSION['username'])) {
@@ -16,7 +15,11 @@ $conn = new mysqli("localhost", "root", "", "parkify");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+$slot = $_GET['slot'] ?? '';
+$area = $_GET['area'] ?? '';
+$city = $_GET['city'] ?? '';
+$parkingName = $_GET['name'] ?? '';
+$date = $_GET['date'] ?? '';
 // Fetch user and booking details
 $sql = "
 SELECT 
@@ -35,30 +38,46 @@ FROM user_form u
 LEFT JOIN booking_history bh ON bh.username = u.username
 LEFT JOIN parkingspots ps ON bh.area_name = ps.name
 WHERE u.username = ?
-ORDER BY bh.booking_date DESC LIMIT 1";
-
+ORDER BY bh.booking_time DESC LIMIT 1";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     die("SQL error: " . $conn->error);
 }
-
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 1) {
     $row = $result->fetch_assoc();
+
     $fullName = $row['firstName'] . " " . $row['lastName'];
     $phone = $row['phoneNo'];
     $email = $row['email'];
     $carNumber = $row['carNumber'];
-    $bookingDate = $row['booking_date'];
     $bookingTime = $row['booking_time'];
-    $slotNumber = $row['slot_number'];
-    $parkingName = $row['parking_name'];
-    $area = $row['parking_area'];
-    $city = $row['city'];
+
+   
+
+    // Time slot mapping
+    function getTimeSlot($slot) {
+        $slots = [
+            1 => "7:00 AM – 8:00 AM",
+            2 => "8:00 AM – 9:00 AM",
+            3 => "9:00 AM – 10:00 AM",
+            4 => "10:00 AM – 11:00 AM",
+            5 => "11:00 AM – 12:00 PM",
+            6 => "12:00 PM – 1:00 PM",
+            7 => "1:00 PM – 2:00 PM",
+            8 => "2:00 PM – 3:00 PM",
+            9 => "3:00 PM – 4:00 PM",
+            10 => "4:00 PM – 5:00 PM",
+            11 => "5:00 PM – 6:00 PM"
+        ];
+        return $slots[$slot] ?? "Unknown Slot";
+    }
+
+    $timeSlotText = getTimeSlot($slot);
 } else {
     echo "User or booking details not found.";
     exit();
@@ -85,7 +104,7 @@ $conn->close();
     <div class="glass-card">
       <h2>Book Your Parking Slot</h2>
 
-      <form method="POST" action="submit_booking.php">
+      <form method="POST" action="invoice.php">
         <label>Username:</label>
         <input type="text" name="username" value="<?= htmlspecialchars($username) ?>" readonly>
 
@@ -111,13 +130,15 @@ $conn->close();
         <input type="text" name="city" value="<?= htmlspecialchars($city) ?>" readonly>
 
         <label>Slot Number:</label>
-        <input type="text" name="slot" value="<?= htmlspecialchars($slotNumber) ?>" readonly>
+        <input type="text" name="slot" value="<?= htmlspecialchars($slot) ?>" readonly>
+
+        <label>Time Slot:</label>
+        <input type="text" name="time_slot_text" value="<?= htmlspecialchars($timeSlotText) ?>" readonly>
 
         <label>Booking Date:</label>
-        <input type="text" name="date" value="<?= htmlspecialchars($bookingDate) ?>" readonly>
+        <input type="text" name="date" value="<?= htmlspecialchars($date) ?>" readonly>
 
-        <label>Booking Time:</label>
-        <input type="text" name="time" value="<?= htmlspecialchars($bookingTime) ?>" readonly>
+        
 
         <button type="submit">✅ Confirm Booking</button>
       </form>

@@ -1,0 +1,315 @@
+/* Updated userboard.css */
+
+/* Base Setup */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('car.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 90vw;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  /* Search + Date Sections */
+  #search-date-container {
+    text-align: center;
+    width: 90%;
+    max-width: 700px;
+    margin: 5px auto;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: nowrap;
+  }
+  
+  .input-row input {
+    flex: 1;
+    width: 48%;
+    margin: 0; /* Important: remove top/bottom margins */
+  }
+  
+  /* Optional: remove margin from the button */
+  #search-date-container button {
+    margin-top: 20px;
+    margin-bottom: auto;
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+  
+  .input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group label {
+    color: #0ff;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .input-group input {
+    width: auto;
+    margin: 0; /* no extra margin */
+  }
+  
+  /* Tooltip Base */
+.slot {
+  position: relative;
+}
+
+/* Tooltip Text */
+.slot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%; /* Above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: max-content;
+  max-width: max-content;
+  background: #ff0000db; /* CONTRASTING pink/magenta */
+  color: #fff;
+  padding: 10px 10px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 20px 20px 20px 20px; /* Fun Shape */
+  box-shadow: 0 0 15px #ff0000db;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  white-space: pre-wrap;
+  text-align: center;
+}
+
+/* Tooltip Arrow */
+.slot::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent #ff0000db transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 101;
+}
+
+/* Show Tooltip on Hover */
+.slot:hover::after,
+.slot:hover::before {
+  opacity: 1;
+}
+
+/* Fade-in effect on tooltip */
+.slot:hover::after {
+  animation: fadeInTooltip 0.4s ease forwards;
+}
+
+@keyframes fadeInTooltip {
+  from {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+  
+  /* Inputs and Buttons */
+  input, button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 17px;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px #0ff;
+    transition: 0.3s ease-in-out;
+  }
+  
+  input:focus, button:hover {
+    outline: none;
+    box-shadow: 0 0 15px #0ff, 0 0 40px #0ff ;
+    background: rgba(59, 59, 59, 0.4);
+  }
+  
+  /* Mixed Button Colors */
+  button.primary {
+    background: linear-gradient(135deg, #00e5ff, #00c853);
+    box-shadow: 0 0 15px #00c853;
+    color: white;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  button.secondary {
+    background: linear-gradient(135deg, #ff6f00, #f44336);
+    box-shadow: 0 0 15px #f44336;
+    color: white;
+  }
+  
+  button.tertiary {
+    background: linear-gradient(135deg, #3f51b5, #9c27b0);
+    box-shadow: 0 0 15px #9c27b0;
+    color: white;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* MAP Styling */
+  #map {
+    height: 60vh;
+    width: 95%;
+    margin: 20px auto;
+    margin-bottom: 245px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    z-index: 1;
+    position: relative;
+  }
+  
+  /* SLOT PANEL Styling */
+  #slot-panel {
+    position: fixed;
+    bottom: 0; /* CHANGE: It should start at 0 */
+    left: 0;
+    /* width: 100%; */
+    max-height: 35vh;
+    overflow-y: auto;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -5px 20px rgba(0, 255, 255, 0.4);
+    border-top: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 75px 75px 0 0;
+    padding: 20px;
+    text-align: center;
+    z-index: 10;
+  
+    transform: translateY(100%);   /* Start hidden */
+    transition: transform 0.6s ease-out;
+  }
+  
+  /* Slide Up class */
+  #slot-panel.slide-up {
+    transform: translateY(0);  /* Slide in */
+  }
+  
+  
+  #slot-panel strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 23px;
+    color: rgb(255, 0, 0);
+  }
+  
+  .slot {
+    display: inline-block;
+    margin: 8px;
+    padding: 12px 20px;
+    background: rgba(0, 255, 255, 0.15);
+    color: #0ff;
+    border: 1px solid #0ff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, background 0.3s ease;
+    box-shadow: 0 0 10px #0ff;
+  }
+  
+  .slot:hover {
+    transform: scale(1.05);
+    background: rgba(0, 255, 255, 0.35);
+    box-shadow: 0 0 20px #0ff;
+  }
+
+  /* Floating Car Container */
+.floating-cars {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Car Icons */
+.car {
+  position: absolute;
+  width: 60px;
+  opacity: 0.6;
+  animation: floatCar 5s linear infinite;
+}
+
+.car1 { left: 10%; animation-delay: 0s; }
+.car2 { left: 50%; animation-delay: 2s; }
+.car3 { left: 80%; animation-delay: 4s; }
+
+@keyframes floatCar {
+  0% {
+    transform: translateY(100px) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-50px) scale(1.2);
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-150px) scale(1);
+    opacity: 0;
+  }
+}
+
+  
+  /* Animation for slot panel */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  #slot-panel.slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  

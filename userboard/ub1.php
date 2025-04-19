@@ -5,24 +5,71 @@ $conn = new mysqli("localhost", "root", "", "parkify");
 $user_data = [
   'username' => 'JohnDoe',
   'name' => 'John Doe',
-  'email' => 'johndoe@email.com'
+  'email' => 'johndoe@email.com',
+  'phoneNo' => '1234567890'
 ];
 
 if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
-    $sql = "SELECT username, firstName, lastName, email FROM user_form WHERE id = ?";
+    $sql = "SELECT username, firstName, lastName, email, phoneNo, state, city, address1, carNumber FROM user_form WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $stmt->bind_result($username, $firstName, $lastName, $email);
+    $stmt->bind_result($username, $firstName, $lastName, $email, $phoneNO, $state, $city, $address1, $carNumber);
     if ($stmt->fetch()) {
         $user_data['username'] = $username;
         $user_data['name'] = $firstName . ' ' . $lastName;
         $user_data['email'] = $email;
+        $user_data['phoneNo'] = $phoneNO;
+        $user_data['state'] = $state;
+        $user_data['city'] = $city;
+        $user_data['address1'] = $address1;
+        $user_data['carNumber'] = $carNumber;
     }
+    
     $stmt->close();
+
+    // FETCH BOOKING HISTORY
+    $booking_history_html = "";
+    $sql = "
+      SELECT 
+        bh.booking_date,
+        bh.booking_time,
+        bh.slot_number,
+        ps.name AS parking_name,
+        ps.area AS parking_area,
+        ps.city AS parking_city
+      FROM booking_history bh
+      JOIN parkingspots ps ON bh.area_id = ps.id
+      WHERE bh.user_id = ?
+      ORDER BY bh.booking_date DESC, bh.booking_time DESC
+    ";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($booking_date, $booking_time, $slot_number, $parking_name, $parking_area,$parking_city);
+        
+        while ($stmt->fetch()) {
+            $booking_history_html .= "
+              <div style='margin-bottom: 10px; color: #ccc;'>
+                <strong>Date:</strong> $booking_date<br>
+                <strong>Time:</strong> $booking_time<br>
+                <strong>Slot:</strong> $slot_number<br>
+                <strong>Location:</strong> $parking_name,<br> $parking_area<br>
+                <strong>City:</strong> $parking_city
+              </div><hr style='border-color: #555;'>
+            ";
+        }
+
+        if (empty($booking_history_html)) {
+            $booking_history_html = "<p style='color: #ccc;'>No bookings found.</p>";
+        }
+
+        $stmt->close();
+    }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -131,42 +178,51 @@ if (isset($_SESSION['user_id'])) {
 
   <div id="slidePanel" class="slide-panel">
     <span class="close-btn" onclick="closePanel()">&times;</span>
-    <div id="panelContent"></div>
+    <div id="panelContentPersonal" class="panelTab" style="display: none;">
+  <h2 style="color: #fff;">👤 User Info</h2>
+  <p style="color: #ccc;"><strong>Name:</strong> <?php echo $user_data['name']; ?></p>
+  <p style="color: #ccc;"><strong>Email:</strong> <?php echo $user_data['email']; ?></p>
+  <p style="color: #ccc;"><strong>Username:</strong> <?php echo $user_data['username']; ?></p>
+  <p style="color: #ccc;"><strong>Phone No:</strong> <?php echo $user_data['phoneNo']; ?></p>
+  <p style="color: #ccc;"><strong>State:</strong> <?php echo $user_data['state']; ?></p>
+  <p style="color: #ccc;"><strong>City:</strong> <?php echo $user_data['city']; ?></p>
+  <p style="color: #ccc;"><strong>Address:</strong> <?php echo $user_data['address1']; ?></p>
+  <p style="color: #ccc;"><strong>Car Number:</strong> <?php echo $user_data['carNumber']; ?></p>
+</div>
+
+
+<div id="panelContentHistory" class="panelTab" style="display: none;">
+  <h2 style="color: #fff;">📜 Booking History</h2>
+  <?php echo $booking_history_html; ?>
+</div>
+
+<div id="panelContentSettings" class="panelTab" style="display: none;">
+  <h2 style="color: #fff;">⚙️ Settings</h2>
+  <p style="color: #ccc;">(Customize your experience...)</p>
+</div>
+
   </div>
 
   <script>
-  // JS object created from PHP session data
-  const userData = {
-    username: "<?php echo $user_data['username']; ?>",
-    name: "<?php echo $user_data['name']; ?>",
-    email: "<?php echo $user_data['email']; ?>"
-  };
+function openPanel(type) {
+  const panel = document.getElementById('slidePanel');
+  document.querySelectorAll('.panelTab').forEach(tab => tab.style.display = 'none');
 
-  function openPanel(type) {
-    const panel = document.getElementById('slidePanel');
-    const content = document.getElementById('panelContent');
-    
-    if (type === 'personal') {
-      content.innerHTML = `
-        <h2 style="color: #fff;">👤 User Info</h2>
-        <p style="color: #ccc;"><strong>Name:</strong> ${userData.name}</p>
-        <p style="color: #ccc;"><strong>Email:</strong> ${userData.email}</p>
-        <p style="color: #ccc;"><strong>Username:</strong> ${userData.username}</p>
-      `;
-    } else if (type === 'history') {
-      content.innerHTML = `<h2 style="color: #fff;">📜 Booking History</h2><p style="color: #ccc;">(Coming soon...)</p>`;
-    } else if (type === 'settings') {
-      content.innerHTML = `<h2 style="color: #fff;">⚙️ Settings</h2><p style="color: #ccc;">(Customize your experience...)</p>`;
-    }
-
-    panel.style.right = '0';
+  if (type === 'personal') {
+    document.getElementById('panelContentPersonal').style.display = 'block';
+  } else if (type === 'history') {
+    document.getElementById('panelContentHistory').style.display = 'block';
+  } else if (type === 'settings') {
+    document.getElementById('panelContentSettings').style.display = 'block';
   }
 
-  function closePanel() {
-    document.getElementById('slidePanel').style.right = '-400px';
-  }
+  panel.style.right = '0';
+}
+
+function closePanel() {
+  document.getElementById('slidePanel').style.right = '-400px';
+}
 </script>
-
 
 </body>
 </html>
