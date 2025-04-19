@@ -84,7 +84,7 @@
           div.innerText = `${key.toUpperCase()} (${slotData[key]} left)`;
 
           // Tooltip on hover
-          div.title = getSlotTiming(key);
+          div.setAttribute("data-tooltip", getSlotTiming(key));
 
           div.onclick = () => bookSlot(spot, key, slotData[key]);
           slotsDiv.appendChild(div);
