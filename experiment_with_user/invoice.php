@@ -21,26 +21,45 @@ $user_stmt->close();
 
 $fullName = $firstName . ' ' . $lastName;
 
-$sql = "SELECT bh.booking_date, bh.booking_time, bh.slot_number, ps.name AS parking_name, ps.area AS parking_area
-        FROM booking_history bh
-        JOIN parkingspots ps ON bh.area_id = ps.id
-        WHERE bh.user_id = ?
-        ORDER BY bh.booking_time DESC LIMIT 1";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$parking_name = $_POST['parking_name'] ?? '';
+$area = $_POST['area'] ?? '';
+$city = $_POST['city'] ?? '';
+$slot = $_POST['slot'] ?? '';
+$slot_time = $_POST['timeSlotText'] ?? '';
+$date = $_POST['date'] ?? '';
+$booking_time = date('H:i:s');
 
-if ($row = $result->fetch_assoc()) {
-    $booking_date = $row['booking_date'];
-    $booking_time = $row['booking_time'];
-    $slot_number = $row['slot_number'];
-    $parking_name = $row['parking_name'];
-    $parking_area = $row['parking_area'];
-} else {
-    die("No booking found.");
+$area_stmt = $conn->prepare("SELECT id FROM parkingspots WHERE name = ?");
+$area_stmt->bind_param("s", $parking_name);
+$area_stmt->execute();
+$area_stmt->bind_result($area_id);
+$area_stmt->fetch();
+$area_stmt->close();
+function getTimeSlot($slot) {
+    $slots = [
+        1 => "7:00 AM – 8:00 AM",
+        2 => "8:00 AM – 9:00 AM",
+        3 => "9:00 AM – 10:00 AM",
+        4 => "10:00 AM – 11:00 AM",
+        5 => "11:00 AM – 12:00 PM",
+        6 => "12:00 PM – 1:00 PM",
+        7 => "1:00 PM – 2:00 PM",
+        8 => "2:00 PM – 3:00 PM",
+        9 => "3:00 PM – 4:00 PM",
+        10 => "4:00 PM – 5:00 PM",
+        11 => "5:00 PM – 6:00 PM"
+    ];
+    return $slots[$slot] ?? "Unknown Slot";
 }
+
+$timeSlotText = getTimeSlot($slot);
+$insert_stmt = $conn->prepare("INSERT INTO booking_history (user_id, slot_number, booking_date, booking_time, area_id)
+                               VALUES (?, ?, ?, ?, ?)");
+$insert_stmt->bind_param("isssi", $user_id, $slot, $date, $booking_time, $area_id);
+$insert_stmt->execute();
+$insert_stmt->close();
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -57,11 +76,13 @@ if ($row = $result->fetch_assoc()) {
     <div class="detail-row"><span class="label">Full Name:</span> <span><?php echo htmlspecialchars($fullName); ?></span></div>
     <div class="detail-row"><span class="label">Email:</span> <span><?php echo htmlspecialchars($email); ?></span></div>
     <div class="detail-row"><span class="label">Phone:</span> <span><?php echo htmlspecialchars($phoneNo); ?></span></div>
-    <div class="detail-row"><span class="label">Parking Area:</span> <span><?php echo htmlspecialchars($parking_name); ?></span></div>
-    <div class="detail-row"><span class="label">Location:</span> <span><?php echo htmlspecialchars($parking_area); ?></span></div>
-    <div class="detail-row"><span class="label">Slot Number:</span> <span><?php echo htmlspecialchars($slot_number); ?></span></div>
-    <div class="detail-row"><span class="label">Date:</span> <span><?php echo htmlspecialchars($booking_date); ?></span></div>
-    <div class="detail-row"><span class="label">Time:</span> <span><?php echo htmlspecialchars($booking_time); ?></span></div>
+    <div class="detail-row"><label>Parking Spot:</label> <?= htmlspecialchars($parking_name) ?></div>
+  <div class="detail-row"><label>Area:</label> <?= htmlspecialchars($area) ?></div>
+  <div class="detail-row"><label>City:</label> <?= htmlspecialchars($city) ?></div>
+  <div class="detail-row"><label>Slot Number:</label> <?= htmlspecialchars($slot) ?></div>
+  <div class="detail-row"><label>Time Slot:</label> <?= htmlspecialchars($timeSlotText) ?></div>
+  <div class="detail-row"><label>Date:</label> <?= htmlspecialchars($date) ?></div>
+  <div class="detail-row"><label>Booking Time:</label> <?= htmlspecialchars($booking_time) ?></div>
 </div>
 
     <img src="qr_placeholder.png" alt="QR Code" class="qr-code"><br>
