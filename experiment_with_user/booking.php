@@ -138,8 +138,7 @@ $conn->close();
         <label>Booking Date:</label>
         <input type="text" name="date" value="<?= htmlspecialchars($date) ?>" readonly>
 
-        <label>Booking Time:</label>
-        <input type="text" name="time" value="<?= htmlspecialchars($bookingTime) ?>" readonly>
+        
 
         <button type="submit">✅ Confirm Booking</button>
       </form>
