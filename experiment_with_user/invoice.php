@@ -54,7 +54,7 @@ function getTimeSlot($slot) {
 
 $timeSlotText = getTimeSlot($slot);
 $insert_stmt = $conn->prepare("INSERT INTO booking_history (user_id, slot_number, booking_date, booking_time, area_id)
-                               VALUES (?, ?, ?, ?, ?)");
+ VALUES (?, ?, ?, ?, ?)");
 $insert_stmt->bind_param("isssi", $user_id, $slot, $date, $booking_time, $area_id);
 $insert_stmt->execute();
 $insert_stmt->close();
