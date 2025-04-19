@@ -97,39 +97,31 @@
     }
 
     // Book a slot
-    function bookSlot(spot, slotKey, remaining) {
+    // Redirect to booking.php with slot and spot details
+function bookSlot(spot, slotKey, remaining) {
   const date = document.getElementById("datePicker").value;
-  const username = prompt("Enter your username to book:");
-  if (!username) return;
+  if (!date) {
+    alert("Please select a date first");
+    return;
+  }
 
-  const bookingData = {
-    username,
-    date,
-    area_id: spot.id,
-    area_name: spot.name,
-    slot_key: slotKey
-  };
+  // Extract slot number from key
+  const slotNumber = slotKey.replace("slot", ""); // Converts "slot1" to "1", "slot11" to "11"
 
-  fetch("book_slot.php", {
-    method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(bookingData)
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.success) {
-      alert("Slot booked successfully!");
-      document.getElementById("slot-panel").style.display = "none";
-
-      // ✅ Define params here
-      const params = new URLSearchParams(bookingData).toString();
-      window.location.href = `invoice.php?${params}`;
-
-    } else {
-      alert("Booking failed: " + res.message);
-    }
+  // Prepare query parameters
+  const params = new URLSearchParams({
+    name: spot.name,       // Parking spot name
+    area: spot.area,       // Area
+    city: spot.city,       // City
+    slot: slotNumber,      // Slot number
+    date: date,            // Selected date
   });
+
+  // Redirect to booking.php
+  window.location.href = `booking.php?${params.toString()}`;
 }
+
+  
 
 
     // Search city/area

@@ -25,7 +25,7 @@ $sql = "SELECT bh.booking_date, bh.booking_time, bh.slot_number, ps.name AS park
         FROM booking_history bh
         JOIN parkingspots ps ON bh.area_id = ps.id
         WHERE bh.user_id = ?
-        ORDER BY bh.id DESC LIMIT 1";
+        ORDER BY bh.booking_time DESC LIMIT 1";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
