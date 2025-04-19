@@ -22,106 +22,127 @@
       </div>
       <button class="primary" onclick="searchLocation()">Search</button>
     </div>
-    
 
     <div id="map"></div>
   </div>
 
   <div id="slot-panel"><strong>Available Slots:</strong><div id="slots"></div></div>
 
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script>
+    let map = L.map('map').setView([20.5937, 78.9629], 5); // India
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-<script>
-let map = L.map('map').setView([20.5937, 78.9629], 5); // India
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-// Load parking spots
-function loadParkingSpots() {
-  fetch('get_parking_data.php')
-    .then(res => res.json())
-    .then(spots => {
-      spots.forEach(spot => {
-        const marker = L.marker([spot.lat, spot.lon]).addTo(map)
-          .bindPopup(`<b>${spot.name}</b><br>${spot.city}, ${spot.area}<br>Slots: ${spot.available_slots}/${spot.total_slots}`)
-          .on('click', () => {
-            const date = document.getElementById("datePicker").value;
-            if (!date) return alert("Please select a date first");
-            fetch(`get_slots.php?area_id=${spot.id}&date=${date}`)
-              .then(res => res.json())
-              .then(slots => showSlotPanel(slots, spot));
+    // Load parking spots
+    function loadParkingSpots() {
+      fetch('get_parking_data.php')
+        .then(res => res.json())
+        .then(spots => {
+          spots.forEach(spot => {
+            const marker = L.marker([spot.lat, spot.lon]).addTo(map)
+              .bindPopup(`<b>${spot.name}</b><br>${spot.city}, ${spot.area}<br>Slots: ${spot.available_slots}/${spot.total_slots}`)
+              .on('click', () => {
+                const date = document.getElementById("datePicker").value;
+                if (!date) return alert("Please select a date first");
+                fetch(`get_slots.php?area_id=${spot.id}&date=${date}`)
+                  .then(res => res.json())
+                  .then(slots => showSlotPanel(slots, spot));
+              });
           });
+        });
+    }
+
+    // Slot timing helper
+    function getSlotTiming(slotKey) {
+      const timings = {
+        slot1: "07:00 AM - 08:00 AM",
+        slot2: "08:00 AM - 09:00 AM",
+        slot3: "09:00 AM - 10:00 AM",
+        slot4: "10:00 AM - 11:00 AM",
+        slot5: "11:00 AM - 12:00 PM",
+        slot6: "12:00 PM - 01:00 PM",
+        slot7: "01:00 PM - 02:00 PM",
+        slot8: "02:00 PM - 03:00 PM",
+        slot9: "03:00 PM - 04:00 PM",
+        slot10: "04:00 PM - 05:00 PM",
+        slot11: "05:00 PM - 06:00 PM",
+        slot12: "06:00 PM - 07:00 PM"
+      };
+      return timings[slotKey] || "Unknown Time";
+    }
+
+    // Show available slots
+    function showSlotPanel(slotData, spot) {
+      const panel = document.getElementById("slot-panel");
+      const slotsDiv = document.getElementById("slots");
+
+      slotsDiv.innerHTML = "";
+      for (let key in slotData) {
+        if (key.startsWith("slot") && slotData[key] > 0) {
+          const div = document.createElement("div");
+          div.className = "slot secondary";
+          div.innerText = `${key.toUpperCase()} (${slotData[key]} left)`;
+
+          // Tooltip on hover
+          div.title = getSlotTiming(key);
+
+          div.onclick = () => bookSlot(spot, key, slotData[key]);
+          slotsDiv.appendChild(div);
+        }
+      }
+
+      panel.classList.remove("slide-up");
+      void panel.offsetWidth;
+      panel.classList.add("slide-up");
+    }
+
+    // Book a slot
+    function bookSlot(spot, slotKey, remaining) {
+      const date = document.getElementById("datePicker").value;
+      const username = prompt("Enter your username to book:");
+      if (!username) return;
+
+      fetch("book_slot.php", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username,
+          date,
+          area_id: spot.id,
+          area_name: spot.name,
+          slot_key: slotKey
+        })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          alert("Slot booked successfully!");
+          document.getElementById("slot-panel").style.display = "none";
+        } else {
+          alert("Booking failed: " + res.message);
+        }
       });
-    });
-}
-
-// Show available slots
-function showSlotPanel(slotData, spot) {
-  const panel = document.getElementById("slot-panel");
-  const slotsDiv = document.getElementById("slots");
-
-  slotsDiv.innerHTML = "";
-  for (let key in slotData) {
-    if (key.startsWith("slot") && slotData[key] > 0) {
-      const div = document.createElement("div");
-      div.className = "slot secondary";
-      div.innerText = `${key.toUpperCase()} (${slotData[key]} left)`;
-      div.onclick = () => bookSlot(spot, key, slotData[key]);
-      slotsDiv.appendChild(div);
     }
-  }
 
-  panel.classList.remove("slide-up");  // Reset if re-showing
-  void panel.offsetWidth;              // Force reflow (ensures animation plays)
-  panel.classList.add("slide-up");
-}
-
-
-// Book a slot
-function bookSlot(spot, slotKey, remaining) {
-  const date = document.getElementById("datePicker").value;
-  const username= prompt("Enter your username to book:");
-  if (!username) return;
-  
-  fetch("book_slot.php", {
-    method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      username,
-      date,
-      area_id: spot.id,
-      area_name: spot.name,
-      slot_key: slotKey
-    })
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.success) {
-      alert("Slot booked successfully!");
-      document.getElementById("slot-panel").style.display = "none";
-    } else {
-      alert("Booking failed: " + res.message);
+    // Search city/area
+    function searchLocation() {
+      const query = document.getElementById("locationInput").value;
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) return alert("Location not found");
+          map.setView([data[0].lat, data[0].lon], 15);
+        });
     }
-  });
-}
 
-function searchLocation() {
-  const query = document.getElementById("locationInput").value;
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.length === 0) return alert("Location not found");
-      map.setView([data[0].lat, data[0].lon], 15);
-    });
-}
+    loadParkingSpots();
+  </script>
 
-loadParkingSpots();
-</script>
-
-<div class="floating-cars">
-  <img src="car-icon1.png" class="car car1" />
-  <img src="car-icon2.png" class="car car2" />
-  <img src="car-icon3.png" class="car car3" />
-</div>
+  <div class="floating-cars">
+    <img src="car-icon1.png" class="car car1" />
+    <img src="car-icon2.png" class="car car2" />
+    <img src="car-icon3.png" class="car car3" />
+  </div>
 
 </body>
 </html>
