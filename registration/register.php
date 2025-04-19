@@ -17,11 +17,12 @@
 <body>
   <div class="top">
     <header class="hero">
-      <div class="brand">
+      <!-- <div class="brand">
         <i class="fa-solid fa-car-side car-icon"></i>
         <h1 class="hero-title">Parkify</h1>
       </div>
-      <p class="hero-subtitle">Smart, Effortless & Secure Parking, Anytime</p>
+      <p class="hero-subtitle">Smart, Effortless & Secure Parking, Anytime</p> -->
+      <img src="logo.png" alt="">
     </header>
     
   </div>
