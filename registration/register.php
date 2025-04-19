@@ -13,57 +13,7 @@
     referrerpolicy="no-referrer"
   />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Michroma&display=swap" rel="stylesheet">
-  <style>{}
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #1a0033, #000014);
-    overflow: auto;
-    position: relative;
-    color: white;
-  }
-
-  .animated-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
-                radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
-                radial-gradient(circle at 40% 80%, #7400ff55 0%, transparent 40%);
-    animation: moveGradient 15s infinite linear;
-    filter: blur(100px);
-    opacity: 0.7;
-  }
-
-  @keyframes moveGradient {
-    0% {
-      transform: translate(0, 0) scale(1);
-    }
-    50% {
-      transform: translate(-25%, -25%) scale(1.2);
-    }
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-  }
-  #particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-</style>
-
-
+ 
 </head>
 <body>
 <div class="animated-bg"></div>
@@ -83,7 +33,6 @@
     <span class="radar-ping"></span>
     
   </div>
-  
   
 
   <form action="ifok.php" method="POST">
