@@ -2,13 +2,52 @@
 
 /* Base Setup */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('car.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-    overflow-x: hidden;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #000; /* fallback color */
+  color: #fff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Make sure the canvas background stays fixed and behind everything */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, #7400ff55 0%, transparent 40%);
+  animation: moveGradient 15s infinite linear;
+  filter: blur(100px);
+  opacity: 0.7;
+}
+
+@keyframes moveGradient {
+  0% {
+      transform: translate(0, 0) scale(1);
   }
+
+  50% {
+      transform: translate(-25%, -25%) scale(1.2);
+  }
+
+  100% {
+      transform: translate(0, 0) scale(1);
+  }
+}
   
   /* Container */
   .container {
@@ -255,7 +294,7 @@ body {
 
   /* Floating Car Container */
 .floating-cars {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
   pointer-events: none;
