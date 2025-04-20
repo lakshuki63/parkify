@@ -15,12 +15,46 @@ $conn = new mysqli("localhost", "root", "", "parkify");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$slot = $_GET['slot'] ?? '';
-$area = $_GET['area'] ?? '';
+$area_id = $_POST['area_id'] ?? $_GET['area_id'] ?? null;
+$slot = $_POST['slot'] ?? $_GET['slot'] ?? null;
+$date = $_POST['date'] ?? $_GET['date'] ?? null;
 $city = $_GET['city'] ?? '';
+$area = $_GET['area'] ?? '';
 $parkingName = $_GET['name'] ?? '';
-$date = $_GET['date'] ?? '';
+if (!$area_id || !$slot || !$date) {
+    die("Missing booking details.");
+}
 
+$area_id = intval($area_id);
+$slot = intval($slot)
+$slotColumn = "slot" . $slot;
+
+// Validate slot column
+$allowedSlots = ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "slot10", "slot11"];
+if (!in_array($slotColumn, $allowedSlots)) {
+    die("Invalid slot selected.");
+}
+
+$check = $conn->prepare("SELECT $slotColumn FROM daily_slot_availability WHERE area_id = ? AND date = ?");
+if (!$check) {
+    die("Query failed: " . $conn->error);
+}
+$check->bind_param("is", $area_id, $date);
+$check->execute();
+$result = $check->get_result();
+$row = $result->fetch_assoc();
+
+if ($row && $row[$slotColumn] > 0) {
+    $update = $conn->prepare("UPDATE daily_slot_availability SET $slotColumn = $slotColumn - 1 WHERE area_id = ? AND date = ?");
+    $update->bind_param("is", $area_id, $date);
+    if ($update->execute()) {
+        echo "✅ Slot $slot booked for $date.";
+    } else {
+        echo "❌ Failed to update slot.";
+    }
+} else {
+    echo "❌ Slot not available.";
+}
 // Fetch user and booking details
 $sql = "
 SELECT 
@@ -82,42 +116,6 @@ if ($result->num_rows === 1) {
 } else {
     echo "User or booking details not found.";
     exit();
-}
-$slotNumber = $_POST['slot'] ?? $_GET['slot'] ?? null;
-$date = $_POST['date'] ?? $_GET['date'] ?? null;
-$area_id = $_POST['area_id'] ?? $_GET['area_id'] ?? null;
-
-
-
-$slotNumber = intval($slotNumber);
-$area_id = intval($area_id);
-$slotColumn = "slot" . $slotNumber;
-
-// Validate slot column
-$allowedSlots = ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "slot10", "slot11"];
-if (!in_array($slotColumn, $allowedSlots)) {
-    die("Invalid slot selected.");
-}
-
-$area_id = $_POST['area_id'] ?? $_GET['area_id'] ?? null;
-
-$check = $conn->prepare("SELECT $slotColumn FROM daily_slot_availability WHERE area_id = ? AND date = ?");
-if (!$check) {
-    die("Query failed: " . $conn->error);
-}
-$check->bind_param("is", $area_id, $date);
-$check->execute();
-$result = $check->get_result();
-$row = $result->fetch_assoc();
-
-if ($row && $row[$slotColumn] > 0) {
-    $update = $conn->prepare("UPDATE daily_slot_availability SET $slotColumn = $slotColumn - 1 WHERE area_id = ? AND date = ?");
-    $update->bind_param("is", $area_id, $date);
-    if ($update->execute()) {
-        echo "✅ Slot $slotNumber booked for $date.";
-    } else {
-        echo "❌ Failed to update slot.";
-    }
 }
 
 $stmt->close();

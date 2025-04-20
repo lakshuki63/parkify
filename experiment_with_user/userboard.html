@@ -98,28 +98,48 @@
 
     // Book a slot
     // Redirect to booking.php with slot and spot details
-function bookSlot(spot, slotKey, remaining) {
+    function bookSlot(spot, slotKey, remaining) {
   const date = document.getElementById("datePicker").value;
   if (!date) {
     alert("Please select a date first");
     return;
   }
 
-  // Extract slot number from key
-  const slotNumber = slotKey.replace("slot", ""); // Converts "slot1" to "1", "slot11" to "11"
+  const slotNumber = slotKey.replace("slot", "");
 
-  // Prepare query parameters
-  const params = new URLSearchParams({
-    name: spot.name,       // Parking spot name
-    area: spot.area,       // Area
-    city: spot.city,       // City
-    slot: slotNumber,      // Slot number
-    date: date,            // Selected date
+  fetch("booking.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      area_id: spot.id,
+      slot: slotNumber,
+      date: date
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    // Optionally log or validate server response
+    console.log(response);
+
+    // Redirect to pgbooking.php with booking details
+    const redirectParams = new URLSearchParams({
+      name: spot.name,
+      area: spot.area,
+      city: spot.city,
+     
+      slot: slotNumber,
+      date: date
+    });
+    window.location.href = `booking.php?${redirectParams.toString()}`;
+  })
+  .catch(err => {
+    console.error("Booking failed:", err);
+    alert("❌ Booking failed. Please try again.");
   });
-
-  // Redirect to booking.php
-  window.location.href = `booking.php?${params.toString()}`;
 }
+
 
   
 
