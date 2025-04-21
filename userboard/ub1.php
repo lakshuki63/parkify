@@ -166,9 +166,9 @@ if (isset($_SESSION['user_id'])) {
     <div class="sidebar">
       <div class="menu-item" onclick="openPanel('personal')">👤 Personal</div>
       <div class="menu-item" onclick="openPanel('history')">📜 History</div>
-      <div class="menu-item" onclick="openPanel('settings')">⚙️ Settings</div>
+      <div class="menu-item" onclick="openPanel('settings')">⚙ Settings</div>
       <div class="menu-item" onclick="window.location.href='../load/loading.php';">
-  <span class="label">Logout</span>
+  <span class="label">🔓Logout</span>
     </div>
 
     <div class="center-wrapper">
@@ -199,7 +199,7 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <div id="panelContentSettings" class="panelTab" style="display: none;">
-  <h2 style="color: #fff;">⚙️ Settings</h2>
+  <h2 style="color: #fff;">⚙ Settings</h2>
   <p style="color: #ccc;">(Customize your experience...)</p>
 </div>
 
