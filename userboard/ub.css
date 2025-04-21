@@ -23,7 +23,7 @@ body {
   padding-top: 60px;
   gap: 30px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   transition: width 0.3s ease;
   overflow: hidden;
@@ -64,7 +64,7 @@ body {
   height: 100vh;
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(6px);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   box-shadow: -4px 0 25px rgba(0, 0, 0, 0.5);
@@ -201,6 +201,45 @@ a{
   animation: moveGradient 15s infinite linear;
   filter: blur(100px);
   opacity: 0.7;
+}
+.sidebar:hover .tooltip-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tooltip-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip-text {
+  position: absolute;
+  left: 100%;
+  margin-left: 10px;
+  padding: 5px 18px;
+  white-space: nowrap;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.378);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tooltip-container:hover .tooltip-text {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 @keyframes moveGradient {
