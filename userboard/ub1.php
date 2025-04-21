@@ -167,6 +167,8 @@ if (isset($_SESSION['user_id'])) {
       <div class="menu-item" onclick="openPanel('personal')">👤 Personal</div>
       <div class="menu-item" onclick="openPanel('history')">📜 History</div>
       <div class="menu-item" onclick="openPanel('settings')">⚙️ Settings</div>
+      <div class="menu-item" onclick="window.location.href='../load/loading.php';">
+  <span class="label">Logout</span>
     </div>
 
     <div class="center-wrapper">
