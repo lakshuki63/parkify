@@ -133,13 +133,6 @@ $conn->close();
   <link href="https://fonts.googleapis.com/css2?family=Bahnschrift&display=swap" rel="stylesheet">
 </head>
 <body>
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger
-  intent="WELCOME"
-  chat-title="SPARKY"
-  agent-id="b755d18d-981c-475d-90e0-a232661c8510"
-  language-code="en"
-></df-messenger>
   <div class="container">
     <div class="session-info">
       🚘 Logged in as: <strong><?php echo htmlspecialchars($username); ?></strong>
