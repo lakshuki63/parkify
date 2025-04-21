@@ -1,11 +1,8 @@
-/* === Updated ub.css with GTA Purple theme and animated sidebar === */
-
+/* === Spider Particle Background + Animated Gradient Background === */
 body {
   margin: 0;
-  font-family: 'Bahnschrift', 'Inter', sans-serif;
-  background:
-    linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)),
-    url('image2.png') no-repeat center bottom fixed;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #1a0033cc, #000014cc);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -14,96 +11,60 @@ body {
   position: relative;
 }
 
-a {
-  text-decoration: none;
-}
 
-.dashboard-wrapper {
-  display: flex;
-  height: 100vh;
-  position: relative;
-}
-
-.map-button {
-  /* position: absolute; */
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  padding: 14px 32px;
-  background: linear-gradient(145deg, #8e2de2, #4a00e0);
-  color: white;
-  font-weight: bold;
-  font-size: 17px;
-  border: none;
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
-  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-
-.map-button:hover {
-  background: linear-gradient(145deg, #9b30ff, #551a8b);
-  transform: translateX(-50%) scale(1.07);
-  box-shadow: 0 10px 28px rgba(155, 48, 255, 0.5);
-}
-
+/* === Sidebar Glassmorphism === */
 .sidebar {
   width: 80px;
-  background: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10%;
-  gap: 40px;
+  padding-top: 60px;
+  gap: 30px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  transition: width 0.4s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: width 0.3s ease;
   overflow: hidden;
+  position: fixed;
+  z-index: 2;
 }
 
 .sidebar:hover {
-  width: 200px;
+  width: 220px;
   align-items: flex-start;
   padding-left: 20px;
 }
 
 .menu-item {
-  font-size: 26px;
+  font-size: 20px;
   color: #ddd;
   cursor: pointer;
-  padding: 10px;
+  padding: 12px;
   border-radius: 12px;
-  transition: background 0.3s ease, transform 0.2s ease, color 0.3s;
+  transition: background 0.3s ease;
   white-space: nowrap;
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-.sidebar:hover .menu-item {
   opacity: 1;
   transform: translateX(0);
-  transition-delay: 0.1s;
 }
 
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.2);
   color: #fff;
+  transform: scale(1.1);
 }
 
-/* === Slide Panel === */
+/* === Slide Panel Glassmorphism === */
 .slide-panel {
   position: fixed;
   top: 0;
   right: -420px;
-  width: 380px;
-  height: 100%;
+  width: 300px;
+  height: 100vh;
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(12px);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   box-shadow: -4px 0 25px rgba(0, 0, 0, 0.5);
@@ -116,22 +77,6 @@ a {
 
 .slide-panel.open {
   right: 0;
-}
-
-.slide-panel h2 {
-  font-size: 24px;
-  margin-bottom: 12px;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.slide-panel p,
-.slide-panel ul {
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.slide-panel ul {
-  padding-left: 20px;
 }
 
 .close-btn {
@@ -148,59 +93,118 @@ a {
   color: #fff;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  display: none;
-  backdrop-filter: blur(2px);
+.logo-img {
+  width: 40%;
+  height: auto;
+  filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7)) drop-shadow(0 0 30px rgba(0, 255, 255, 0.3));
+  transition: transform 0.3s ease, filter 0.3s ease;
+  padding: 2px 105px;
 }
 
-.overlay.show {
-  display: block;
+.logo-img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 20px rgba(0, 255, 255, 1)) drop-shadow(0 0 40px rgba(0, 255, 255, 0.5));
 }
 
-/* === Parkify text color (GTA Purple) === */
+/* === Center Section Styling === */
+.center-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
 .brand-title {
-  color: #a020f0;
+  color: #b000f0;
   font-weight: 900;
-  font-size: 32px;
+  font-size: 42px;
   font-family: 'Orbitron', sans-serif;
-  letter-spacing: 1.5px;
-  text-shadow: 1px 1px 6px rgba(160, 32, 240, 0.5);
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px #9f00ff, 0 0 12px #cc33ff;
   animation: fadeIn 1.2s ease-in-out;
 }
 
-/* === Subtext styling and animation === */
 .brand-subtext {
   font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  color: #d5c4f1;
+  font-size: 18px;
+  color: #e1caff;
   opacity: 0;
   transform: translateY(20px);
   animation: slideUp 1.2s ease forwards;
   animation-delay: 0.8s;
+  text-shadow: 0 0 6px #994fd1;
+  font-weight: 600;
+  margin-bottom: 50px;
 }
 
+.map-button {
+  margin-top: 25px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #ff00cc, #3333ff);
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #6600cc;
+  letter-spacing: 1px;
+  transition: all 0.35s ease;
+  animation: pulseRacer 2s infinite ease-in-out;
+}
+
+a{
+  text-decoration: none;
+}
+
+.map-button:hover {
+  background: linear-gradient(135deg, #e600ac, #2200cc);
+  box-shadow: 0 0 15px #ff00cc, 0 0 25px #6600cc;
+  transform: scale(1.1);
+}
+
+@keyframes pulseRacer {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05) translateY(-2px); }
+}
 
 @keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -11;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
+              radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
+              radial-gradient(circle at 40% 80%, #7400ff55 0%, transparent 40%);
+  animation: moveGradient 15s infinite linear;
+  filter: blur(100px);
+  opacity: 0.7;
+}
+
+@keyframes moveGradient {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25%, -25%) scale(1.2); }
+  100% { transform: translate(0, 0) scale(1); }
 }
