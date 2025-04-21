@@ -165,7 +165,7 @@ if (isset($_SESSION['user_id'])) {
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
-  chat-title="PARKIFY"
+  chat-title="SPARKY"
   agent-id="b755d18d-981c-475d-90e0-a232661c8510"
   language-code="en"
 ></df-messenger>
@@ -177,11 +177,11 @@ if (isset($_SESSION['user_id'])) {
       <div class="menu-item" onclick="openPanel('history')">🕰️</div>
       <div class="menu-item" onclick="openPanel('settings')">⚙️</div>
       <div class="menu-item" onclick="window.location.href='../load/loading.php';">
-      <span class="label">🔓</span>
+  <span class="label">🔓</span>
     </div></div>
 
     <div class="center-wrapper">
-      <h1 class="brand-title">Parkify</h1>
+    <img src="logo.png" class="logo-img" alt="Parkify Logo" />
       <p class="brand-subtext">Smart, Effortless & Secure Parking, Anytime</p>
       <a href="../experiment_with_user/userboard.html" class="map-button">Find a Parking Spot</a>
     </div>
