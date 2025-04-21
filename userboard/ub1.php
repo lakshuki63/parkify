@@ -102,8 +102,8 @@ if (isset($_SESSION['user_id'])) {
 
     .brand-subtext {
       font-family: 'Poppins', sans-serif;
-      font-size: 18px;
-      color: #e1caff;
+      font-size: 25px;
+      color: #67918b;
       opacity: 0;
       transform: translateY(20px);
       animation: slideUp 1.2s ease forwards;
