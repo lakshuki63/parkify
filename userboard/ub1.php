@@ -165,7 +165,7 @@ if (isset($_SESSION['user_id'])) {
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
-  chat-title="PARKIFY"
+  chat-title="SPARKY"
   agent-id="b755d18d-981c-475d-90e0-a232661c8510"
   language-code="en"
 ></df-messenger>
@@ -175,7 +175,7 @@ if (isset($_SESSION['user_id'])) {
       <div class="menu-item" onclick="openPanel('history')">📜 History</div>
       <div class="menu-item" onclick="openPanel('settings')">⚙ Settings</div>
       <div class="menu-item" onclick="window.location.href='../load/loading.php';">
-  <span class="label">🔓Logout</span>
+       <span class="label">🔓Logout</span>
     </div>
 
     <div class="center-wrapper">
