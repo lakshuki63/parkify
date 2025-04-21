@@ -68,6 +68,7 @@ $insert_stmt->close();
     <link rel="stylesheet" href="invoice.css">
 </head>
 <body>
+
 <div class="invoice-box">
     <img src="logo.png" alt="Parkify Logo" class="logo">
     <h1>Parking Invoice</h1>
@@ -87,6 +88,13 @@ $insert_stmt->close();
 
     <img src="qr_placeholder.png" alt="QR Code" class="qr-code"><br>
     <button class="print-btn" onclick="window.print()">🖨️ Print Ticket</button>
+    <!-- Add this where you want the button to appear in invoice.php -->
+<a href="../userboard/ub1.php">
+  <button class="print-btn">
+  🏠 Go to Home
+  </button>
+</a>
+
 </div>
 
 <canvas id="particles"></canvas>
