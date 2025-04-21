@@ -98,28 +98,48 @@
 
     // Book a slot
     // Redirect to booking.php with slot and spot details
-function bookSlot(spot, slotKey, remaining) {
+    function bookSlot(spot, slotKey, remaining) {
   const date = document.getElementById("datePicker").value;
   if (!date) {
     alert("Please select a date first");
     return;
   }
 
-  // Extract slot number from key
-  const slotNumber = slotKey.replace("slot", ""); // Converts "slot1" to "1", "slot11" to "11"
+  const slotNumber = slotKey.replace("slot", "");
 
-  // Prepare query parameters
-  const params = new URLSearchParams({
-    name: spot.name,       // Parking spot name
-    area: spot.area,       // Area
-    city: spot.city,       // City
-    slot: slotNumber,      // Slot number
-    date: date,            // Selected date
+  fetch("booking.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      area_id: spot.id,
+      slot: slotNumber,
+      date: date
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    // Optionally log or validate server response
+    console.log(response);
+
+    // Redirect to pgbooking.php with booking details
+    const redirectParams = new URLSearchParams({
+      name: spot.name,
+      area: spot.area,
+      city: spot.city,
+     
+      slot: slotNumber,
+      date: date
+    });
+    window.location.href = `booking.php?${redirectParams.toString()}`;
+  })
+  .catch(err => {
+    console.error("Booking failed:", err);
+    alert("❌ Booking failed. Please try again.");
   });
-
-  // Redirect to booking.php
-  window.location.href = `booking.php?${params.toString()}`;
 }
+
 
   
 
@@ -137,6 +157,117 @@ function bookSlot(spot, slotKey, remaining) {
 
     loadParkingSpots();
   </script>
+
+<canvas id="particles"></canvas>
+<div class="animated-bg"></div>
+<script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    document.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.alpha = Math.random() * 0.5 + 0.3;
+            this.color = ['#00f5ff', '#e600ff', '#7400ff'][Math.floor(Math.random() * 3)];
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // bounce
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = this.alpha;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+        }
+    }
+
+    function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+
+            // line from particle to cursor
+            if (mouse.x && mouse.y) {
+                const dx = particles[i].x - mouse.x;
+                const dy = particles[i].y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function initParticles(count) {
+        particles = [];
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        drawLines();
+        requestAnimationFrame(animate);
+    }
+
+    initParticles(200);
+    animate();
+</script>
 
   <div class="floating-cars">
     <img src="car-icon1.png" class="car car1" />

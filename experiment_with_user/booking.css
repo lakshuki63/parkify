@@ -1,13 +1,55 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Bahnschrift', sans-serif;
-    background: 
-      linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-      url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #eee;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #1a0033, #000014);
+  overflow: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, #7400ff55 0%, transparent 40%);
+  animation: moveGradient 15s infinite linear;
+  filter: blur(100px);
+  opacity: 0.7;
+}
+
+@keyframes moveGradient {
+  0% {
+      transform: translate(0, 0) scale(1);
   }
+
+  50% {
+      transform: translate(-25%, -25%) scale(1.2);
+  }
+
+  100% {
+      transform: translate(0, 0) scale(1);
+  }
+}
+
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
   
   .container {
     display: flex;
@@ -30,12 +72,12 @@ body {
   }
   
   .glass-card {
-    width: 90%;
+    width: 95%;
     max-width: 650px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(99, 99, 99, 0.12);
     padding: 30px 40px;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     color: #fff;
   }
@@ -56,7 +98,7 @@ body {
   }
   
   input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-top: 6px;
     border-radius: 8px;

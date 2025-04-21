@@ -32,7 +32,9 @@
         <h1 class="hero-title">Parkify</h1>
       </div>
       <p class="hero-subtitle">Smart, Effortless & Secure Parking, Anytime</p> -->
-      <img src="logo.png" alt="">
+      <div class="logo-container">
+    <img src="logo.png" class="logo-img" alt="Parkify Logo" />
+  </div>
     </header>
     
   </div>
@@ -176,7 +178,7 @@
     requestAnimationFrame(animate);
   }
 
-  initParticles(100);
+  initParticles(500);
   animate();
 </script>
 
