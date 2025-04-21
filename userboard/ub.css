@@ -3,9 +3,8 @@
 body {
   margin: 0;
   font-family: 'Bahnschrift', 'Inter', sans-serif;
-  background:
-    linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)),
-    url('image2.png') no-repeat center bottom fixed;
+  background: linear-gradient(120deg, #1a0033, #000014);
+
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -14,13 +13,52 @@ body {
   position: relative;
 }
 
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, #7400ff55 0%, transparent 40%);
+  animation: moveGradient 15s infinite linear;
+  filter: blur(100px);
+  opacity: 0.7;
+}
+
+@keyframes moveGradient {
+  0% {
+      transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+      transform: translate(-25%, -25%) scale(1.2);
+  }
+
+  100% {
+      transform: translate(0, 0) scale(1);
+  }
+}
+
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 a {
   text-decoration: none;
 }
 
 .dashboard-wrapper {
   display: flex;
-  height: 100vh;
+  height: 0px;
   position: relative;
 }
 
@@ -51,6 +89,7 @@ a {
 
 .sidebar {
   width: 80px;
+  height: 560px;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
@@ -58,7 +97,7 @@ a {
   padding-top: 10%;
   gap: 40px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   transition: width 0.4s ease;
   overflow: hidden;
@@ -71,22 +110,29 @@ a {
 }
 
 .menu-item {
-  font-size: 26px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
   color: #ddd;
   cursor: pointer;
   padding: 10px;
   border-radius: 12px;
-  transition: background 0.3s ease, transform 0.2s ease, color 0.3s;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(-20px);
+  transition: background 0.3s ease;
 }
 
-.sidebar:hover .menu-item {
+.menu-item .label {
+  margin-left: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar:hover .menu-item .label {
   opacity: 1;
   transform: translateX(0);
-  transition-delay: 0.1s;
 }
+
 
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.1);
@@ -103,7 +149,7 @@ a {
   height: 100%;
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(2px);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   box-shadow: -4px 0 25px rgba(0, 0, 0, 0.5);
@@ -120,13 +166,13 @@ a {
 
 .slide-panel h2 {
   font-size: 24px;
-  margin-bottom: 12px;
+  margin-bottom: 32px;
   font-family: 'Segoe UI', sans-serif;
 }
 
 .slide-panel p,
 .slide-panel ul {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.6;
 }
 
