@@ -1,25 +1,54 @@
-/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-html,
 body {
-  background: linear-gradient(90deg, #d4d4d4, #140214d9, #041018d4, #d4d4d4),
-    url('username.jpg') center center no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-blend-mode: overlay;
-  animation: gradientShift 10s ease infinite;
+  background: #000;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Bahnschrift', sans-serif;
   /* background: linear-gradient(120deg, #020202, #0a0015, #01050c); */
   color: #eee;
   padding: 2rem;
+}
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, #7400ff55 0%, transparent 40%);
+  animation: moveGradient 15s infinite linear;
+  filter: blur(100px);
+  opacity: 0.7;
+}
+
+@keyframes moveGradient {
+  0% {
+      transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+      transform: translate(-25%, -25%) scale(1.2);
+  }
+
+  100% {
+      transform: translate(0, 0) scale(1);
+  }
+}
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 /* Container */
@@ -51,7 +80,7 @@ form .form-group {
 form label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #ccc;
+  color: #ffffff;
   font-weight: 600;
 }
 

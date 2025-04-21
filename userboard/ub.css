@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(120deg, #1a0033cc, #000014cc);
+  background: #000;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

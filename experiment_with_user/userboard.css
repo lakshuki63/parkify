@@ -202,8 +202,8 @@ body {
   
   /* Mixed Button Colors */
   button.primary {
-    background: linear-gradient(135deg, #00e5ff, #00c853);
-    box-shadow: 0 0 15px #00c853;
+    background: linear-gradient(to right, #09f, #f0f);
+    box-shadow: 0 0 15px #09f;
     color: white;
     cursor: pointer;
     padding-left: 20px;
