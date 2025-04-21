@@ -103,12 +103,12 @@ if (isset($_SESSION['user_id'])) {
     .brand-subtext {
       font-family: 'Poppins', sans-serif;
       font-size: 25px;
-      color: #67918b;
+      color: #bed1ff;
       opacity: 0;
       transform: translateY(20px);
       animation: slideUp 1.2s ease forwards;
       animation-delay: 0.8s;
-      text-shadow: 0 0 6px #994fd1;
+      text-shadow: 0 0 6px #bed1ff;
       font-weight: 600;
     }
 
@@ -161,7 +161,7 @@ if (isset($_SESSION['user_id'])) {
     }
   </style>
 </head>
-<body>
+<body>  
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
@@ -172,13 +172,25 @@ if (isset($_SESSION['user_id'])) {
 <div class="animated-bg"></div>
 
   <div class="dashboard-wrapper">
-    <div class="sidebar">
-      <div class="menu-item" onclick="openPanel('personal')">👤</div>
-      <div class="menu-item" onclick="openPanel('history')">🕰️</div>
-      <div class="menu-item" onclick="openPanel('settings')">⚙️</div>
-      <div class="menu-item" onclick="window.location.href='../load/loading.php';">
-  <span class="label">🔓</span>
-    </div></div>
+  <div class="sidebar">
+  <div class="menu-item tooltip-container" onclick="openPanel('personal')">
+    👤
+    <span class="tooltip-text">Personal</span>
+  </div>
+  <div class="menu-item tooltip-container" onclick="openPanel('history')">
+    🕰️
+    <span class="tooltip-text">History</span>
+  </div>
+  <div class="menu-item tooltip-container" onclick="openPanel('settings')">
+    ⚙️
+    <span class="tooltip-text">Settings</span>
+  </div>
+  <div class="menu-item tooltip-container" onclick="window.location.href='../load/loading.php';">
+    🔓
+    <span class="tooltip-text">Logout</span>
+  </div>
+</div>
+
 
     <div class="center-wrapper">
     <img src="logo.png" class="logo-img" alt="Parkify Logo" />
