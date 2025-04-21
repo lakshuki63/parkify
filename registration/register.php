@@ -16,6 +16,13 @@
  
 </head>
 <body>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="PARKIFY"
+  agent-id="b755d18d-981c-475d-90e0-a232661c8510"
+  language-code="en"
+></df-messenger>
 <div class="animated-bg"></div>
 
   <div class="top">
