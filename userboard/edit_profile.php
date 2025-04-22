@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $update_stmt->bind_param("sssssssss", $name, $email, $firstName, $lastName, $phoneNo, $address1, $address2, $carNumber, $username);
     $update_stmt->execute();
 
-    echo "<script>alert('Profile updated successfully!'); window.location.href='userboard.php';</script>";
+    echo "<script>alert('Profile updated successfully!'); window.location.href='ub1.php';</script>";
     exit();
 }
 ?>
