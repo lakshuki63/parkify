@@ -185,6 +185,12 @@ if (isset($_SESSION['user_id'])) {
     ⚙️
     <span class="tooltip-text">Settings</span>
   </div>
+
+  <div class="menu-item tooltip-container" onclick="openPanel('About')">
+    ❤️
+    <span class="tooltip-text">About </span>
+  </div>
+
   <div class="menu-item tooltip-container" onclick="window.location.href='../load/loading.php';">
     🔓
     <span class="tooltip-text">Logout</span>
@@ -219,6 +225,18 @@ if (isset($_SESSION['user_id'])) {
   <?php echo $booking_history_html; ?>
 </div>
 
+<div id="panelContentAbout" class="panelTab" style="display: none;">
+  <h2 style="color: #fff;">ABOUT US</h2>
+  <h3>OUR TEAM :</h3>
+  Lakshuki Hatwar
+  <br>
+  Siddhi Dhoke <br>
+  Pranjal Baghel <br>
+  Ness Bubey <br>
+  Nakul Bhadade
+
+</div>
+
 <div id="panelContentSettings" class="panelTab" style="display: none;">
   <h2 style="color: #fff;">⚙ Settings</h2>
   <p style="color: #ccc;">(Customize your experience...)</p>
@@ -250,6 +268,8 @@ function openPanel(type) {
     document.getElementById('panelContentHistory').style.display = 'block';
   } else if (type === 'settings') {
     document.getElementById('panelContentSettings').style.display = 'block';
+  } else if (type === 'About') {
+    document.getElementById('panelContentAbout').style.display = 'block';
   }
 
   panel.style.right = '0';
