@@ -56,10 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
   <title>Admin Panel - Smart Parking</title>
   <style>
       body {
-        margin: 0;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #000;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #FFFFFF;
+        overflow-x: hidden;
       }
+
       #particles {
       position: fixed;
       top: 0;
@@ -89,12 +93,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
       50% { transform: translate(-25%, -25%) scale(1.2); }
       100% { transform: translate(0, 0) scale(1); }
     }
+
     header {
-      background-color:rgba(44, 62, 80, 0);
-      color: white;
-      padding: 20px;
       text-align: center;
-      font-size: 24px;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .container {
@@ -106,13 +113,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
 
     .panel {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(3px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 40px 30px;
       width: 320px;
       color: white;
+      margin: 20px auto;
     }
 
     .panel h2 {
@@ -207,12 +215,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
   </style>
 </head>
 <body>
-<div class="animated-bg"></div>
+<!-- <div class="animated-bg"></div> -->
 
-
-  <header>Admin Panel</header>
-
-  
+  <header>👨🏻‍💻  Admin Panel</header>
 
   <div class="container">
     <div class="panel">

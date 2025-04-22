@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     .login-box {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
+      backdrop-filter: blur(4px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
       border-radius: 16px;
@@ -75,11 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     h2 {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 40px;
+      margin-top: -10px;
       font-weight: 600;
-      font-size: 22px;
+      font-size: 32px;
       color: #00f5ff;
-      text-shadow: 0 0 10px #00f5ff99;
+      /* text-shadow: 0 0 10px #00f5ff99; */
     }
 
     input[type="text"],
@@ -123,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<div class="animated-bg"></div>
+<!-- <div class="animated-bg"></div> -->
 
 <div class="login-box">
   <h2>Admin Login</h2>
