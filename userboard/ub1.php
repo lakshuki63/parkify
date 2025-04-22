@@ -30,43 +30,43 @@ if (isset($_SESSION['user_id'])) {
     $stmt->close();
 
     // FETCH BOOKING HISTORY
-    // $booking_history_html = "";
-    // $sql = "
-    //   SELECT 
-    //     bh.booking_date,
-    //     bh.booking_time,
-    //     bh.slot_number,
-    //     ps.name AS parking_name,
-    //     ps.area AS parking_area,
-    //     ps.city AS parking_city
-    //   FROM booking_history bh
-    //   JOIN parkingspots ps ON bh.area_id = ps.id
-    //   WHERE bh.user_id = ?
-    //   ORDER BY bh.booking_date DESC, bh.booking_time DESC
-    // ";
-    // if ($stmt = $conn->prepare($sql)) {
-    //     $stmt->bind_param("i", $id);
-    //     $stmt->execute();
-    //     $stmt->bind_result($booking_date, $booking_time, $slot_number, $parking_name, $parking_area,$parking_city);
+    $booking_history_html = "";
+    $sql = "
+      SELECT 
+        bh.booking_date,
+        bh.booking_time,
+        bh.slot_number,
+        ps.name AS parking_name,
+        ps.area AS parking_area,
+        ps.city AS parking_city
+      FROM booking_history bh
+      JOIN parkingspots ps ON bh.area = ps.id
+      WHERE bh.user_id = ?
+      ORDER BY bh.booking_date DESC, bh.booking_time DESC
+    ";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($booking_date, $booking_time, $slot_number, $parking_name, $parking_area,$parking_city);
         
-    //     while ($stmt->fetch()) {
-    //         $booking_history_html .= "
-    //           <div style='margin-bottom: 10px; color: #ccc;'>
-    //             <strong>Date:</strong> $booking_date<br>
-    //             <strong>Time:</strong> $booking_time<br>
-    //             <strong>Slot:</strong> $slot_number<br>
-    //             <strong>Location:</strong> $parking_name,<br> $parking_area<br>
-    //             <strong>City:</strong> $parking_city
-    //           </div><hr style='border-color: #555;'>
-    //         ";
-    //     }
+        while ($stmt->fetch()) {
+            $booking_history_html .= "
+              <div style='margin-bottom: 10px; color: #ccc;'>
+                <strong>Date:</strong> $booking_date<br>
+                <strong>Time:</strong> $booking_time<br>
+                <strong>Slot:</strong> $slot_number<br>
+                <strong>Location:</strong> $parking_name,<br> $parking_area<br>
+                <strong>City:</strong> $parking_city
+              </div><hr style='border-color: #555;'>
+            ";
+        }
 
-    //     if (empty($booking_history_html)) {
-    //         $booking_history_html = "<p style='color: #ccc;'>No bookings found.</p>";
-    //     }
+        if (empty($booking_history_html)) {
+            $booking_history_html = "<p style='color: #ccc;'>No bookings found.</p>";
+        }
 
-    //     $stmt->close();
-    // }
+        $stmt->close();
+    }
 }
 ?>
 
@@ -216,7 +216,7 @@ if (isset($_SESSION['user_id'])) {
 
 <div id="panelContentHistory" class="panelTab" style="display: none;">
   <h2 style="color: #fff;">📜 Booking History</h2>
-  <?php include 'booking_history.php'; ?>
+  <?php echo $booking_history_html; ?>
 </div>
 
 <div id="panelContentSettings" class="panelTab" style="display: none;">
