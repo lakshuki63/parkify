@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #ecf0f1;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;

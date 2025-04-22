@@ -16,7 +16,7 @@ $result = $mysqli->query("SELECT * FROM user_form");
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8fafc;
+      background: #000;
       margin: 0;
       padding: 0;
     }
