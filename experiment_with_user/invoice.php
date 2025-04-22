@@ -30,6 +30,7 @@ $user_name=$_POST['username'] ?? '';
 $parking_name = $_POST['parking_name'] ?? '';
 $slot_time = $_POST['timeSlotText'] ?? '';
 $date = $_POST['date'] ?? '';
+$area_id=$_POST['area_id']?? '';
 $booking_time = date('H:i:s');
 
 $area_stmt = $conn->prepare("SELECT id FROM parkingspots WHERE name = ?");
@@ -56,11 +57,9 @@ function getTimeSlot($slot) {
 }
 
 $timeSlotText = getTimeSlot($slot);
-$stmt = $conn->prepare("INSERT INTO booking_history (user_id, slot_number, booking_date, booking_time, area, user_name) 
-                        VALUES (?, ?, ?, ?, ?, ?)");
-
-$stmt->bind_param("isssss", $user_id, $slot, $date, $booking_time, $area, $user_name);
-
+$stmt = $conn->prepare("INSERT INTO booking_history (user_id, slot_number, booking_date, booking_time, area, user_name, area_id) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("iissssi", $user_id, $slot, $date, $booking_time, $area, $user_name, $area_id);
 $stmt->execute();
 $stmt->close();
 
