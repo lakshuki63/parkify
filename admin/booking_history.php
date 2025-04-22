@@ -118,6 +118,7 @@ $result = $stmt->get_result();
   </style>
 </head>
 <body>
+<div class="animated-bg"></div>
 
 <header>Booking History - Filter by Area & Username</header>
 <a href="admin_panel.php" style="display: inline-block; margin-bottom: 20px; text-decoration: none;">
