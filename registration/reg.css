@@ -320,3 +320,16 @@ body {
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.4), 0 0 15px rgba(0, 234, 255, 0.4);
         }
     }
+
+    #admin{
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to left, rgb(9, 148, 255), rgb(255, 0, 255));
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    }

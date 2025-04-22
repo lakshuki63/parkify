@@ -112,6 +112,11 @@ $result = $stmt->get_result();
 <body>
 
 <header>Booking History - Filter by Area & Username</header>
+<a href="admin_panel.php" style="display: inline-block; margin-bottom: 20px; text-decoration: none;">
+  <button style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    ← Back to Admin Panel
+  </button>
+</a>
 
 <div class="container">
 
