@@ -1,11 +1,52 @@
 <?php
 $mysqli = new mysqli("localhost", "root", "", "parkify");
-
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-$result = $mysqli->query("SELECT * FROM booking_history");
+// Fetch unique areas
+$areas = [];
+$area_query = $mysqli->query("SELECT DISTINCT area FROM parkingspots");
+while ($row = $area_query->fetch_assoc()) {
+    $areas[] = $row['area'];
+}
+
+// Fetch unique usernames
+$usernames = [];
+$user_query = $mysqli->query("SELECT DISTINCT user_name FROM booking_history");
+while ($row = $user_query->fetch_assoc()) {
+    $usernames[] = $row['user_name'];
+}
+
+// Get selected filters
+$selected_area = isset($_GET['area']) ? $_GET['area'] : '';
+$selected_user = isset($_GET['user_name']) ? $_GET['user_name'] : '';
+
+// Dynamic query
+$query = "SELECT * FROM booking_history WHERE 1=1";
+$params = [];
+$types = "";
+
+if (!empty($selected_area)) {
+    $query .= " AND area = ?";
+    $params[] = $selected_area;
+    $types .= "s";
+}
+
+if (!empty($selected_user)) {
+    $query .= " AND user_name = ?";
+    $params[] = $selected_user;
+    $types .= "s";
+}
+
+$stmt = $mysqli->prepare($query);
+
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +71,19 @@ $result = $mysqli->query("SELECT * FROM booking_history");
 
     .container {
       padding: 30px;
+    }
+
+    form {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 15px;
+    }
+
+    select, button {
+      padding: 10px;
+      font-size: 16px;
     }
 
     table {
@@ -57,18 +111,43 @@ $result = $mysqli->query("SELECT * FROM booking_history");
 </head>
 <body>
 
-<header>All Booking History</header>
+<header>Booking History - Filter by Area & Username</header>
 
 <div class="container">
+
+  <form method="GET" action="booking_history.php">
+    <label><strong>Area:</strong></label>
+    <select name="area">
+      <option value="">-- All Areas --</option>
+      <?php foreach ($areas as $area): ?>
+        <option value="<?= $area ?>" <?= $selected_area == $area ? 'selected' : '' ?>>
+          <?= htmlspecialchars($area) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+
+    <label><strong>User:</strong></label>
+    <select name="user_name">
+      <option value="">-- All Users --</option>
+      <?php foreach ($usernames as $user): ?>
+        <option value="<?= $user ?>" <?= $selected_user == $user ? 'selected' : '' ?>>
+          <?= htmlspecialchars($user) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+
+    <button type="submit">Search</button>
+  </form>
+
   <table>
     <tr>
-      <th>user ID</th>
+      <th>User ID</th>
       <th>User</th>
       <th>Parking Area ID</th>
       <th>Slot No</th>
       <th>Date</th>
-      <th>booking Time</th>
-      <th>area</th>
+      <th>Booking Time</th>
+      <th>Area</th>
     </tr>
     <?php while ($row = $result->fetch_assoc()) { ?>
       <tr>
@@ -82,6 +161,7 @@ $result = $mysqli->query("SELECT * FROM booking_history");
       </tr>
     <?php } ?>
   </table>
+
 </div>
 
 </body>
