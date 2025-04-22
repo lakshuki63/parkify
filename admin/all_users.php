@@ -76,6 +76,7 @@ $result = $mysqli->query("SELECT * FROM user_form");
   </style>
 </head>
 <body>
+<div class="animated-bg"></div>
 
 
 <header>All Registered Users</header>
