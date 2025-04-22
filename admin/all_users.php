@@ -14,77 +14,119 @@ $result = $mysqli->query("SELECT * FROM user_form");
   <meta charset="UTF-8">
   <title>All Users</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-    }
-    #particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-    header {
-      background-color: #2c3e50;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       color: white;
-      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    header {
       text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      padding: 25px 0;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(0px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .container {
-      padding: 30px;
+      max-width: 95%;
+      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 25px;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     th, td {
-      padding: 12px;
+      padding: 14px 12px;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f0f0f0;
     }
 
     th {
-      background-color: #3498db;
-      color: white;
+      background: rgba(0, 255, 255, 0.1);
+      font-weight: 600;
     }
 
     tr:hover {
-      background-color: #f1f1f1;
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     .edit-btn {
-      background-color: #27ae60;
-      color: white;
+      background: rgba(0, 255, 255, 0.1);
+      color: cyan;
       padding: 8px 14px;
+      border-radius: 8px;
       text-decoration: none;
-      border-radius: 6px;
+      transition: all 0.2s ease;
+      border: 1px solid cyan;
     }
 
     .edit-btn:hover {
-      background-color: #1e8449;
+      background: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px cyan;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin: 16px auto;
+      margin-bottom: 7px;
+      padding: 10px 22px;
+      font-size: 16px;
+      background-color: rgba(0, 255, 255, 0.1);
+      color: cyan;
+      border: 1px solid cyan;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .back-btn:hover {
+      background-color: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px cyan;
     }
   </style>
 </head>
 <body>
-<div class="animated-bg"></div>
-
+<canvas id="particles"></canvas>
 
 <header>All Registered Users</header>
-<a href="admin_panel.php" style="display: inline-block; margin-bottom: 20px; text-decoration: none;">
-  <button style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
-    ← Back to Admin Panel
-  </button>
-</a>
+
+<div style="text-align: center;">
+  <a href="admin_panel.php" class="back-btn">← Back to Admin Panel</a>
+</div>
+
 <div class="container">
   <table>
     <tr>
@@ -92,12 +134,13 @@ $result = $mysqli->query("SELECT * FROM user_form");
       <th>Username</th>
       <th>Email</th>
       <th>Phone</th>
-      <th>state</th>
-      <th>city</th>
-      <th>adress1</th>
-      <th>address2</th>
-      <th>car number</th>
-      <th>created date</th>
+      <th>State</th>
+      <th>City</th>
+      <th>Address 1</th>
+      <th>Address 2</th>
+      <th>Car Number</th>
+      <th>Created Date</th>
+      <th>Edit</th>
     </tr>
     <?php while ($row = $result->fetch_assoc()) { ?>
       <tr>
@@ -116,7 +159,7 @@ $result = $mysqli->query("SELECT * FROM user_form");
     <?php } ?>
   </table>
 </div>
-<canvas id="particles"></canvas>
+
 <script>
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
@@ -154,8 +197,6 @@ $result = $mysqli->query("SELECT * FROM user_form");
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
-
-      // bounce
       if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
       if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
     }
@@ -181,13 +222,12 @@ $result = $mysqli->query("SELECT * FROM user_form");
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
 
-      // line from particle to cursor
       if (mouse.x && mouse.y) {
         const dx = particles[i].x - mouse.x;
         const dy = particles[i].y - mouse.y;
@@ -197,7 +237,7 @@ $result = $mysqli->query("SELECT * FROM user_form");
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
+          ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -222,7 +262,7 @@ $result = $mysqli->query("SELECT * FROM user_form");
     requestAnimationFrame(animate);
   }
 
-  initParticles(250);
+  initParticles(200);
   animate();
 </script>
 </body>
