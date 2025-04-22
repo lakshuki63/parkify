@@ -232,7 +232,7 @@ if (isset($_SESSION['user_id'])) {
   <br>
   Siddhi Dhoke <br>
   Pranjal Baghel <br>
-  Ness Bubey <br>
+  Ness Dubey <br>
   Nakul Bhadade
 
 </div>
