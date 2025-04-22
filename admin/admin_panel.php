@@ -117,9 +117,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
       transition: background-color 0.3s;
       text-decoration: none;
     }
+    .btn2:hover {
+      background-color:rgb(3, 78, 18);
+      color:white;
+    }
 
     .btn:hover {
-      background-color: #2980b9;
+      background-color:rgb(10, 36, 53);
+      
     }
   </style>
 </head>
