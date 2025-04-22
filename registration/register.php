@@ -178,7 +178,7 @@
     requestAnimationFrame(animate);
   }
 
-  initParticles(500);
+  initParticles(250);
   animate();
 </script>
 

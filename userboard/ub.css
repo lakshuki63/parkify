@@ -134,7 +134,7 @@ body {
   transform: translateY(20px);
   animation: slideUp 1.2s ease forwards;
   animation-delay: 0.8s;
-  text-shadow: 0 0 6px #994fd1;
+  text-shadow: 0 0 2px #994fd1;
   font-weight: 600;
   margin-bottom: 50px;
 }
