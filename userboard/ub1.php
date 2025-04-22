@@ -222,6 +222,19 @@ if (isset($_SESSION['user_id'])) {
 <div id="panelContentSettings" class="panelTab" style="display: none;">
   <h2 style="color: #fff;">⚙ Settings</h2>
   <p style="color: #ccc;">(Customize your experience...)</p>
+  <a href="edit_profile.php" style="
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+">Edit Profile</a>
+
 </div>
 
   </div>
