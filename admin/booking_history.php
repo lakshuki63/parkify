@@ -55,13 +55,20 @@ $result = $stmt->get_result();
   <meta charset="UTF-8">
   <title>Booking History</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      margin: 0;
-      padding: 0;
-    }
-    #particles {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    overflow-x: hidden;
+  }
+
+  #particles {
     position: fixed;
     top: 0;
     left: 0;
@@ -70,115 +77,153 @@ $result = $stmt->get_result();
     height: 100%;
     pointer-events: none;
   }
-    header {
-      background-color: #34495e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
 
-    .container {
-      padding: 30px;
-    }
+  header {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 25px 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-    form {
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 15px;
-    }
+  .container {
+    max-width: 60%;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-    select, button {
-      padding: 10px;
-      font-size: 16px;
-    }
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+  select, button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: cyan;
+    border: 1px solid cyan;
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;
+  }
 
-    th, td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
+  select:hover, button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 10px cyan;
+  }
 
-    th {
-      background-color: #2ecc71;
-      color: white;
-    }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-  </style>
+  th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+  }
+
+  th {
+    background: rgba(0, 255, 255, 0.1);
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgba(0, 255, 255, 0.1);
+    color: cyan;
+    border: 1px solid cyan;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+  }
+
+  .back-btn:hover {
+    background-color: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 10px cyan;
+  }
+</style>
+
 </head>
 <body>
-<div class="animated-bg"></div>
+  <canvas id="particles"></canvas>
+  <header>📊 Booking History</header>
+  <div class="container">
+    <div class="back-btn">
+      <a href="admin_panel.php"><button>← Back to Admin Panel</button></a>
+    </div>
 
-<header>Booking History - Filter by Area & Username</header>
-<a href="admin_panel.php" style="display: inline-block; margin-bottom: 20px; text-decoration: none;">
-  <button style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
-    ← Back to Admin Panel
-  </button>
-</a>
+    <form method="GET" action="booking_history.php">
+      <label>Area:</label>
+      <select name="area">
+        <option value="">-- All Areas --</option>
+        <?php foreach ($areas as $area): ?>
+          <option value="<?= $area ?>" <?= $selected_area == $area ? 'selected' : '' ?>>
+            <?= htmlspecialchars($area) ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
 
-<div class="container">
+      <label>User:</label>
+      <select name="user_name">
+        <option value="">-- All Users --</option>
+        <?php foreach ($usernames as $user): ?>
+          <option value="<?= $user ?>" <?= $selected_user == $user ? 'selected' : '' ?>>
+            <?= htmlspecialchars($user) ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
 
-  <form method="GET" action="booking_history.php">
-    <label><strong>Area:</strong></label>
-    <select name="area">
-      <option value="">-- All Areas --</option>
-      <?php foreach ($areas as $area): ?>
-        <option value="<?= $area ?>" <?= $selected_area == $area ? 'selected' : '' ?>>
-          <?= htmlspecialchars($area) ?>
-        </option>
-      <?php endforeach; ?>
-    </select>
+      <button type="submit">Search</button>
+    </form>
 
-    <label><strong>User:</strong></label>
-    <select name="user_name">
-      <option value="">-- All Users --</option>
-      <?php foreach ($usernames as $user): ?>
-        <option value="<?= $user ?>" <?= $selected_user == $user ? 'selected' : '' ?>>
-          <?= htmlspecialchars($user) ?>
-        </option>
-      <?php endforeach; ?>
-    </select>
-
-    <button type="submit">Search</button>
-  </form>
-
-  <table>
-    <tr>
-      <th>User ID</th>
-      <th>User</th>
-      <th>Parking Area ID</th>
-      <th>Slot No</th>
-      <th>Date</th>
-      <th>Booking Time</th>
-      <th>Area</th>
-    </tr>
-    <?php while ($row = $result->fetch_assoc()) { ?>
+    <table>
       <tr>
-        <td><?= $row['user_id']; ?></td>
-        <td><?= $row['user_name']; ?></td>
-        <td><?= $row['area_id']; ?></td>
-        <td><?= $row['slot_number']; ?></td>
-        <td><?= $row['booking_date']; ?></td>
-        <td><?= $row['booking_time']; ?></td>
-        <td><?= $row['area']; ?></td>
+        <th>User ID</th>
+        <th>User</th>
+        <th>Parking Area ID</th>
+        <th>Slot No</th>
+        <th>Date</th>
+        <th>Booking Time</th>
+        <th>Area</th>
       </tr>
-    <?php } ?>
-  </table>
+      <?php while ($row = $result->fetch_assoc()) { ?>
+        <tr>
+          <td><?= $row['user_id']; ?></td>
+          <td><?= $row['user_name']; ?></td>
+          <td><?= $row['area_id']; ?></td>
+          <td><?= $row['slot_number']; ?></td>
+          <td><?= $row['booking_date']; ?></td>
+          <td><?= $row['booking_time']; ?></td>
+          <td><?= $row['area']; ?></td>
+        </tr>
+      <?php } ?>
+    </table>
+  </div>
 
-</div>
-<canvas id="particles"></canvas>
-<script>
+  <!-- Particle canvas and JS stays untouched -->
+  <script>
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
   let particles = [];
@@ -215,8 +260,6 @@ $result = $stmt->get_result();
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
-
-      // bounce
       if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
       if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
     }
@@ -242,13 +285,12 @@ $result = $stmt->get_result();
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
 
-      // line from particle to cursor
       if (mouse.x && mouse.y) {
         const dx = particles[i].x - mouse.x;
         const dy = particles[i].y - mouse.y;
@@ -258,7 +300,7 @@ $result = $stmt->get_result();
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
+          ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -283,7 +325,7 @@ $result = $stmt->get_result();
     requestAnimationFrame(animate);
   }
 
-  initParticles(250);
+  initParticles(200);
   animate();
 </script>
 </body>
