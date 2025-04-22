@@ -227,13 +227,13 @@ if (isset($_SESSION['user_id'])) {
 <div id="panelContentAbout" class="panelTab" style="display: none;">
   <h2 style="color: #fff;">ABOUT US</h2>
   <h3>OUR TEAM :</h3>
-  Lakshuki Hatwar
-  <br>
-  Siddhi Dhoke <br>
-  Pranjal Baghel <br>
-  Ness Dubey <br>
-  Nakul Bhadade
-
+  <u>
+  <a href="www.linkedin.com/in/lakshuki-hatwar-a80090324/">Lakshuki Hatwar ↗️</a> <br>
+  <a href="www.linkedin.com/in/siddhi-dhoke-53b7b432b/">Siddhi Dhoke ↗️</a> <br>
+  <a href="www.linkedin.com/in/nakul-bhadade">Nakul Bhadade ↗️</a> <br>
+  <a href="www.linkedin.com/in/ness-dubey-461496326/">Ness Dubey ↗️</a> <br>
+  <a href="www.linkedin.com/in/pranjal-baghel-b4aa8a283/">Pranjal Baghel ↗️</a> <br>
+  </u>
 </div>
 
 <div id="panelContentSettings" class="panelTab" style="display: none;">

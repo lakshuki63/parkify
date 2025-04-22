@@ -93,6 +93,15 @@ body {
   color: #fff;
 }
 
+.panelTab {
+  display: flex;
+  flex-direction: column;
+}
+
+u {
+  font-size: large
+}
+
 .logo-img {
   width: 40%;
   height: auto;
@@ -156,6 +165,7 @@ body {
 
 a{
   text-decoration: none;
+  color: white;
 }
 
 .map-button:hover {

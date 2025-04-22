@@ -147,6 +147,7 @@ h1 {
     flex-shrink: 0;
 }
 #congratsText {
+    width: 760px;
     position: fixed;
     top: 20%;
     left: 50%;
