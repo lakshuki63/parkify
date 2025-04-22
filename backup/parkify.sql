@@ -163,7 +163,7 @@ INSERT INTO `user_passwords` (`id`, `user_id`, `username`, `password`, `created_
 (5, 7, 'pr@nj@l', '$2y$10$WE5kZhU2LgYiK4gsBaSW1.BPK5/zAiWIa5/AOZXz0Dr4oueXNCfci', '2025-04-09 11:00:13'),
 (6, 8, 'nxkul', '$2y$10$Y2qPb/89ODgO1wvQqKrDXOJJe21YHWkn.QmSr.H6vOOvCwTU2S3Bq', '2025-04-09 11:02:13'),
 (7, 9, 's!ddh!', '$2y$10$ExK17DIglL.eaWGgX/c.dOa1fQvQnyxNwFsdAIxxJv5V2Arya2WWu', '2025-04-09 11:04:19'),
-(8, 9, 's!ddh!', '$2y$10$tjOfYX6KAVjsCT6i6mQXc.i2uXl7oj.soOrrAVNRf.GwTyG3xuOkC', '2025-04-09 11:04:55'),
+
 (9, 10, 'tannu', '$2y$10$0NF1Tmisbb7sc/IXIxZT/.tg3ic7RKOat8.wO8xF9jyPdWGBk4Vq6', '2025-04-09 11:06:54'),
 (10, 11, 'rajjo', '$2y$10$w4orcqcyHJw8VNYi3jDj6e6QUquf8ZRW7Ws9PiBYSr6grn/RLsg6a', '2025-04-09 11:21:59'),
 (11, 12, 'ank!ta', '$2y$10$5RAou1Jo7cD8I4c0Goht1.fsIodhaAyxeFe7XrYmGyoJAemjNix9W', '2025-04-09 11:25:28'),
