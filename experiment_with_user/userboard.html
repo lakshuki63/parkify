@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="userboard.css" />
 </head>
 <body>
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="SPARKY_3"
+    agent-id="7b4d5039-7c3a-4761-92fd-661e5b734314"
+    language-code="en"
+  ></df-messenger>
   <div class="container">
     <div id="search-date-container">
       <div class="input-row">
@@ -265,7 +272,7 @@
         requestAnimationFrame(animate);
     }
 
-    initParticles(200);
+    initParticles(500);
     animate();
 </script>
 

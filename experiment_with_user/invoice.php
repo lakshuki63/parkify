@@ -74,6 +74,7 @@ $stmt->close();
     <link rel="stylesheet" href="invoice.css">
 </head>
 <body>
+
 <div class="invoice-box">
     <img src="logo.png" alt="Parkify Logo" class="logo">
     <h1>Parking Invoice</h1>
@@ -92,8 +93,16 @@ $stmt->close();
 </div>
 
     <img src="qr_placeholder.png" alt="QR Code" class="qr-code"><br>
+<div class="buttons">
     <button class="print-btn" onclick="window.print()">🖨️ Print Ticket</button>
+    <!-- Add this where you want the button to appear in invoice.php -->
+    <a href="../userboard/ub1.php">
+    <button class="print-btn">🏠 Go to Home</button>
+    </a>
 </div>
+
+</div>
+<div id="congratsText">🎉 Congratulations! Booking Successful 🎉</div>
 
 <canvas id="particles"></canvas>
     <div class="animated-bg"></div>
@@ -202,8 +211,46 @@ $stmt->close();
             requestAnimationFrame(animate);
         }
 
-        initParticles(200);
+        initParticles(500);
         animate();
     </script>
+    <!-- Confetti Script -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+    window.onload = function() {
+        const congrats = document.getElementById("congratsText");
+            congrats.style.display = "block";
+            setTimeout(() => {
+            congrats.style.display = "none";
+            }, 3000);
+
+
+        // Run confetti for 2 seconds
+        const duration = 2 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 100,
+                origin: { x: 0 },
+                colors: ['#00f5ff', '#e600ff', '#7400ff']
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 100,
+                origin: { x: 1 },
+                colors: ['#00f5ff', '#e600ff', '#7400ff']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    };
+</script>
+
 </body>
 </html>

@@ -16,6 +16,13 @@
  
 </head>
 <body>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="SPARKY"
+  agent-id="15538dd3-8130-4a97-a1dc-26b4854c4880"
+  language-code="en"
+></df-messenger>
 <div class="animated-bg"></div>
 
   <div class="top">
@@ -171,7 +178,7 @@
     requestAnimationFrame(animate);
   }
 
-  initParticles(200);
+  initParticles(250);
   animate();
 </script>
 

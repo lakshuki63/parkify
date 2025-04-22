@@ -102,13 +102,13 @@ if (isset($_SESSION['user_id'])) {
 
     .brand-subtext {
       font-family: 'Poppins', sans-serif;
-      font-size: 18px;
-      color: #e1caff;
+      font-size: 25px;
+      color: #bed1ff;
       opacity: 0;
       transform: translateY(20px);
       animation: slideUp 1.2s ease forwards;
       animation-delay: 0.8s;
-      text-shadow: 0 0 6px #994fd1;
+      text-shadow: 0 0 6px #bed1ff;
       font-weight: 600;
     }
 
@@ -161,16 +161,39 @@ if (isset($_SESSION['user_id'])) {
     }
   </style>
 </head>
-<body>
+<body>  
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="SPARKY"
+  agent-id="14ce0071-20a1-4f6c-bbfa-cbe0c2e7d2a7"
+  language-code="en"
+></df-messenger>
+<div class="animated-bg"></div>
+
   <div class="dashboard-wrapper">
-    <div class="sidebar">
-      <div class="menu-item" onclick="openPanel('personal')">👤 Personal</div>
-      <div class="menu-item" onclick="openPanel('history')">📜 History</div>
-      <div class="menu-item" onclick="openPanel('settings')">⚙️ Settings</div>
-    </div>
+  <div class="sidebar">
+  <div class="menu-item tooltip-container" onclick="openPanel('personal')">
+    👤
+    <span class="tooltip-text">Personal</span>
+  </div>
+  <div class="menu-item tooltip-container" onclick="openPanel('history')">
+    🕰️
+    <span class="tooltip-text">History</span>
+  </div>
+  <div class="menu-item tooltip-container" onclick="openPanel('settings')">
+    ⚙️
+    <span class="tooltip-text">Settings</span>
+  </div>
+  <div class="menu-item tooltip-container" onclick="window.location.href='../load/loading.php';">
+    🔓
+    <span class="tooltip-text">Logout</span>
+  </div>
+</div>
+
 
     <div class="center-wrapper">
-      <h1 class="brand-title">Parkify</h1>
+    <img src="logo.png" class="logo-img" alt="Parkify Logo" />
       <p class="brand-subtext">Smart, Effortless & Secure Parking, Anytime</p>
       <a href="../experiment_with_user/userboard.html" class="map-button">Find a Parking Spot</a>
     </div>
@@ -197,7 +220,7 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <div id="panelContentSettings" class="panelTab" style="display: none;">
-  <h2 style="color: #fff;">⚙️ Settings</h2>
+  <h2 style="color: #fff;">⚙ Settings</h2>
   <p style="color: #ccc;">(Customize your experience...)</p>
 </div>
 
@@ -245,6 +268,114 @@ function closePanel() {
   document.getElementById('slidePanel').style.right = '-400px';
 }
 </script>
+<canvas id="particles"></canvas>
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
 
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.alpha = Math.random() * 0.5 + 0.3;
+                this.color = ['#00f5ff', '#e600ff', '#7400ff'][Math.floor(Math.random() * 3)];
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // bounce
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+
+                // line from particle to cursor
+                if (mouse.x && mouse.y) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function initParticles(count) {
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles(500);
+        animate();
+    </script>
 </body>
 </html>
