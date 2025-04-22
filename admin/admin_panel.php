@@ -69,9 +69,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
       height: 100%;
       pointer-events: none;
     }
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -10;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 30%, #00f5ff88 0%, transparent 40%),
+                  radial-gradient(circle at 70% 60%, #e600ff88 0%, transparent 40%),
+                  radial-gradient(circle at 40% 80%, #ff000066 0%, transparent 40%);
+      animation: moveGradient 15s infinite linear;
+      filter: blur(100px);
+      opacity: 0.7;
+    }
 
+    @keyframes moveGradient {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-25%, -25%) scale(1.2); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
     header {
-      background-color: #2c3e50;
+      background-color:rgba(44, 62, 80, 0);
       color: white;
       padding: 20px;
       text-align: center;
@@ -86,16 +105,65 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
     }
 
     .panel {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 40px 30px;
+      width: 320px;
+      color: white;
     }
 
     .panel h2 {
       margin-bottom: 25px;
       color: #333;
+    }
+    h1{
+      text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 2em;
+    color: #00f5ff;
+    text-shadow: 0 0 10px #00f5ff99;
+    }
+
+    #new_date{
+      width: auto;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    font-size: 17px;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px #0ff;
+    }
+
+    #date{
+      display: flex;
+      align-items: center;
+    }
+
+    #date_label {
+      color: #0ff;
+      font-size: 16px;
+      margin-bottom: 10px;
+      margin-left: 25px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    #add{
+      display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: rgb(255, 0, 0);
+    margin-left: 25px;
+    margin-right: 25px;
     }
 
     .btn {
@@ -115,7 +183,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
     .btn2 {
       display: block;
       width: 100px;
-      margin: 15px auto;
+      margin: -2px auto;
+      margin-bottom: 27px;
       padding: 14px;
       background-color:rgb(0, 248, 132);
       color: black;
@@ -141,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
 <div class="animated-bg"></div>
 
 
-  <header>Admin Panel - Smart Parking System</header>
+  <header>Admin Panel</header>
 
   
 
@@ -149,11 +218,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_slots'])) {
     <div class="panel">
       <h1>Choose an Action</h1>
       <div class="form-box">
-    Add Parking Slots for New Date
+      <div id="add"><b>Add Parking Slots for New Date</b></div>
     <form method="POST">
-            <label for="new_date">Select Date:</label>
+            <label for="new_date" id="date_label">Select Date:</label>
             <br>
-            <input type="date" id="new_date" name="new_date" required>
+            <div id="date"><input type="date" id="new_date" name="new_date" required></div>
             <br>
             <input  class="btn2" type="submit" name="add_slots" value="Add Slots">
     </form>
