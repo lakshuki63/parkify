@@ -200,7 +200,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="center-wrapper">
     <img src="logo.png" class="logo-img" alt="Parkify Logo" />
       <p class="brand-subtext">Smart, Effortless & Secure Parking, Anytime</p>
-      <a target="_blank" href="../experiment_with_user/userboard.html" class="map-button">Find a Parking Spot</a> 
+      <a target="_blank" href="../experiment_with_user/userboard.html" class="map-button">Find a Parking Spot</a>
     </div>
   </div>
 
