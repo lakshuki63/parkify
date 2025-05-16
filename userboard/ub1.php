@@ -40,7 +40,7 @@ if (isset($_SESSION['user_id'])) {
         ps.area AS parking_area,
         ps.city AS parking_city
       FROM booking_history bh
-      JOIN parkingspots ps ON bh.area = ps.id
+      JOIN parkingspots ps ON bh.area_id = ps.id
       WHERE bh.user_id = ?
       ORDER BY bh.booking_date DESC, bh.booking_time DESC
     ";

@@ -212,7 +212,7 @@ $result = $stmt->get_result();
         <tr>
           <td><?= $row['user_id']; ?></td>
           <td><?= $row['user_name']; ?></td>
-          <td><?= $row['area']; ?></td>
+          <td><?= $row['area_id']; ?></td>
           <td><?= $row['slot_number']; ?></td>
           <td><?= $row['booking_date']; ?></td>
           <td><?= $row['booking_time']; ?></td>
